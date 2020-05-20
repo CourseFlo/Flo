@@ -1,23 +1,21 @@
-“CoursefFlo (subject to name change) is a webapp designed to help students see the required pre-req and co-req’s that they need before graduation in a visually pleasing manner, and allows users to explore their degree programs to better understand their options. It will store data in the form of user login, preferences, saved courses, and recent searches; we will be scraping and storing all the SSC course data, every time it is updated by UBC. Our additional functionalities that we could add or remove are: a complete API system to scrape and parse SSC data as a standalone repository, a visualizer that can display courses in 3d, and a recommender system that can give suggestions towards where we can take further courses in the future."
+CoursefFlo (subject to name change) is a webapp designed to help students see the required pre-req and co-req’s that they need before graduation in a visually pleasing manner, and allows users to explore their degree programs to better understand their options. It will store data in the form of user login, preferences, saved courses, and recent searches; we will be scraping and storing all the SSC course data, every time it is updated by UBC. Our additional functionalities that we could add or remove are: a complete API system to scrape and parse SSC data as a standalone repository, a visualizer that can display courses in 3d, and a recommender system that can give suggestions towards where we can take further courses in the future.
 
-*   Project Description: Write 3-5 sentences on your project topic. (try to address all points below)
+Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Brandon](https://github.com/beetai), [Guanting](https://github.com/baconandchip).
+
+*   Project Description:
     *   Who is it for? Students
-    *   What will it do(What "human activity" will it support?) Let’s just write user stories:
-        *   As a user, I want to be able to create an account to store my info: (name, email, course schedule, recent searches)
-        *   As a user, I want to be able to browse and save my courses (based off course schedule)
-        *   As a user, I want to be able to browse courses ~~and their sections,~~ choosing to visualize them in a tree, connected to their pre-reqs coreqs
+    *   What will it do? (What "human activity" will it support?) We have the following user stories:
+        *   As a user, I want to be able to create an account to store my info: (name, email, course schedule, recent searches);
+        *   As a user, I want to be able to browse and save my courses (based off course schedule); and
+        *   As a user, I want to be able to browse courses, choosing to visualize them in a tree, connected to their pre-reqs coreqs.
     *   What type of data will it store?
         *   User login, prefs, saved courses, recent searches
         *   We scrape and store all the SSC course data, every time it is updated by UBC
-        *   The user can access this
+        *   The user can access this in a beautified format
     *   What will users be able to do with this data?
         *   See the required pre-req/co-req’s that they may need before graduation in a visually pleasing manner
         *   Explore degree programs, for users such as prospective students, to understand their options and 
     *   What is some additional functionality you can add/remove based on time constraints?
-    *   We have the following user stories:
-        *   As a user, I want to be able to create an account to store my info (name, email, course schedule, recent searches;
-        *   As a user, I want to be able to browse and save my courses (based off of my course schedule; and
-        *   As a user, I want to be able to browse courses.”
 
 
 *   Project task requirements:
@@ -65,6 +63,6 @@
 
 Here are some basic wireframes/prototype sketches:
 
-<img src="FigmaSketch1.png" alt="Sketch1" width="200"/>
-<img src="FigmaSketch2.png" alt="Sketch2" width="200"/>
-<img src="FigmaSketch3.png" alt="Sketch3" width="200"/>
+<img src="FigmaSketch1.png" alt="Sketch1" width="1000"/>
+<img src="FigmaSketch2.png" alt="Sketch2" width="1000"/>
+<img src="FigmaSketch3.png" alt="Sketch3" width="1000"/>
