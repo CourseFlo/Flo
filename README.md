@@ -65,3 +65,6 @@
 
 Here are some basic wireframes/prototype sketches:
 
+<img src="FigmaSketch1.png" alt="Sketch1" width="200"/>
+<img src="FigmaSketch2.png" alt="Sketch2" width="200"/>
+<img src="FigmaSketch3.png" alt="Sketch3" width="200"/>
