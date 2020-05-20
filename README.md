@@ -1,8 +1,5 @@
-“CoursefFlo (subject to name change) is a webapp designed to help students see the required pre-req and co-req’s that they need before graduation in a visually pleasing manner, and allows users to explore their degree programs to better understand their options. It will store data in the form of user login, preferences, saved courses, and recent searches; we will be scraping and storing all the SSC course data, every time it is updated by UBC. Our additional functionalities that we could add or remove are: a complete API system to scrape and parse SSC data as a standalone repository, a visualizer that can display courses in 3d, and a recommender system that can give suggestions towards where we can take further courses in the future.
+“CoursefFlo (subject to name change) is a webapp designed to help students see the required pre-req and co-req’s that they need before graduation in a visually pleasing manner, and allows users to explore their degree programs to better understand their options. It will store data in the form of user login, preferences, saved courses, and recent searches; we will be scraping and storing all the SSC course data, every time it is updated by UBC. Our additional functionalities that we could add or remove are: a complete API system to scrape and parse SSC data as a standalone repository, a visualizer that can display courses in 3d, and a recommender system that can give suggestions towards where we can take further courses in the future."
 
-*   Make a org/repo
-*   Think about what we all want to do in the project
-    *   Course dependency visualizer
 *   Project Description: Write 3-5 sentences on your project topic. (try to address all points below)
     *   Who is it for? Students
     *   What will it do(What "human activity" will it support?) Let’s just write user stories:
@@ -21,9 +18,6 @@
         *   As a user, I want to be able to create an account to store my info (name, email, course schedule, recent searches;
         *   As a user, I want to be able to browse and save my courses (based off of my course schedule; and
         *   As a user, I want to be able to browse courses.”
-
--> INSERT PARAGRAPH HERE
-
 
 
 *   Project task requirements:
@@ -57,7 +51,7 @@
             *   Frontend: System can visualize the full course listing of the degree, allowing you to explore each course node as needed to see further req details
             *   Backend: Recommend courses to add to their degree program, based on need and what you’ve taken 
             *   Backend: Recommend courses to add based on what courses you’ve taken (exploratory)
-*   Pick 2 of your minimal requirements and break each of them down into ~2-5 smaller tasks!
+*   Breakdown of 2 minimum requirements into ~2-5 smaller tasks:
     *   Backend: 
         *   Complete an analysis and hacky test of the current ubcexplorer.io API, to figure out the data structure
         *   Parse and organize the data in a way that allows fast access
@@ -68,6 +62,6 @@
         *   Individual pages with navigation between them
         *   Actions (login, signup, add/delete courses, **visualize courses**, db querying/storing for each of the pages)
     *   This will help you divide up work among your teammates
-*   Finally, draw 2-3 rough sketch** prototypes** of some key tasks of your app. Sketch these physically on paper and then scan and add to your repo.
-    *   + figma
-    *   [https://www.figma.com/file/IChYyjgfECQd3JjmUkkeE3/CourseFlo-Prototype?node-id=0%3A1](https://www.figma.com/file/IChYyjgfECQd3JjmUkkeE3/CourseFlo-Prototype?node-id=0%3A1)
+
+Here are some basic wireframes/prototype sketches:
+
