@@ -1,7 +1,7 @@
 import React from 'react';
 
-let Guanting = () => {
-    return (<div>Guanting</div>);
-}
+const Guanting = () => {
+  return (<div>Guanting</div>);
+};
 
 export default Guanting;

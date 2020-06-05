@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom'; // eslint-disable-line no-unused-vars
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import * as serviceWorker from './serviceWorker';
+import reducers from './reducers/index'; // We exported combineReducers
 import './index.css';
 import App from './components/App';
-import * as serviceWorker from './serviceWorker';
+
+const store = createStore(reducers);
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </React.StrictMode>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want your app to work offline and load faster, you can change
