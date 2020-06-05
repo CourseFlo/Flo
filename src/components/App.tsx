@@ -1,25 +1,25 @@
 import React from 'react';
-import logo from '../logo.svg';
+import { Switch, Route } from 'react-router-dom'
 import '../App.css';
+import Brandon from './Brandon'
+import Sepand from './Sepand'
+import Sam from './Sam'
+import Guanting from './Guanting'
+import Navbar from './Navbar'
+import ErrorPage from './ErrorPage'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <Navbar />
+      <Switch>
+        <Route path="/" component={Brandon} exact />
+        <Route path="/Sepand" component={Sepand} />
+        <Route path="/Sam" component={Sam} />
+        <Route path="/Guanting" component={Guanting} />
+        <Route component={ErrorPage} />
+      </Switch>
+    </main>
   );
 }
 
