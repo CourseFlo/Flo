@@ -1,10 +1,3 @@
-// import React from 'react';
-
-// const Sam = () => {
-// return (<div>Sam</div>);
-// };
-
-// export default Sam;
 import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -83,7 +76,7 @@ export default function DetailedExpansionPanel() {
       <div className={
         classes.root
       }>
-        <Box paddingTop={2} p={3}>
+        <Box paddingTop={10} p={3}>
         <ExpansionPanel defaultExpanded>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1c-content"
@@ -128,25 +121,25 @@ export default function DetailedExpansionPanel() {
                 <CardActions className={classes.inputField} >
                   <Typography className={classes.heading}>Name</Typography>
                   <Grid container justify="flex-end" >
-                    <TextField className={classes.spacedBox}  id="standard-basic" label="Give us a name!" />
+                    <TextField className={classes.spacedBox}  id="user-name" label="Give us a name!"  fullWidth />
                   </Grid>
                 </CardActions>
                 <CardActions className={classes.inputField}>
                   <Typography className={classes.heading}>Degree</Typography>
                   <Grid container justify="flex-end" >
-                    <TextField  className={classes.spacedBox} id="standard-basic" label="What are you studying?" />
+                    <TextField  className={classes.spacedBox} id="degree-textbox" label="What are you studying?" fullWidth />
                   </Grid>
                 </CardActions>
                 <CardActions className={classes.inputField}>
                   <Typography className={classes.heading}>Major</Typography>
                   <Grid container justify="flex-end" >
-                    <TextField className={classes.spacedBox}  id="standard-basic" label="Major" />
+                    <TextField className={classes.spacedBox}  id="degree-major" label="Major" fullWidth />
                   </Grid>
                 </CardActions>
                 <CardActions className={classes.inputField}>
                   <Typography className={classes.heading}>Year Level</Typography>
                   <Grid container justify="flex-end" >
-                  <TextField className={classes.spacedBox}  id="standard-basic" label="Year Level" />
+                  <TextField className={classes.spacedBox}  id="degree-year" label="Year Level" fullWidth />
                   </Grid>
                 </CardActions>
               </Card>
