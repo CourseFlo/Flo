@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import '../App.css';
 import Brandon from './Brandon';
-import Sepand from './Sepand';
+import Browse from './Browse';
 import Sam from './Sam';
 import Guanting from './Guanting';
 import Navbar from './Navbar';
@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <Switch>
         <Route path="/" component={Brandon} exact />
-        <Route path="/Sepand" component={Sepand} />
+        <Route path="/Browse" component={Browse} />
         <Route path="/Sam" component={Sam} />
         <Route path="/Guanting" component={Guanting} />
         <Route component={ErrorPage} />
