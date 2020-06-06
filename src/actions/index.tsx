@@ -1,9 +1,9 @@
-export const addMessage = (message) => {
+export const addMessage = (message: any) => {
   return {
     type: 'ADD_MESSAGE',
     id: 0,
-    message
-  }
-}
+    message,
+  };
+};
 
 // TODO: ADD ACTIONS HERE

@@ -29,7 +29,7 @@ module.exports = {
     //  with this https://github.com/airbnb/javascript#modules--import-extensions, so left as a warning.
     "import/extensions": ["warn", "ignorePackages"],
     'import/no-unresolved': ["off"], // makes import assume literal path, essential doing the same as 'import/extensions' rule
-    'arrow-body-style': ['error', 'as-needed', { "requireReturnForObjectLiteral": true }]
+    'arrow-body-style': ['error', 'as-needed']
   },
   settings: {
   }
