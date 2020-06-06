@@ -1,11 +1,11 @@
 import React from 'react';
 import Course from './course'
 
-const Req = () => {
+const Courses = () => {
   return (
   <div>
       <Course></Course>
   </div>);
 };
 
-export default Req;
+export default Courses;

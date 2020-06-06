@@ -1,10 +1,10 @@
 .module {
-    /*flex-direction: row;*/
-    /*flex-wrap: wrap;*/
-    
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .module .column {
+    display: flex;
     flex-basis: auto;
     width: 200px;
     display: inline-block;
