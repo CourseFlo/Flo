@@ -1,0 +1,8 @@
+.displayedCourse {
+    border: 3px solid green;
+    border-radius: 30px;
+}
+
+.displayedCourse h1 {
+    font-size: 30px;
+}
