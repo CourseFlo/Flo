@@ -1,3 +1,4 @@
+// rename to Home
 import React from 'react';
 import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';

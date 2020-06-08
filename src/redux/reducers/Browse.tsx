@@ -1,5 +1,5 @@
-import { Filters } from '../components/Browse'; // eslint-disable-line no-unused-vars
-
+import { Filters } from '../../components/profile/Browse'; // eslint-disable-line no-unused-vars
+ 
 const searchFilteringDefault: Filters = {
   query: 'cpsc',
   letterCodes: ['CPSC', 'ANTH'],
