@@ -3,8 +3,8 @@ import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import Brandon from './pages/Brandon';
 import Sam from './pages/Sam';
-import Browse from './components/profile/Browse';
-import Guanting from './components/profile/Guanting';
+import Browse from './components/Browse';
+import Guanting from './components/Guanting';
 import Navbar from './components/Navbar';
 import ErrorPage from './components/ErrorPage';
 

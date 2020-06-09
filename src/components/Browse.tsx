@@ -14,7 +14,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import SearchIcon from '@material-ui/icons/Search';
 
 import { connect } from 'react-redux';
-import { changeFilters, submitSearch } from '../../redux/actions/browse';
+import { changeFilters, submitSearch } from '../redux/actions/browse';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
