@@ -1,6 +1,7 @@
+// rename to visualize
 import React from 'react';
-import Courses from './VisualCourse/courses'
-import DisplayedCourse from './VisualCourse/displayedCourse'
+import Courses from './VisualCourse/courses';
+import DisplayedCourse from './VisualCourse/displayedCourse';
 import './VisualCourse/visualPage.css'
 
 const Guanting = () => {
