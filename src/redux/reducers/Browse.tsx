@@ -1,5 +1,5 @@
-import { CHANGE_FILTERS, SUBMIT_SEARCH } from '../actions/constants';
-import { Filters } from '../type-interfaces/Browse'; // eslint-disable-line no-unused-vars
+import { CHANGE_FILTERS, SUBMIT_SEARCH } from '../constants';
+import { Filters } from '../../type-interfaces/Browse'; // eslint-disable-line no-unused-vars
 
 const searchFilteringDefault: Filters = {
   query: 'cpsc',

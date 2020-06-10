@@ -7,7 +7,6 @@ import * as serviceWorker from './serviceWorker';
 import reducers from './redux/reducers/index'; // We exported combineReducers
 import './index.css';
 import App from './App';
-// import App from './components/App';
 
 const store = createStore(reducers);
 
