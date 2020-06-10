@@ -19,8 +19,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import { connect } from 'react-redux';
 
 import { changeFilters, submitSearch } from '../redux/actions/Browse';
-import { Filters, Props } from '../type-interfaces/Browse'; // eslint-disable-line no-unused-vars
+import { Filters } from '../type-interfaces/Browse'; // eslint-disable-line no-unused-vars
 import { MIN_COURSE_CODE, MAX_COURSE_CODE, SLIDER_STEP_SIZE } from '../util/UIConstants';
+
+interface Props {
+  searchFilters: Filters,
+  searchResults: { courses: object[] },
+  changeFilters: Function,
+  submitSearch: Function,
+}
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {

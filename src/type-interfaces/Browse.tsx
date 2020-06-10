@@ -3,10 +3,3 @@ export interface Filters {
   letterCodes: string[],
   numberRange: number[],
 }
-
-export interface Props {
-  searchFilters: Filters,
-  searchResults: { courses: object[] },
-  changeFilters: Function,
-  submitSearch: Function,
-}
