@@ -1,12 +1,12 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import '../App.css';
-import Brandon from './Brandon';
-import Browse from './Browse';
-import Sam from './Sam';
-import Guanting from './Guanting';
-import Navbar from './Navbar';
-import ErrorPage from './ErrorPage';
+import './App.css';
+import Brandon from './pages/Brandon';
+import Sam from './pages/Sam';
+import Browse from './pages/Browse';
+import Guanting from './pages/Guanting';
+import Navbar from './components/Navbar';
+import ErrorPage from './components/ErrorPage';
 
 function App() {
   return (
