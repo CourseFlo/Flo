@@ -1,9 +1,11 @@
 // Rename to: Login
 import React from 'react';
-import './Brandon.css';
+import './BasicLogin.css';
+import Navbar from "../components/Navbar";
 
-const Brandon = () => {
+const BasicLogin = () => {
   return (<div className="root_brandon">
+    <Navbar/>
     <h1>CourseFlo</h1>
 
     <div className="form_container">
@@ -19,4 +21,4 @@ const Brandon = () => {
   </div>);
 };
 
-export default Brandon;
+export default BasicLogin;

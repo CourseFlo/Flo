@@ -1,19 +1,20 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
-import Brandon from './pages/Brandon';
+import BasicLogin from './pages/BasicLogin';
 import Sam from './pages/Sam';
 import Browse from './pages/Browse';
 import Guanting from './pages/Guanting';
-import Navbar from './components/Navbar';
+import TempNavbar from './components/TempNavbar';
 import ErrorPage from './components/ErrorPage';
+import Login from "./pages/Login";
 
 function App() {
   return (
     <main>
-      <Navbar />
+      <TempNavbar />
       <Switch>
-        <Route path="/" component={Brandon} exact />
+        <Route path="/" component={Login} exact />
         <Route path="/Browse" component={Browse} />
         <Route path="/Sam" component={Sam} />
         <Route path="/Guanting" component={Guanting} />
