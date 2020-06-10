@@ -1,6 +1,6 @@
 CoursefFlo (subject to name change) is a webapp designed to help students see the required pre-req and co-req’s that they need before graduation in a visually pleasing manner, and allows users to explore their degree programs to better understand their options. It will store data in the form of user login, preferences, saved courses, and recent searches; we will be scraping and storing all the SSC course data, every time it is updated by UBC. Our additional functionalities that we could add or remove are: a complete API system to scrape and parse SSC data as a standalone repository, a visualizer that can display courses in 3d, and a recommender system that can give suggestions towards where we can take further courses in the future.
 
-Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Brandon](https://github.com/beetai), [Guanting](https://github.com/baconandchip).
+Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Brandon](https://github.com/beetai), [Guanting](https://github.com/baconandchips).
 
 *   Project Description:
     *   Who is it for? Students

@@ -10,14 +10,17 @@ import Select from '@material-ui/core/Select';
 import Input from '@material-ui/core/Input';
 import Chip from '@material-ui/core/Chip';
 import MenuItem from '@material-ui/core/MenuItem';
+import Button from '@material-ui/core/Button';
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
 
 import SearchIcon from '@material-ui/icons/Search';
 
 import { connect } from 'react-redux';
-import { changeFilters, submitSearch } from '../actions/browse';
-import Button from '@material-ui/core/Button';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
+
+import { changeFilters, submitSearch } from '../actions/Browse';
+import { Filters, Props } from '../type-interfaces/Browse'; // eslint-disable-line no-unused-vars
+import { MIN_COURSE_CODE, MAX_COURSE_CODE, SLIDER_STEP_SIZE } from './UIConstants';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -49,10 +52,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: theme.typography.fontWeightRegular,
   },
   searchButton: {
-    width: '100%',
+    width: '75%',
   },
 }));
 
+// REMOVE once the selected codes section is refactored
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
 const MenuProps = {
@@ -64,7 +68,7 @@ const MenuProps = {
   },
 };
 
-// TODO Deleted once we have actual data
+// REMOVE once we have actual data
 const names = [
   'ANTH',
   'ARTI',
@@ -73,22 +77,6 @@ const names = [
   'STHE',
   'TTHE',
 ];
-const MIN_COURSE_CODE = 0;
-const MAX_COURSE_CODE = 800;
-const SLIDER_STEP_SIZE = 100;
-
-export interface Filters {
-  query: string,
-  letterCodes: string[],
-  numberRange: number[],
-}
-
-interface Props {
-  searchFilters: Filters,
-  searchResults: { courses: object[] },
-  changeFilters: Function,
-  submitSearch: Function,
-}
 
 const Browse = (props: any) => {
   // eslint-disable-next-line no-shadow
@@ -97,18 +85,17 @@ const Browse = (props: any) => {
   const searchInputs: Filters = {
     ...searchFilters,
   };
+  console.log('Results: ', searchResults); // REMOVE once there is a results section
 
   const handleLetterCodeChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { options } = event.target as HTMLSelectElement;
-    console.log('all changed', options);
-    console.log('all current selected', searchInputs.letterCodes);
     const codes: string[] = [];
     for (let i = 0, l = options.length; i < l; i += 1) {
       if (options[i].selected) {
         codes.push(options[i].value);
       }
     }
-    console.log('all newly selected', codes);
+
     searchInputs.letterCodes = codes;
     changeFilters(searchInputs);
   };
@@ -126,9 +113,8 @@ const Browse = (props: any) => {
     if (!Array.isArray(newValue) || newValue.length !== 2) {
       return;
     }
-    console.log("old val", searchInputs.numberRange);
-    console.log("new val", newValue);
-    searchInputs.numberRange = newValue;
+    const newRange: number | number[] = newValue;
+    searchInputs.numberRange = newRange;
     changeFilters(searchInputs);
   };
 
@@ -143,7 +129,7 @@ const Browse = (props: any) => {
           </Grid>
           <Grid item xs>
             <form className={classes.root} noValidate autoComplete="off">
-              <TextField 
+              <TextField
                 id="outlined-basic"
                 label="Search for a course"
                 variant="outlined"
@@ -246,6 +232,7 @@ const Browse = (props: any) => {
   );
 };
 
+// TODO Review proptypes
 Browse.propTypes = {
   searchFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
   // searchResults: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
