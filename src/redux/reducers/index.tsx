@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { searchFiltering, searchRetrieval } from './Browse';
+import { searchFiltering, searchRetrieval } from './Search';
 
 export default combineReducers({
   searchFiltering,

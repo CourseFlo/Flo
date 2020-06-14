@@ -20,12 +20,20 @@ export const searchFiltering = (store: Filters = searchFilteringDefault, action:
   }
 };
 
-// TODO Make courses type to replace below with courses: Courses[]
-const searchResultsDefault: { courses: object[] } = { courses: [] };
-export const searchRetrieval = (store: { courses: object[] } = searchResultsDefault, action: any) => {
+let i = 0;
+interface searchRes {
+  [key: number]: any,
+}
+// TODO Make courses type to replace below with an actual data structure for results
+const searchResultsDefault: searchRes = {
+  1: 'asdf',
+};
+export const searchRetrieval = (store: searchRes = searchResultsDefault, action: any) => {
   switch (action.type) {
     case SUBMIT_SEARCH:
-      return store; // TODO add actual behavious of searching
+      const another: searchRes = store;
+      another[i] = "ha";
+      return another; // TODO add actual behavious of searching
     default:
       return store;
   }
