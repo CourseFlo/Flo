@@ -7,12 +7,14 @@ import Browse from './pages/Browse';
 import Guanting from './pages/Guanting';
 import TempNavbar from './components/TempNavbar';
 import ErrorPage from './components/ErrorPage';
-import Login from "./pages/Login";
+import Login from './pages/Login';
+import Navbar from "./components/Navbar";
 
 function App() {
   return (
     <main>
       <TempNavbar />
+      <Navbar/>
       <Switch>
         <Route path="/" component={Login} exact />
         <Route path="/Browse" component={Browse} />
