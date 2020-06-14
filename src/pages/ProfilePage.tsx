@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
+import ProfileMenu from './ProfileMenu';
+
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
 
@@ -36,6 +38,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         width: theme.spacing(30),
         height: theme.spacing(30),
     },
+    root: {
+        flexGrow: 1
+    }
 }));
 
 export default function ProfilePage() {
@@ -50,38 +55,16 @@ export default function ProfilePage() {
                 {/* Need to change this middle element to allow adjustable/flexible spacing between components*/}
                 <React.Fragment>
                     <Box display="flex" width="50%" height="100vh" justifyContent="center" >
-                        <Grid container justify="center" alignItems="center" direction="column" >
-
-                            <Grid item xs={4}>
-                                <Box>
-                                    <Avatar src="/broken-image.jpg" className={classes.largeImg} />
-                                </Box>
-                            </Grid>
-
-
-                            <Grid item xs={8}>
-                                <Grid container direction="row" justify="flex-start" alignItems="center" spacing={2}>
-                                    <Grid item xs={4}>
-                                        <Box >
-                                            <MenuList>
-                                                <MenuItem>Profile</MenuItem>
-                                                <MenuItem>My account</MenuItem>
-                                                <MenuItem>Logout</MenuItem>
-                                            </MenuList>
-                                        </Box>
-
-                                    </Grid>
-                                    <Grid item xs={8}>
-                                        <Box height="100%">
-                                            sidebar content here
-
-                                        </Box>
-
-                                    </Grid>
+                        <div className={classes.root}>
+                            <Grid container >
+                                <Grid item xs={12} justify="center" alignContent="center" alignItems="center" direction="column">
+                                    <Box marginLeft={50}>
+                                    <Avatar src="/broken-image.jpg" className={classes.largeImg}  />
+                                    </Box>
                                 </Grid>
+                                <ProfileMenu />
                             </Grid>
-
-                        </Grid>
+                        </div>
                     </Box>
                 </React.Fragment>
                 <Box display="flex" width="25%" height="100vh" bgcolor="lightblue" />
