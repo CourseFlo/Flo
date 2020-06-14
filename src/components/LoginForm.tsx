@@ -2,28 +2,35 @@ import React from 'react';
 import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  inputFields: {
+    width: '100%',
+  },
+  loginButton: {
+    width: '100%',
+  }
+}));
 
 const LoginForm = () => {
-  const temp = {
-    widthSetter: {
-      width: '100%',
-    },
-  };
+  const classes = useStyles();
+
   return (
     <form>
       <Input
         placeholder="email"
         type="email"
         required
-        style={temp.widthSetter}
+        className={classes.inputFields}
       />
       <Input
         placeholder="password"
         type="password"
         required
-        style={temp.widthSetter}
+        className={classes.inputFields}
       />
-      <Button variant="contained" style={temp.widthSetter}>Login</Button>
+      <Button variant="contained" className={classes.loginButton}>Login</Button>
     </form>
   );
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppBar, fade} from '@material-ui/core';
+import { AppBar, fade } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
@@ -7,8 +7,8 @@ import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
-import Input from "@material-ui/core/Input";
-import Grid from "@material-ui/core/Grid";
+import Input from '@material-ui/core/Input';
+import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navBar: {
@@ -71,18 +71,18 @@ function Navbar() {
         <Typography className={classes.title} variant="h5">
           CourseFlo
         </Typography>
-        {/*<div>*/}
-        {/*  <Grid container spacing={1} alignItems="flex-end">*/}
-        {/*    <Grid item>*/}
-        {/*      <SearchIcon />*/}
-        {/*    </Grid>*/}
-        {/*    <Grid item>*/}
-        {/*      <Input*/}
-        {/*        placeholder="Course Search…"*/}
-        {/*      />*/}
-        {/*    </Grid>*/}
-        {/*  </Grid>*/}
-        {/*</div>*/}
+        {/* <div> */}
+        {/*  <Grid container spacing={1} alignItems="flex-end"> */}
+        {/*    <Grid item> */}
+        {/*      <SearchIcon /> */}
+        {/*    </Grid> */}
+        {/*    <Grid item> */}
+        {/*      <Input */}
+        {/*        placeholder="Course Search…" */}
+        {/*      /> */}
+        {/*    </Grid> */}
+        {/*  </Grid> */}
+        {/* </div> */}
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
@@ -100,6 +100,7 @@ function Navbar() {
         <Button className={classes.buttons} color="inherit">Visualize</Button>
         <Button className={classes.buttons} color="inherit">Contact Us</Button>
         <Button className={classes.buttons} variant="outlined" color="inherit">Profile</Button>
+        <Button className={classes.buttons} variant="outlined" color="inherit">Login</Button>
       </Toolbar>
     </AppBar>
   );
