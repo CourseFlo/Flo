@@ -9,6 +9,12 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
+import { connect } from 'react-redux';
+import { Filters } from '../type-interfaces/Browse';
+import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
+import { submitSearch } from '../redux/actions/Browse';
+import {setLogin} from "../redux/actions/User";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navBar: {
@@ -43,6 +49,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 1200,
   },
   inputRoot: {
     color: 'inherit',
@@ -62,14 +69,31 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-function Navbar() {
+function Navbar(props: any) {
+  const { loggedIn, submitSearch }: { loggedIn: boolean, submitSearch: Function } = props;
   const classes = useStyles();
+  const currFilters: Filters = {
+    query: '',
+    letterCodes: [],
+    numberRange: [MIN_COURSE_CODE, MAX_COURSE_CODE],
+  };
+
+  const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    // const { value } = event.target as HTMLSelectElement;
+    // if (value.trim() === '' || value.trim() === '') {
+    //   return;
+    // }
+    // searchInputs.query = value;
+    // changeFilters(searchInputs);
+  };
 
   return (
     <AppBar className={classes.navBar} position="static" color="transparent">
       <Toolbar>
         <Typography className={classes.title} variant="h5">
-          CourseFlo
+          <Link href="#">
+            CourseFlo
+          </Link>
         </Typography>
         {/* <div> */}
         {/*  <Grid container spacing={1} alignItems="flex-end"> */}
@@ -95,15 +119,25 @@ function Navbar() {
               focused: classes.inputFocused,
             }}
             inputProps={{ 'aria-label': 'search' }}
+            // onChange={handleQueryChange}
+            // onSubmit={submitSearch(currFilters)}
           />
         </div>
         <Button className={classes.buttons} color="inherit">Visualize</Button>
         <Button className={classes.buttons} color="inherit">Contact Us</Button>
-        <Button className={classes.buttons} variant="outlined" color="inherit">Profile</Button>
-        <Button className={classes.buttons} variant="outlined" color="inherit">Login</Button>
+        {loggedIn
+          ? <Button className={classes.buttons} variant="outlined" color="inherit">Profile</Button>
+          : <Button className={classes.buttons} variant="outlined" color="inherit">Login</Button>}
       </Toolbar>
     </AppBar>
   );
 }
+interface UserState {
+  setLogin: boolean,
+}
+const mapStateToProps = (state: UserState) => {
+  const { setLogin }: UserState = state;
+  return { loggedIn: setLogin };
+};
 
-export default Navbar;
+export default connect(mapStateToProps, { submitSearch })(Navbar);
