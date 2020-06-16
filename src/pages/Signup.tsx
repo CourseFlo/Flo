@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Navbar from '../components/Navbar';
-import LoginForm from '../components/LoginForm';
+import SignupForm from "../components/SignupForm";
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -20,11 +20,11 @@ const Login = () => {
     <div>
       <Container className={classes.loginContainer} maxWidth="xs">
         <Typography variant="h5">
-          Log in to get started!
+          Sign up here
         </Typography>
-        <LoginForm />
-        <Link to="/signup">
-          Sign up
+        <SignupForm />
+        <Link to="/login">
+          Log in
         </Link>
       </Container>
     </div>
