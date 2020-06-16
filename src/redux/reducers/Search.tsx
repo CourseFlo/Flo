@@ -21,19 +21,20 @@ export const searchFiltering = (store: Filters = searchFilteringDefault, action:
 };
 
 let i = 0;
-interface searchRes {
-  [key: number]: any,
-}
-// TODO Make courses type to replace below with an actual data structure for results
-const searchResultsDefault: searchRes = {
-  1: 'asdf',
-};
-export const searchRetrieval = (store: searchRes = searchResultsDefault, action: any) => {
+// interface searchRes {
+//   [key: number]: any,
+// }
+// // TODO Make courses type to replace below with an actual data structure for results
+// const searchResultsDefault: searchRes = {
+//   1: 'asdf',
+const searchResultsDefault: string[] = [];
+export const searchRetrieval = (store: string[] = searchResultsDefault, action: any) => {
   switch (action.type) {
     case SUBMIT_SEARCH:
-      const another: searchRes = store;
-      another[i] = "ha";
-      return another; // TODO add actual behavious of searching
+      const another: string[] = store;
+      i++;
+      another.push(i + 'stuff');
+      return another; // TODO add actual behaviour of searching
     default:
       return store;
   }

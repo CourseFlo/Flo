@@ -3,18 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import Input from '@material-ui/core/Input';
-import Chip from '@material-ui/core/Chip';
-import MenuItem from '@material-ui/core/MenuItem';
-import Button from '@material-ui/core/Button';
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
+import { Grid, Box, Paper, TextField, FormControl, InputLabel, Select, Button, Typography, Slider, Mark } from '@material-ui/core';
 
 import SearchIcon from '@material-ui/icons/Search';
 
@@ -31,11 +20,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textAlign: 'center',
     color: theme.palette.text.secondary,
   },
-  spacePlaceholder: {
-    margin: '7%',
+  queryForm: {
   },
   searchContainer: {
-    margin: '10%',
+    // margin: '10%',
+  },
+  filterItem: {
+    textAlign: 'center',
   },
   letterCodeForm: {
     margin: theme.spacing(1),
@@ -52,21 +43,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: theme.typography.fontWeightRegular,
   },
   searchButton: {
-    width: '75%',
   },
 }));
 
-// REMOVE once the selected codes section is refactored
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 // REMOVE once we have actual data
 const names = [
@@ -77,6 +56,13 @@ const names = [
   'STHE',
   'TTHE',
 ];
+
+// Create array of slider marks: MIN_COURSE_CODE to MAX_COURSE_CODE, in steps of SLIDER_STEP_SIZE
+const sliderRange: any[] = Array.from(Array((MAX_COURSE_CODE - MIN_COURSE_CODE) / SLIDER_STEP_SIZE + 1).keys());
+const sliderMarks = sliderRange.map((num, i) => ({
+  value: (MIN_COURSE_CODE + i * SLIDER_STEP_SIZE),
+  label: (MIN_COURSE_CODE + i * SLIDER_STEP_SIZE)+'',
+}));
 
 interface Props {
   searchFilters: Filters,
@@ -127,13 +113,12 @@ const Search = (props: any) => {
     <div className={classes.root}>
       <div className={classes.searchContainer}>
         {/* TODO Extract this margin into a better system */}
-        <div className={classes.spacePlaceholder} />
         <Grid container spacing={3}>
           <Grid item xs>
-            {/* <Paper className={classes.paper}>xs</Paper> */}
+            <Paper className={classes.paper}>xs</Paper>
           </Grid>
           <Grid item xs>
-            <form className={classes.root} noValidate autoComplete="off">
+            <form className={classes.queryForm} noValidate autoComplete="off">
               <TextField
                 id="outlined-basic"
                 label="Search for a course"
@@ -146,80 +131,62 @@ const Search = (props: any) => {
             </form>
           </Grid>
           <Grid item xs>
-            {/* <Paper className={classes.paper}>xs</Paper> */}
+            <Paper className={classes.paper}>xs</Paper>
           </Grid>
         </Grid>
-        <div className={classes.spacePlaceholder} />
-        <Grid container spacing={3}>
+        <Grid container spacing={10} alignItems="stretch">
           <Grid item xs>
-            <FormControl className={classes.formControl}>
-              <InputLabel id="mutiple-chip-label">Selected Codes</InputLabel>
-              <Select
-                labelId="mutiple-chip-label"
-                id="mutiple-chip"
-                multiple
-                disabled
-                value={searchInputs.letterCodes}
-                onChange={handleLetterCodeChangeMultiple}
-                input={<Input id="select-multiple-chip" />}
-                renderValue={(selected) => (
-                  <div className={classes.chips}>
-                    {(selected as string[]).map((value) => (
-                      <Chip key={value} label={value} className={classes.chip} />
-                    ))}
-                  </div>
-                )}
-                MenuProps={MenuProps}
-              >
-                {names.map((name) => (
-                  <MenuItem key={name} value={name} className={classes.codeTypography}>
-                    {name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-            <FormControl className={classes.letterCodeForm}>
-              <InputLabel shrink htmlFor="select-multiple-native">
-                4 Letter Course Codes
-              </InputLabel>
-              <Select
-                multiple
-                native
-                value={searchInputs.letterCodes}
-                onChange={handleLetterCodeChangeMultiple}
-                inputProps={{
-                  id: 'select-multiple-native',
-                }}
-              >
-                {names.map((name) => (
-                  <option key={name} value={name}>
-                    {name}
-                  </option>
-                ))}
-              </Select>
-            </FormControl>
+            <Box className={classes.filterItem}>
+              <FormControl className={classes.letterCodeForm}>
+                <InputLabel shrink htmlFor="select-multiple-native">
+                  4 Letter Course Codes
+                </InputLabel>
+                <Select
+                  multiple
+                  native
+                  value={searchInputs.letterCodes}
+                  onChange={handleLetterCodeChangeMultiple}
+                  inputProps={{
+                    id: 'select-multiple-native',
+                  }}
+                >
+                  {names.map((name) => (
+                    <option key={name} value={name}>
+                      {name}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
+              {'Selected Codes: '}{searchInputs.letterCodes.map((code) => code + ', ')}
+            </Box>
           </Grid>
           <Grid item xs>
-            <Typography id="range-slider" gutterBottom>
-              Course number range
-            </Typography>
-            <Slider
-              value={searchInputs.numberRange}
-              onChange={handleNumberRangeChange}
-              min={MIN_COURSE_CODE}
-              max={MAX_COURSE_CODE}
-              step={SLIDER_STEP_SIZE}
-              valueLabelDisplay="auto"
-              aria-labelledby="range-slider"
-            />
+            <Box className={classes.filterItem}>
+              <Typography id="range-slider" gutterBottom>
+                Course number range:
+              </Typography>
+              <Slider
+                value={searchInputs.numberRange}
+                onChange={handleNumberRangeChange}
+                orientation="horizontal"
+                min={MIN_COURSE_CODE}
+                max={MAX_COURSE_CODE}
+                step={SLIDER_STEP_SIZE}
+                valueLabelDisplay="auto"
+                marks={sliderMarks}
+                aria-labelledby="range-slider"
+              />
+            </Box>
           </Grid>
-          <Grid item xs>
+          {/* <Grid item xs>
             <Paper className={classes.paper}>Other fancy filter</Paper>
-          </Grid>
+          </Grid> */}
         </Grid>
-        <div className={classes.spacePlaceholder} />
         <Grid container spacing={3}>
           <Grid item xs>
+            <Paper className={classes.paper}>space (dev)</Paper>
+          </Grid>
+          <Grid item xs={6}>
             <Button
               variant="contained"
               color="primary"
@@ -230,6 +197,9 @@ const Search = (props: any) => {
             >
               Search
             </Button>
+          </Grid>
+          <Grid item xs>
+            <Paper className={classes.paper}>space (dev)</Paper>
           </Grid>
         </Grid>
       </div>
@@ -246,11 +216,11 @@ Search.propTypes = {
 
 // Subset of full state used here
 interface SearchState {
-  searchFiltering: Filters,
+  searchFilters: Filters,
 }
 const mapStateToProps = (state: SearchState) => {
-  const { searchFiltering }: SearchState = state;
-  return { searchFilters: searchFiltering };
+  const { searchFilters }: SearchState = state;
+  return { searchFilters };
 };
 
 export default connect(mapStateToProps, { changeFilters, submitSearch })(Search);

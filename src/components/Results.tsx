@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 interface Props {
-  searchResults: { courses: object[] },
+  searchResults: any,
 }
 
 const Results = (props: any) => {
@@ -20,18 +20,18 @@ const Results = (props: any) => {
 
   return (
     <div className={classes.root}>
-      {searchResults}{console.log("Re rendering search results")}
+      {searchResults}{console.log('Re rendering search results')}
     </div>
   );
 };
 
 // TODO Review custom
 Results.propTypes = {
-  searchResults: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
+  searchResults: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
 };
 
 interface ResultsState {
-  searchResults: object,
+  searchResults: any,
 }
 const mapStateToProps = (state: ResultsState) => {
   const { searchResults }: ResultsState = state;
