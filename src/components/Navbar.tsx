@@ -10,11 +10,11 @@ import InputBase from '@material-ui/core/InputBase';
 import Input from '@material-ui/core/Input';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
+import Link from '@material-ui/core/Link';
 import { Filters } from '../type-interfaces/Browse';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
-import { submitSearch } from '../redux/actions/Browse';
-import {setLogin} from "../redux/actions/User";
-import Link from "@material-ui/core/Link";
+import {changeFilters, submitSearch} from '../redux/actions/Browse';
+import { setLogin } from '../redux/actions/User';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navBar: {
@@ -70,7 +70,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 function Navbar(props: any) {
-  const { loggedIn, submitSearch }: { loggedIn: boolean, submitSearch: Function } = props;
+  // eslint-disable-next-line no-shadow
+  const { loggedIn, submitSearch, changeFilters }: { loggedIn: boolean, submitSearch: Function, changeFilters: Function } = props;
   const classes = useStyles();
   const currFilters: Filters = {
     query: '',
@@ -79,12 +80,12 @@ function Navbar(props: any) {
   };
 
   const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    // const { value } = event.target as HTMLSelectElement;
-    // if (value.trim() === '' || value.trim() === '') {
-    //   return;
-    // }
-    // searchInputs.query = value;
-    // changeFilters(searchInputs);
+    const { value } = event.target as HTMLSelectElement;
+    if (value.trim() === '' || value.trim() === '') {
+      return;
+    }
+    currFilters.query = value;
+    changeFilters(currFilters);
   };
 
   return (
@@ -119,8 +120,8 @@ function Navbar(props: any) {
               focused: classes.inputFocused,
             }}
             inputProps={{ 'aria-label': 'search' }}
-            // onChange={handleQueryChange}
-            // onSubmit={submitSearch(currFilters)}
+            onChange={handleQueryChange}
+            onSubmit={submitSearch(currFilters)}
           />
         </div>
         <Button className={classes.buttons} color="inherit">Visualize</Button>
@@ -140,4 +141,4 @@ const mapStateToProps = (state: UserState) => {
   return { loggedIn: setLogin };
 };
 
-export default connect(mapStateToProps, { submitSearch })(Navbar);
+export default connect(mapStateToProps, { submitSearch, changeFilters })(Navbar);
