@@ -1,5 +1,5 @@
 import { CHANGE_FILTERS, SUBMIT_SEARCH } from '../constants';
-import { Filters } from '../../type-interfaces/Browse'; // eslint-disable-line no-unused-vars
+import { Filters } from '../../type-interfaces/Search'; // eslint-disable-line no-unused-vars
 
 const searchFilteringDefault: Filters = {
   query: 'cpsc',
@@ -30,11 +30,12 @@ let i = 0;
 const searchResultsDefault: string[] = [];
 export const searchRetrieval = (store: string[] = searchResultsDefault, action: any) => {
   switch (action.type) {
+    // TODO add actual behaviour of searching
     case SUBMIT_SEARCH:
       const another: string[] = store;
-      i++;
+      i += 1;
       another.push(i + 'stuff');
-      return another; // TODO add actual behaviour of searching
+      return another;
     default:
       return store;
   }

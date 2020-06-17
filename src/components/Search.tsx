@@ -7,7 +7,7 @@ import { Grid, Box, Paper, TextField, FormControl, InputLabel, Select, Button, T
 
 import SearchIcon from '@material-ui/icons/Search';
 
-import { Filters } from '../type-interfaces/Browse';
+import { Filters } from '../type-interfaces/Search';
 import { changeFilters, submitSearch } from '../redux/actions/Search';
 import { MIN_COURSE_CODE, MAX_COURSE_CODE, SLIDER_STEP_SIZE } from '../util/UIConstants';
 
@@ -157,7 +157,8 @@ const Search = (props: any) => {
                   ))}
                 </Select>
               </FormControl>
-              {'Selected Codes: '}{searchInputs.letterCodes.map((code) => code + ', ')}
+              {'Selected Codes: '}
+              {searchInputs.letterCodes.map((code) => code + ', ')}
             </Box>
           </Grid>
           <Grid item xs>
