@@ -2,9 +2,17 @@
 import React from 'react';
 import Courses from '../components/VisualCourse/courses';
 import DisplayedCourse from '../components/VisualCourse/displayedCourse';
-import '../components/VisualCourse/visualPage.css';
+import './VisualCourse/visualCourse.css'
 
-const Guanting = () => {
+export interface Course {
+    courseCode: string,
+    courseDescription: string,
+    prereqs: Array<string>,
+    coreqs: Array<string>,
+    future: Array<string>
+}
+
+const VisualCourse = () => {
   return (
   <div className='module'>
         <div className='column'>
@@ -34,4 +42,4 @@ const Guanting = () => {
   </div>);
 };
 
-export default Guanting;
+export default VisualCourse;

@@ -4,7 +4,7 @@ import './App.css';
 import Brandon from './pages/Brandon';
 import Sam from './pages/Sam';
 import Browse from './pages/Browse';
-import Guanting from './pages/Guanting';
+import VisualCourse from './pages/VisualCourse';
 import Navbar from './components/Navbar';
 import ErrorPage from './components/ErrorPage';
 
@@ -16,7 +16,7 @@ function App() {
         <Route path="/" component={Brandon} exact />
         <Route path="/Browse" component={Browse} />
         <Route path="/Sam" component={Sam} />
-        <Route path="/Guanting" component={Guanting} />
+        <Route path="/VisualCourse" component={VisualCourse} />
         <Route component={ErrorPage} />
       </Switch>
     </main>

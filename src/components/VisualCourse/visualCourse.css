@@ -1,0 +1,28 @@
+.module {
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.module .column {
+    display: flex;
+    flex-basis: auto;
+    width: 200px;
+    display: inline-block;
+    margin-right: 20px;
+}
+
+/* Displayed Course */
+.displayedCourse {
+    border: 3px solid #636363;
+    border-radius: 30px;
+}
+
+.displayedCourse h1 {
+    font-size: 30px;
+}
+
+/* Course */
+.course {
+    border: 1px solid #909090;
+    border-radius: 20px;
+}
