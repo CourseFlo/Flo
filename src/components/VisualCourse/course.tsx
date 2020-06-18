@@ -1,10 +1,10 @@
 import React from 'react';
 import './visualCourse.css';
 
-const Course = () => {
+const Course = (props: any) => {
   return (
   <div className='course'>
-      <h1>CPSC 110</h1>
+      <h1>{props.courseCode}</h1>
       <p>((()))</p>
   </div>);
 };
