@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
-import BasicLogin from './pages/BasicLogin';
 import Sam from './pages/Sam';
 import Browse from './pages/Browse';
 import Guanting from './pages/Guanting';

@@ -5,6 +5,6 @@ import { setLogin } from './User';
 export default combineReducers({
   searchFiltering,
   searchRetrieval,
-  setLogin,
+  isLoggedin: setLogin,
 //   reducer: someReducer              // TODO: ADD REDUCERS HERE
 });

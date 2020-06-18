@@ -1,20 +1,22 @@
 import React from 'react';
-import { AppBar, fade } from '@material-ui/core';
+import { AppBar } from '@material-ui/core';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
-import Input from '@material-ui/core/Input';
-import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
 import Link from '@material-ui/core/Link';
 import { Filters } from '../type-interfaces/Browse';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
-import {changeFilters, submitSearch} from '../redux/actions/Browse';
-import { setLogin } from '../redux/actions/User';
+import { changeFilters, submitSearch } from '../redux/actions/Browse';
+
+interface Props {
+  loggedIn: boolean,
+  submitSearch: Function,
+  changeFilters: Function
+}
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   navBar: {
@@ -71,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Navbar(props: any) {
   // eslint-disable-next-line no-shadow
-  const { loggedIn, submitSearch, changeFilters }: { loggedIn: boolean, submitSearch: Function, changeFilters: Function } = props;
+  const { loggedIn, submitSearch, changeFilters }: Props = props;
   const classes = useStyles();
   const currFilters: Filters = {
     query: '',
@@ -124,11 +126,11 @@ function Navbar(props: any) {
             onSubmit={submitSearch(currFilters)}
           />
         </div>
-        <Button className={classes.buttons} color="inherit">Visualize</Button>
+        <Button className={classes.buttons} color="inherit" href="/Guanting">Visualize</Button>
         <Button className={classes.buttons} color="inherit">Contact Us</Button>
         {loggedIn
-          ? <Button className={classes.buttons} variant="outlined" color="inherit">Profile</Button>
-          : <Button className={classes.buttons} variant="outlined" color="inherit">Login</Button>}
+          ? <Button className={classes.buttons} variant="outlined" color="inherit" href="/Sam">Profile</Button>
+          : <Button className={classes.buttons} variant="outlined" color="inherit" href="/login">Login</Button>}
       </Toolbar>
     </AppBar>
   );

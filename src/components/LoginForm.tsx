@@ -1,8 +1,7 @@
 import React from 'react';
-import FormControl from '@material-ui/core/FormControl';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-import {createStyles, makeStyles, Theme} from "@material-ui/core/styles";
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -10,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   loginButton: {
     width: '100%',
-  }
+  },
 }));
 
 const LoginForm = () => {
