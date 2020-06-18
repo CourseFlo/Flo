@@ -17,13 +17,15 @@ const Login = () => {
   return (
     <div>
       <Container className={classes.loginContainer} maxWidth="xs">
-        <Typography variant="h5">
+        <Typography variant="h5" align="center">
           Log in to get started!
         </Typography>
         <LoginForm />
-        <Link to="/signup">
-          Sign up
-        </Link>
+        <div>
+          <Link to="/signup" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+            Sign up
+          </Link>
+        </div>
       </Container>
     </div>
   );

@@ -17,11 +17,11 @@ const Login = () => {
   return (
     <div>
       <Container className={classes.loginContainer} maxWidth="xs">
-        <Typography variant="h5">
+        <Typography variant="h5" align="center">
           Sign up here
         </Typography>
         <SignupForm />
-        <Link to="/login">
+        <Link to="/login" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           Log in
         </Link>
       </Container>

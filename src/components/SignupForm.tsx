@@ -6,9 +6,11 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
     width: '100%',
+    marginTop: '20px',
   },
   loginButton: {
     width: '100%',
+    marginTop: '30px',
   },
 }));
 

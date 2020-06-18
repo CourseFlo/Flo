@@ -7,10 +7,10 @@ import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
-import Link from '@material-ui/core/Link';
 import { Filters } from '../type-interfaces/Search';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
 import { changeFilters, submitSearch } from '../redux/actions/Search';
+import {Link} from "react-router-dom";
 
 interface Props {
   loggedIn: boolean,
@@ -94,7 +94,7 @@ function Navbar(props: any) {
     <AppBar className={classes.navBar} position="static" color="transparent">
       <Toolbar>
         <Typography className={classes.title} variant="h5">
-          <Link href="#">
+          <Link to="/">
             CourseFlo
           </Link>
         </Typography>
