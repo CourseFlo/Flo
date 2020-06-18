@@ -8,6 +8,11 @@ import LoginForm from '../components/LoginForm';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   loginContainer: {
     margin: 'auto',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    display: 'flex',
+    height: '70vh',
   },
 }));
 
