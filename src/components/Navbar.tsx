@@ -8,9 +8,9 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import Link from '@material-ui/core/Link';
-import { Filters } from '../type-interfaces/Browse';
+import { Filters } from '../type-interfaces/Search';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
-import { changeFilters, submitSearch } from '../redux/actions/Browse';
+import { changeFilters, submitSearch } from '../redux/actions/Search';
 
 interface Props {
   loggedIn: boolean,

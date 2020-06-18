@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Grid, Box, Paper, TextField, FormControl, InputLabel, Select, Button, Typography, Slider, Mark } from '@material-ui/core';
+import { Grid, Box, Paper, TextField, FormControl, InputLabel, Select, Button, Typography, Slider } from '@material-ui/core';
 
 import SearchIcon from '@material-ui/icons/Search';
 
