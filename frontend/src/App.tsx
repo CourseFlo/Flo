@@ -8,6 +8,7 @@ import ErrorPage from './components/ErrorPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
+import Home from './pages/Home';
 
 import ProfilePage from './pages/ProfilePage';
 
@@ -18,6 +19,7 @@ function App() {
       <TempNavbar />
       <Navbar />
       <Switch>
+        <Route path="/" component={Home} />
         <Route path="/login" component={Login} exact />
         <Route path="/Browse" component={Browse} />
         <Route path="/VisualCourse" component={VisualCourse} />
