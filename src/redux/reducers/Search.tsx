@@ -1,5 +1,5 @@
 import { CHANGE_FILTERS, SUBMIT_SEARCH } from '../constants';
-import { Filters } from '../../type-interfaces/Browse'; // eslint-disable-line no-unused-vars
+import { Filters } from '../../type-interfaces/Search'; // eslint-disable-line no-unused-vars
 
 const searchFilteringDefault: Filters = {
   query: 'cpsc',
@@ -20,12 +20,22 @@ export const searchFiltering = (store: Filters = searchFilteringDefault, action:
   }
 };
 
-// TODO Make courses type to replace below with courses: Courses[]
-const searchResultsDefault: { courses: object[] } = { courses: [] };
-export const searchRetrieval = (store: { courses: object[] } = searchResultsDefault, action: any) => {
+let i = 0;
+// interface searchRes {
+//   [key: number]: any,
+// }
+// // TODO Make courses type to replace below with an actual data structure for results
+// const searchResultsDefault: searchRes = {
+//   1: 'asdf',
+const searchResultsDefault: string[] = [];
+export const searchRetrieval = (store: string[] = searchResultsDefault, action: any) => {
   switch (action.type) {
+    // TODO add actual behaviour of searching
     case SUBMIT_SEARCH:
-      return store; // TODO add actual behavious of searching
+      const another: string[] = store;
+      i += 1;
+      another.push(i + 'stuff');
+      return another;
     default:
       return store;
   }
