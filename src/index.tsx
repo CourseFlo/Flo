@@ -3,12 +3,14 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import * as serviceWorker from './serviceWorker';
 import reducers from './redux/reducers/index'; // We exported combineReducers
 import './index.css';
 import App from './App';
 
-const store = createStore(reducers);
+// eslint-disable-next-line no-underscore-dangle
+const store = createStore(reducers, composeWithDevTools());
 
 ReactDOM.render(
   <BrowserRouter>
