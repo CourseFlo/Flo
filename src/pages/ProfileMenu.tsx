@@ -7,15 +7,17 @@ import Box from '@material-ui/core/Box';
 import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
             width: '100%',
             maxWidth: 500,
             backgroundColor: "#303030",
+            height: '70vh'
         },
         secondMenuList: {
-            // height: '100%',
+            height: "100%",
             backgroundColor: "#303030",
         },
         grow: {
@@ -27,7 +29,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ProfileMenu() {
     const classes = useStyles();
 
-
     return (
         <React.Fragment>
             <Grid item xs={4}>
@@ -37,22 +38,23 @@ export default function ProfileMenu() {
                             <MenuItem >
                                 <Typography color="primary">
                                     Profile
-                        </Typography>
+                                </Typography>
                             </MenuItem>
                             <MenuItem>
-                                <Typography color="primary" noWrap>
+                                <Typography  color="primary" noWrap>
                                     My account
-                        </Typography></MenuItem>
+                                </Typography>
+                            </MenuItem>
                             <MenuItem>
                                 <Typography color="primary">
                                     Logout
-                        </Typography>
+                                </Typography>
                             </MenuItem>
-                            <Box height="100vh" className={classes.secondMenuList}>
-
-                            </Box>
+                            <MenuItem>
+                                <Box className={classes.secondMenuList}>
+                                </Box>
+                            </MenuItem>
                         </MenuList>
-
                     </Box>
                 </React.Fragment>
             </Grid>
@@ -62,3 +64,5 @@ export default function ProfileMenu() {
         </React.Fragment >
     );
 }
+
+// export default withStyles(styles)(ProfileMenu);
