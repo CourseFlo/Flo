@@ -52,13 +52,5 @@ export default function Course(props: any) {
 }
 
 /*
-const Course = (props: any) => {
-  return (
   <div className='course'>
-      <h1>{props.courseStringCode} {props.courseDigitCode}</h1>
-      <p>{props.description}</p>
-  </div>);
-};
-
-export default Course;
 */
