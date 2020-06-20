@@ -126,7 +126,7 @@ function Navbar(props: any) {
             onSubmit={submitSearch(currFilters)}
           />
         </div>
-        <Button className={classes.buttons} color="inherit" href="/Guanting">Visualize</Button>
+        <Button className={classes.buttons} color="inherit" href="/VisualCourse">Visualize</Button>
         <Button className={classes.buttons} color="inherit">Contact Us</Button>
         {loggedIn
           ? <Button className={classes.buttons} variant="outlined" color="inherit" href="/Sam">Profile</Button>

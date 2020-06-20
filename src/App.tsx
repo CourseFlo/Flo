@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
 import Browse from './pages/Browse';
-import Guanting from './pages/Guanting';
+import VisualCourse from './pages/VisualCourse';
 import TempNavbar from './components/TempNavbar';
 import ErrorPage from './components/ErrorPage';
 import Login from './pages/Login';
@@ -19,8 +19,8 @@ function App() {
       <Switch>
         <Route path="/login" component={Login} exact />
         <Route path="/Browse" component={Browse} />
+        <Route path="/VisualCourse" component={VisualCourse} />
         <Route path="/ProfilePage" component={ProfilePage} />
-        <Route path="/Guanting" component={Guanting} />
         <Route path="/signup" component={Signup} />
         <Route component={ErrorPage} />
       </Switch>
