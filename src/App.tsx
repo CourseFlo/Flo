@@ -14,6 +14,7 @@ import ProfilePage from './pages/ProfilePage';
 function App() {
   return (
     <main>
+      <TempNavbar />
       <Navbar />
       <Switch>
         <Route path="/login" component={Login} exact />
