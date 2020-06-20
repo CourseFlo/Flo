@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core'; // eslint-disable-line no-unused-vars
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 
-export default function ProfilePage() {
+export default function ProfilePage(props: any) {
 
     const classes = useStyles();
 

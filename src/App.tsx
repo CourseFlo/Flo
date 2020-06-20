@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
-import Sam from './pages/Sam';
 import Browse from './pages/Browse';
 import Guanting from './pages/Guanting';
 import TempNavbar from './components/TempNavbar';
@@ -15,7 +14,6 @@ import ProfilePage from './pages/ProfilePage';
 function App() {
   return (
     <main>
-      <TempNavbar />
       <Navbar />
       <Switch>
         <Route path="/login" component={Login} exact />
