@@ -1,45 +1,64 @@
 // rename to visualize
 import React from 'react';
+import { connect } from 'react-redux';
 import Courses from '../components/VisualCourse/courses';
 import DisplayedCourse from '../components/VisualCourse/displayedCourse';
-import './VisualCourse/visualCourse.css'
+import Course from '../components/VisualCourse/course';
+import '../components/VisualCourse/visualCourse.css';
 
-export interface Course {
-    courseCode: string,
-    courseDescription: string,
-    prereqs: Array<string>,
-    coreqs: Array<string>,
-    future: Array<string>
-}
-
-const VisualCourse = () => {
-  return (
-  <div className='module'>
+const VisualCourse = (props: any) => {
+    //console.log("VisualCourse props:");
+    //console.log(props);
+    const coursesProps = {
+        // courses: props.courses
+        1: {
+            courseStringCode: "CPSC",
+            courseDigitCode: "210",
+            description: "Software Construction",
+        }
+    }
+    // <Courses {...coursesProps}></Courses>
+    return (
+    <div className='module'>
         <div className='column'>
             Prereq:
-            <Courses></Courses>
+            <Course 
+                courseStringCode="CPSC"
+                courseDigitCode="110"
+                description="Computation, Programs, and Programming" 
+            ></Course>
         </div>
         <div className='column'>
-            <DisplayedCourse></DisplayedCourse>
+            <DisplayedCourse 
+                courseStringCode="CPSC" 
+                courseDigitCode="210"
+                description="Software Construction"
+            ></DisplayedCourse>
         </div>
         <div className='column'>
             Courses that follow:
-            <div className='course'>
-                <h1>CPSC 213</h1>
-                <p>Computer Systems</p>
-            </div>
-            <div className='course'>
-                <h1>CPSC 221</h1>
-                <p>Data Structures and Algorithms</p>
-            </div>
-            <div className='course'>
-                <h1>CPSC 310</h1>
-                <p>Intro to Software Engineering</p>
-            </div>
+            <Course 
+                courseStringCode="CPSC"
+                courseDigitCode="213"
+                description="Computer Systems" 
+            ></Course>
+            <Course 
+                courseStringCode="CPSC"
+                courseDigitCode="221"
+                description="Data Structures and Algorithms" 
+            ></Course>
+            <Course  
+                courseStringCode="CPSC"
+                courseDigitCode="310"
+                description="Intro to Software Engineering" 
+            ></Course>
         </div>
-      
-
-  </div>);
+    </div>);
 };
 
-export default VisualCourse;
+const mapStateToProps = (state: any) => {
+    const { courseArray }: any = state;
+    return { courseArray };
+}
+
+export default connect(mapStateToProps, {})(VisualCourse);

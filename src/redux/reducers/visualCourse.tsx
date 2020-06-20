@@ -1,22 +1,15 @@
 // Where does store come from in Browse.tsx?
 
-import { Filters } from '../../pages/Browse'; // eslint-disable-line no-unused-vars
+import { Course } from '../../type-interfaces/Course'; // eslint-disable-line no-unused-vars
  
-const searchFilteringDefault: Filters = {
-  query: 'cpsc',
-  letterCodes: ['CPSC', 'ANTH'],
-  numberRange: [200, 400],
-};
-export const searchFiltering = (store: Filters = searchFilteringDefault, action: any) => {
-  switch (action.type) {
-    case 'CHANGE_SEARCH':
-      return {
-        ...store,
-        query: action.query,
-        letterCodes: action.letterCodes,
-        numberRange: action.numberRange,
-      };
-    default:
-      return store;
-  }
-};
+const courseArray: any = {
+    courseArray: {
+        courseStringCode: "CPSC",
+        courseDigitCode: "210",
+        description: "Design, development, and analysis of robust software components. Topics such as software design, computational models, data structures, debugging, and testing.",
+    }
+}
+
+export const changeSelectedCourse = (store: any = courseArray) => {
+    return store;
+}

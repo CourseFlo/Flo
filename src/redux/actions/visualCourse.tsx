@@ -1,21 +1,19 @@
-export const submitSearch = (filters: { query: string, letterCodes: Array<string>, numberRange: Array<number> }) => {
+
+import { Course } from '../../type-interfaces/Course';
+import { coral } from 'color-name';
+
+
+export const updateCourse = (course: Course) => { // { courseLetterCode: string, courseDigitCode: number, courseId: string, description: string }) => {
   return {
-    type: 'SUBMIT_SEARCH',
-    query: filters.query,
-    letterCodes: filters.letterCodes,
-    numberRange: filters.numberRange,
+    type: 'DISPLAY_COURSE',
+    courseLetterCode: course.courseLetterCode,
+    courseDigitCode: course.courseDigitCode,
+    courseId: course.courseId,
+    description: course.description,
   };
 };
 
-export const updateCourse = (course: { courseCodeLetter: string, courseCodeNumber: number, courseLabel: string, courseDescription: string }) => {
-  return {
-    type: 'DISPLAY_COURSE',
-    courseCodeLetter: course.courseCodeLetter,
-    courseCodeNumber: course.courseCodeNumber,
-    courseLabel: course.courseLabel,
-    courseDescription: course.courseDescription,
-  };
-};
+
 
         // TODO: SPLIT THE COURSECODE: LETTERS + NUMBERS; session number possible as well
         // USE ID FOR THIS INSTEAD! Look up API documentation
@@ -26,13 +24,13 @@ export const updateCourse = (course: { courseCodeLetter: string, courseCodeNumbe
         // Reducer filters and puts a single course value
         // in reducer, we get ID, use it to apply filter to dictionary of courses, and save that group of course stuff as selected course
 
-export const changeSelectedCourse = (course: { courseCode: string, courseDescription: string, prereqs: Array<string>, coreqs: Array<string>, future: Array<string>}) => {
+export const changeSelectedCourse = (course: Course) => { // { courseCode: string, courseDescription: string, prereqs: Array<string>, coreqs: Array<string>, future: Array<string>}
     return {
         type: 'CHANGE_SELECTED_COURSE',
-        courseCode: course.courseCode, 
-        courseDescription: course.courseDescription,
-        prereqs: course.prereqs,
-        coreqs: course.coreqs,
-        future: course.future,
+        courseLetterCode: course.courseLetterCode, 
+        courseDigitCode: course.courseDigitCode,
+        courseId: course.courseId,
+        description: course.description,
+        preReqs: course.preReqs,
     }
 }
