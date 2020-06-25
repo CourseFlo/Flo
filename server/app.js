@@ -3,9 +3,15 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
+const mongoose = require('mongoose');
 
+// Routers
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const usersRouter = require('./routes/users');
+const otherRouter = require('./routes/otherRouter');
 
 var app = express();
 
@@ -19,8 +25,19 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+const uri = process.env.ATLAS_URI;
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
+
+const connection = mongoose.connection;
+connection.once('open', () => {
+  console.log("MongoDB database connection established successfully");
+})
+
+
+
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/otherRoute', otherRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
