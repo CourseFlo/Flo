@@ -4,7 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 
-import ProfileMenu from './ProfileMenu';
+import ProfileMenu from '../components/ProfileMenu';
 
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

@@ -8,7 +8,7 @@ import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
 import ProfileForm from './ProfileForm';
-import AccountForm from './AccountForm';
+import AccountForm from '../pages/AccountForm';
 
 import { connect } from 'react-redux';
 
