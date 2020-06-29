@@ -9,15 +9,22 @@ import reducers from './redux/reducers/index'; // We exported combineReducers
 import './index.css';
 import App from './App';
 
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import Theme from './util/style';
+
 // eslint-disable-next-line no-underscore-dangle
 const store = createStore(reducers, composeWithDevTools());
+
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
+      <ThemeProvider theme={createMuiTheme(Theme)}>
       <Provider store={store}>
         <App />
       </Provider>
+      </ThemeProvider>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById('root'),
