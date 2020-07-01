@@ -10,11 +10,9 @@ import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 
 import ProfilePage from './pages/ProfilePage';
-import { useTheme } from '@material-ui/core/styles';
 
 function App() {
 
-  const theme = useTheme();
   return (
     <main>
       <TempNavbar />
