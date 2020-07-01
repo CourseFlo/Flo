@@ -12,6 +12,7 @@ import Navbar from './components/Navbar';
 import ProfilePage from './pages/ProfilePage';
 
 function App() {
+
   return (
     <main>
       <TempNavbar />
