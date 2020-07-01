@@ -41,6 +41,7 @@ module.exports = {
       "ImportDeclaration": "never",
       "ExportDeclaration": { "multiline": true, "minProperties": 3 }
     }],
+    "react/jsx-fragments": "off"
     },
   settings: {
   }

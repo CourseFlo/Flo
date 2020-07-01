@@ -1,26 +1,12 @@
 var express = require('express');
 var router = express.Router();
-let User = require('../models/users.model');
-
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
-
-let users = [
-  {
-    id: '1',
-    username: 'testusername',
-    firstname: 'madman',
-    lastname: 'naniiyeeet'
-  }
-];
-
+let User = require('../models/users');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(users);
+  User.find()
+    .then(users => res.json(users))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 router.get('/:userId', function(req, res, next) {

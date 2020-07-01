@@ -2,28 +2,29 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import * as serviceWorker from './serviceWorker';
 import reducers from './redux/reducers/index'; // We exported combineReducers
 import './index.css';
 import App from './App';
 
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import Theme from './util/style';
 
 // eslint-disable-next-line no-underscore-dangle
-const store = createStore(reducers, composeWithDevTools());
+const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
 
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
       <ThemeProvider theme={createMuiTheme(Theme)}>
-      <Provider store={store}>
-        <App />
-      </Provider>
+        <Provider store={store}>
+          <App />
+        </Provider>
       </ThemeProvider>
     </React.StrictMode>
   </BrowserRouter>,

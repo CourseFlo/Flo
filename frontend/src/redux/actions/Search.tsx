@@ -1,5 +1,5 @@
 import { CHANGE_FILTERS, SUBMIT_SEARCH } from '../constants';
-import { Filters } from '../../type-interfaces/Search'; // eslint-disable-line no-unused-vars
+import { Filters } from '../../type-interfaces/Search';
 
 export const changeFilters = (filters: Filters) => ({
   type: CHANGE_FILTERS,
