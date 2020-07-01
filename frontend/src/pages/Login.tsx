@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
+import { getUsers } from '../redux/actions/User';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   loginContainer: {
@@ -16,8 +18,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const Login = () => {
+const Login = (props: any) => {
+  const { users, getUsers } = props;
   const classes = useStyles();
+  console.log(users);
+  useEffect(() => {
+    getUsers();
+  }, []);
 
   return (
     <div>
@@ -32,8 +39,17 @@ const Login = () => {
           </Link>
         </div>
       </Container>
+      <div>
+        Users:
+        {users.map((user: any) => user.username) }
+      </div>
     </div>
   );
 };
 
-export default Login;
+const mapStateToProps = (state: any) => {
+  const { users } = state;
+  return { users };
+};
+
+export default connect(mapStateToProps, { getUsers })(Login);

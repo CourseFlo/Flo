@@ -1,7 +1,5 @@
-
 import { Course } from '../../type-interfaces/Course';
 import { coral } from 'color-name';
-
 
 export const updateCourse = (course: Course) => { 
   return {
@@ -14,12 +12,12 @@ export const updateCourse = (course: Course) => {
 };
 
 export const changeSelectedCourse = (course: Course) => { 
-    return {
-        type: 'CHANGE_SELECTED_COURSE',
-        courseLetterCode: course.courseLetterCode, 
-        courseDigitCode: course.courseDigitCode,
-        courseId: course.courseId,
-        description: course.description,
-        preReqs: course.preReqs,
-    }
+  return {
+    type: 'CHANGE_SELECTED_COURSE',
+    courseLetterCode: course.courseLetterCode, 
+    courseDigitCode: course.courseDigitCode,
+    courseId: course.courseId,
+    description: course.description,
+    preReqs: course.preReqs,
+  }
 }

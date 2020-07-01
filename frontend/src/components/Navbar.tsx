@@ -124,7 +124,7 @@ function Navbar(props: any) {
             }}
             inputProps={{ 'aria-label': 'search' }}
             onChange={handleQueryChange}
-            onSubmit={submitSearch(currFilters)}
+            onSubmit={() => submitSearch(currFilters)}
           />
         </div>
         <Button className={classes.buttons} color="inherit" href="/VisualCourse">Visualize</Button>
