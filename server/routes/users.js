@@ -2,21 +2,6 @@ var express = require('express');
 var router = express.Router();
 let User = require('../models/users');
 
-// /* GET users listing. */
-// router.get('/', function(req, res, next) {
-//   res.send('respond with a resource');
-// });
-
-let users = [
-  {
-    id: '1',
-    username: 'testusername',
-    firstname: 'madman',
-    lastname: 'naniiyeeeEEEEEEEEEEEEEEEEEEEEEEEEEEEeeeeet'
-  }
-];
-
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   User.find()
