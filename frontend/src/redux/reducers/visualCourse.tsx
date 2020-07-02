@@ -1,6 +1,7 @@
 // Where does store come from in Browse.tsx?
 
 import { Course } from '../../type-interfaces/Course'; // eslint-disable-line no-unused-vars
+import { BottomNavigationAction } from '@material-ui/core';
  
 const courseArray: any = {
     courseArray: {
@@ -10,6 +11,20 @@ const courseArray: any = {
     }
 }
 
-export const changeSelectedCourse = (store: any = courseArray) => {
-    return store;
+export const changeSelectedCourse = (store: any = courseArray, action: any) => {
+    switch (action.type) {
+        case 'CHANGE_SELECTED_COURSE':
+            return action.courseId;
+        default:
+            return store;
+    }
 }
+
+export const getUsers = (store: any[] = [], action: any) => {
+    switch (action.type) {
+      case 'GET_USERS':
+        return action.users;
+      default:
+        return store;
+    }
+  };

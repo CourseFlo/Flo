@@ -1,59 +1,92 @@
 // rename to visualize
 import React from 'react';
 import { connect } from 'react-redux';
+import { Grid, Paper } from '@material-ui/core';
+
 import Courses from '../components/VisualCourse/courses';
 import DisplayedCourse from '../components/VisualCourse/displayedCourse';
 import Course from '../components/VisualCourse/course';
 import '../components/VisualCourse/visualCourse.css';
+import classes from '*.module.scss';
 
 const VisualCourse = (props: any) => {
     //console.log("VisualCourse props:");
     //console.log(props);
-    const coursesProps = {
+    const getCourseInfoCard = (courseInfoObj: any) => {
+        const { courseStringCode, courseDigitCode, description, courseId } = courseInfoObj;
+        return (
+            <Course {...courseInfoObj} />
+        )
+    }
+    const coursesListPrereqs = [
         // courses: props.courses
-        1: {
+        {
             courseStringCode: "CPSC",
-            courseDigitCode: "210",
+            courseDigitCode: "110",
             description: "Software Construction",
         }
+    ]
+
+    const courseCurr = {
+        courseStringCode: "CPSC",
+        courseDigitCode: "210",
+        description: "Software Construction",
     }
+
+    const coursesListFuture = [
+        {
+            courseStringCode: "CPSC",
+            courseDigitCode: "213",
+            description: "Computer Systems",
+        },
+        {
+            courseStringCode: "CPSC",
+            courseDigitCode: "221",
+            description: "Data Structures and Algorithms",
+        },
+        {
+            courseStringCode: "CPSC",
+            courseDigitCode: "310",
+            description: "Intro to Software Engineering",
+        }
+    ]
     // <Courses {...coursesProps}></Courses>
-    return (
-    <div className='module'>
-        <div className='column'>
-            Prereq:
-            <Course 
-                courseStringCode="CPSC"
-                courseDigitCode="110"
-                description="Computation, Programs, and Programming" 
-            ></Course>
-        </div>
-        <div className='column'>
-            <DisplayedCourse 
-                courseStringCode="CPSC" 
-                courseDigitCode="210"
-                description="Software Construction"
-            ></DisplayedCourse>
-        </div>
-        <div className='column'>
-            Courses that follow:
-            <Course 
-                courseStringCode="CPSC"
-                courseDigitCode="213"
-                description="Computer Systems" 
-            ></Course>
-            <Course 
-                courseStringCode="CPSC"
-                courseDigitCode="221"
-                description="Data Structures and Algorithms" 
-            ></Course>
-            <Course  
-                courseStringCode="CPSC"
-                courseDigitCode="310"
-                description="Intro to Software Engineering" 
-            ></Course>
-        </div>
-    </div>);
+    return (<>
+        <Grid container spacing={3} justify='center' alignItems='center'>
+            {/* <Grid item xs={false} sm={2} /> */}
+            <Grid item xs={3}>
+                <Paper>
+                    <Grid container spacing={4} direction="column">
+                        {coursesListPrereqs.map(courseInfoObj =>
+                            (<Grid item xs={11}>
+                                {getCourseInfoCard(courseInfoObj)}
+                            </Grid>)
+                        )}
+                    </Grid>
+                </Paper>
+            </Grid>
+            <Grid item xs={3}>
+                <Paper>
+                    <Grid container spacing={4} direction="column">
+                        <Grid item xs={11}>
+                            {getCourseInfoCard(courseCurr)}
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </Grid>
+            <Grid item xs={3}>
+                <Paper>
+                    <Grid container spacing={4} direction="column">
+                        {coursesListFuture.map(courseInfoObj =>
+                            (<Grid item xs={11}>
+                                {getCourseInfoCard(courseInfoObj)}
+                            </Grid>)
+                        )}
+                    </Grid>
+                </Paper>
+            </Grid>
+        </Grid>
+    </>);
 };
 
 const mapStateToProps = (state: any) => {
