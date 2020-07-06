@@ -19,8 +19,8 @@ function App() {
       <TempNavbar />
       <Navbar />
       <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/login" component={Login} exact />
+        <Route path="/" component={Home} exact />
+        <Route path="/login" component={Login} />
         <Route path="/Browse" component={Browse} />
         <Route path="/VisualCourse" component={VisualCourse} />
         <Route path="/ProfilePage" component={ProfilePage} />
