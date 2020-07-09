@@ -39,19 +39,19 @@ const Results = (props: Props) => {
           <Card className={classes.root}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
+                {item.sessionYear}
+                {item.sessionTerm}
+              </Typography>
+              <Typography variant="h5" component="h2">
                 {item.courseLetterCode}
                 {item.courseDigitCode}
               </Typography>
-              <Typography variant="h5" component="h2">
-                be{bull}nev{bull}o{bull}lent
-              </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                adjective
+                {`Restrictions: ${  item.restrictionInfo}`}
+                {` | Pre-reqs: ${Object.keys(item.preReqs)}`}
               </Typography>
               <Typography variant="body2" component="p">
-                well meaning and kindly.
-                <br />
-                a benevolent smile
+                {item.description}
               </Typography>
             </CardContent>
             <CardActions>
