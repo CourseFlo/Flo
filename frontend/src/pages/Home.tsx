@@ -1,9 +1,10 @@
 import React from 'react';
 import SearchCard from "../components/SearchCard";
+import {Typography} from "@material-ui/core";
 
 const Home = () => (
   <div>
-    <h1>Welcome to CourseFlo</h1>
+    <Typography align='center' variant='h2'>Welcome to CourseFlo</Typography>
     <SearchCard/>
   </div>
 );
