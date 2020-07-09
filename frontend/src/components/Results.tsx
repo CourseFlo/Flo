@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Course } from '../type-interfaces/Course';
-import { CardContent, Card, Typography, CardActions, Button } from '@material-ui/core';
+import { CardContent, Card, Typography, CardActions, Button, Grid } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -31,11 +31,10 @@ const Results = (props: Props) => {
   const { searchResults }: Props = props;
   const classes = useStyles();
 
-  const bull = <span className={classes.bullet}>•</span>;
   return (
-    <div className={classes.root}>
+    <Grid container spacing={3}>
       {searchResults.map((item) => (
-        <>
+        <Grid item xs={4}>
           <Card className={classes.root}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
@@ -58,10 +57,9 @@ const Results = (props: Props) => {
               <Button size="small">Learn More</Button>
             </CardActions>
           </Card>
-        </>
+        </Grid>
       ))}
-
-    </div>
+    </Grid>
   );
 };
 
