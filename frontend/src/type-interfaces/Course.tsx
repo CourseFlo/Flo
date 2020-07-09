@@ -1,7 +1,7 @@
 export type SessionYear = number;
 export type SessionTerm = string;
 export type CourseLetterCode = string;
-export type CourseDigitCode = number;
+export type CourseDigitCode = string;
 export type CourseId = string;
 
 /**
@@ -117,7 +117,7 @@ export const getCourseCode = (courseId: string):
   // || Number(courseIdPieces[3]) > MAX_COURSE_CODE) return undefined;
 
   const letterCode: CourseLetterCode = courseIdPieces[2];
-  const digitCode: CourseDigitCode = Number(courseIdPieces[3]);
+  const digitCode: CourseDigitCode = courseIdPieces[3];
 
   return { letterCode, digitCode };
 };
