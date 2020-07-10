@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const otherRouter = require('./routes/otherRouter');
+const scriptRouter = require('./services/scripts')
 
 var app = express();
 
@@ -26,7 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true });
 
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -38,6 +39,7 @@ connection.once('open', () => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/otherRoute', otherRouter);
+app.use('/scraping', scriptRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
