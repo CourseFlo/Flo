@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-let User = require('../models/users');
+let User = require('../models/user');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -10,9 +10,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/:userId', function(req, res, next) {
-  const foundUser = users.find(user => user.id === req.params.userId);
-  res.setHeader('Content-Type', 'application/json');
-  res.send(foundUser);
+  User.findById(req.params.userId)
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 // // Straight from mongo
