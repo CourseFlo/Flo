@@ -12,7 +12,8 @@ const mongoose = require('mongoose');
 var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const otherRouter = require('./routes/otherRouter');
-const scriptRouter = require('./services/scripts')
+const coursesRouter = require('./routes/courses');
+const scriptRouter = require('./services/scripts');
 
 var app = express();
 
@@ -39,6 +40,7 @@ connection.once('open', () => {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/otherRoute', otherRouter);
+app.use('/courses', coursesRouter);
 app.use('/scraping', scriptRouter);
 
 // catch 404 and forward to error handler
