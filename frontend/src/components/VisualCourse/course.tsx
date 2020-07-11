@@ -9,9 +9,6 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -30,27 +27,18 @@ export default function Course(props: any) {
 
   return (
     <Box display="flex" alignSelf="flex-end">
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          {props.courseStringCode} {props.courseDigitCode}
-        </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          
-        </Typography>
-        <Typography variant="body2" component="p">
-          {props.description}
-        </Typography>
-      </CardContent>
-      <CardActions>
-        <Button size="small">Expand</Button>
-      </CardActions>
-    </Card>
+      <Card>
+        <CardContent>
+          <Typography variant="h5" component="h2">
+            {props.courseStringCode} {props.courseDigitCode}
+          </Typography>
+          <Typography variant="body2" component="p">
+            {props.description}
+          </Typography>
+        </CardContent>
+      </Card>
     </Box>
-    
+
   );
 }
 
-/*
-  <div className='course'>
-*/
