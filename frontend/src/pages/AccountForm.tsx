@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 // import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -14,22 +15,22 @@ import axios from 'axios';
 const initialState = {
   name: 'Sam Ip',
   email: 'samip@email.com',
-  Major: 'Computer Science',
+  major: 'Computer Science',
   courses: [
     'CPSC 110', 'CPSC 121', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 310',
   ],
 };
 
-export default function AccountForm() {
-//   const [open, setOpen] = React.useState(false);
-  const [profile, setProfile] = React.useState(initialState);
-  const [editName, toggleEdit] = React.useState(false);
-  const [editEmail, toggleEmail] = React.useState(false);
-  const [editMajor, toggleMajor] = React.useState(false);
-  //   const [inputs, setInputs] = React.useState({});
-  const [profileName, setProfileName] = React.useState(initialState.name);
-  const [profileEmail, setProfileEmail] = React.useState(initialState.email);
-  const [profileMajor, setProfileMajor] = React.useState(initialState.Major);
+function AccountForm() {
+//   const [open, setOpen] = useState(false);
+  const [profile, setProfile] = useState(initialState);
+  const [editName, toggleEdit] = useState(false);
+  const [editEmail, toggleEmail] = useState(false);
+  const [editMajor, toggleMajor] = useState(false);
+  //   const [inputs, setInputs] = useState({});
+  const [profileName, setProfileName] = useState(profile.name);
+  const [profileEmail, setProfileEmail] = useState(initialState.email);
+  const [profileMajor, setProfileMajor] = useState(initialState.major);
 
   useEffect(() => {
     axios
@@ -38,7 +39,7 @@ export default function AccountForm() {
         setProfile({
           name: data[0].name,
           email: data[0].email,
-          Major: data[0].major,
+          major: data[0].major,
           courses: data[0].courses,
         });
         console.log(data);
@@ -63,6 +64,7 @@ export default function AccountForm() {
   };
 
   const handleNameChange = (e: any) => setProfileName(e.target.value);
+  // const handleNameChange = (e: any) => setProfileName(e.target.value);
 
   const handleEmailChange = (e: any) => setProfileEmail(e.target.value);
 
@@ -72,11 +74,17 @@ export default function AccountForm() {
     const newProfile = {
       name: profileName,
       email: profile.email,
-      Major: profile.Major,
+      major: profile.major,
       courses: profile.courses,
     };
     setProfile(newProfile);
-    axios.post('http://localhost:9000/users/add')
+    axios.post('http://localhost:9000/users/add', {
+      name: profileName,
+      email: newProfile.email,
+      major: newProfile.major,
+      courses: newProfile.courses,
+      id: '5f080b5a1ad963c82c07f475',
+    });
     toggleEdit(!editName);
   };
 
@@ -84,25 +92,36 @@ export default function AccountForm() {
     const newProfile = {
       name: profile.name,
       email: profileEmail,
-      Major: profile.Major,
+      major: profile.major,
       courses: profile.courses,
     };
     setProfile(newProfile);
+    axios.post('http://localhost:9000/users/add', {
+      name: newProfile.name,
+      email: profileEmail,
+      major: newProfile.major,
+      courses: newProfile.courses,
+      id: '5f080b5a1ad963c82c07f475',
+    });
     toggleEmail(!editEmail);
   };
   const submitMajorChange = () => {
     const newProfile = {
       name: profile.name,
       email: profile.email,
-      Major: profileMajor,
+      major: profileMajor,
       courses: profile.courses,
     };
     setProfile(newProfile);
+    axios.post('http://localhost:9000/users/add', {
+      name: newProfile.name,
+      email: newProfile.email,
+      major: profileMajor,
+      courses: newProfile.courses,
+      id: '5f080b5a1ad963c82c07f475',
+    });
     toggleMajor(!editMajor);
   };
-
-  // eslint-disable-next-line react/no-array-index-key
-  const mappedCourses = profile.courses.map((course, i: any) => <ListItem button key={i}>{course}</ListItem>);
 
   return (
     <div>
@@ -120,7 +139,7 @@ export default function AccountForm() {
           <ListItem>
             <Typography display="inline" variant="subtitle1">
               Name:
-              {profileName}
+              {profile.name}
             </Typography>
             <Button onClick={handleEditName} startIcon={<EditIcon />}> </Button>
           </ListItem>
@@ -156,16 +175,22 @@ export default function AccountForm() {
           <ListItem>
             <Typography variant="subtitle1">
               Major:
-              {profile.Major}
+              {profile.major}
             </Typography>
             <Button onClick={handleEditMajor} startIcon={<EditIcon />}>  </Button>
           </ListItem>
         )}
         <ListItem>
           <Typography variant="subtitle1">Courses:</Typography>
-          <List>{mappedCourses}</List>
+          <List>
+            {profile.courses.map((course) => (
+              <ListItem button key={course}>{course}</ListItem>
+            ))}
+          </List>
         </ListItem>
       </List>
     </div>
   );
 }
+
+export default connect(null, null)(AccountForm);

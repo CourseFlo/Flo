@@ -89,8 +89,8 @@ class ProfileMenu extends React.Component<myProps, myState> {
         </Grid>
         <Grid item xs={8}>
           <div>
-            {this.state.button == 'profile' && <ProfileForm />}
-            {this.state.button == 'myAccount' && <AccountForm />}
+            {this.state.button === 'profile' && <ProfileForm />}
+            {this.state.button === 'myAccount' && <AccountForm />}
 
           </div>
         </Grid>

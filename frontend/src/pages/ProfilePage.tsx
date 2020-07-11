@@ -57,7 +57,7 @@ export default function ProfilePage() {
           <Box display="flex" width="50%" height="100vh" justifyContent="center">
             <div className={classes.root}>
               <Grid container>
-                <Grid item xs={12} >
+                <Grid item xs={12}>
                   <Box marginLeft={50}>
                     <Box height="30vh">
                       <Avatar src="/broken-image.jpg" className={classes.largeImg} />

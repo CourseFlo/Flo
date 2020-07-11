@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
-import { createStyles, makeStyles, Theme, useTheme } from '@material-ui/core/styles';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import { Filters } from '../type-interfaces/Search';
@@ -80,7 +80,6 @@ function Navbar(props: any) {
     letterCodes: [],
     numberRange: [MIN_COURSE_CODE, MAX_COURSE_CODE],
   };
-  const theme = useTheme();
 
   const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target as HTMLSelectElement;
