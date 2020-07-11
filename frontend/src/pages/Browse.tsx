@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { Paper } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import Results from '../components/Results';
@@ -16,7 +15,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     margin: 100,
   },
   pageTitle: {
-    fontSize: '30px',
     textAlign: 'center',
   },
   paper: {},
@@ -30,15 +28,11 @@ const Browse = (props: any) => {
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
-        <Grid item xs>
-          <Paper className={classes.paper}>space (dev)</Paper>
+        <Grid item xs />
+        <Grid item xs={4}>
+          <Typography variant="h3" className={classes.pageTitle} color="secondary">Search</Typography>
         </Grid>
-        <Grid item xs>
-          <p className={classes.pageTitle}>Search</p>
-        </Grid>
-        <Grid item xs>
-          <Paper className={classes.paper}>space (dev)</Paper>
-        </Grid>
+        <Grid item xs />
       </Grid>
       <Search />
       <Results />

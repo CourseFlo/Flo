@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontWeight: theme.typography.fontWeightRegular,
   },
   searchButton: {
+    width: '100%',
   },
 }));
 
@@ -59,9 +60,9 @@ const names = [
 
 // Create array of slider marks: MIN_COURSE_CODE to MAX_COURSE_CODE, in steps of SLIDER_STEP_SIZE
 const sliderRange: any[] = Array.from(Array((MAX_COURSE_CODE - MIN_COURSE_CODE) / SLIDER_STEP_SIZE + 1).keys());
-const sliderMarks = sliderRange.map((num, i) => ({
+const sliderMarks = sliderRange.map((_num, i) => ({
   value: (MIN_COURSE_CODE + i * SLIDER_STEP_SIZE),
-  label: (MIN_COURSE_CODE + i * SLIDER_STEP_SIZE)+'',
+  label: `${MIN_COURSE_CODE + i * SLIDER_STEP_SIZE}`,
 }));
 
 interface Props {
@@ -114,9 +115,7 @@ const Search = (props: any) => {
       <div className={classes.searchContainer}>
         {/* TODO Extract this margin into a better system */}
         <Grid container spacing={3}>
-          <Grid item xs>
-            <Paper className={classes.paper}>xs</Paper>
-          </Grid>
+          <Grid item xs />
           <Grid item xs>
             <form className={classes.queryForm} noValidate autoComplete="off">
               <TextField
@@ -130,9 +129,7 @@ const Search = (props: any) => {
               />
             </form>
           </Grid>
-          <Grid item xs>
-            <Paper className={classes.paper}>xs</Paper>
-          </Grid>
+          <Grid item xs />
         </Grid>
         <Grid container spacing={10} alignItems="stretch">
           <Grid item xs>
@@ -158,7 +155,7 @@ const Search = (props: any) => {
                 </Select>
               </FormControl>
               {'Selected Codes: '}
-              {searchInputs.letterCodes.map((code) => code + ', ')}
+              <Typography>{searchInputs.letterCodes.map((code) => `${code} , `)}</Typography>
             </Box>
           </Grid>
           <Grid item xs>
@@ -179,14 +176,9 @@ const Search = (props: any) => {
               />
             </Box>
           </Grid>
-          {/* <Grid item xs>
-            <Paper className={classes.paper}>Other fancy filter</Paper>
-          </Grid> */}
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs>
-            <Paper className={classes.paper}>space (dev)</Paper>
-          </Grid>
+          <Grid item xs />
           <Grid item xs={6}>
             <Button
               variant="contained"
@@ -199,9 +191,7 @@ const Search = (props: any) => {
               Search
             </Button>
           </Grid>
-          <Grid item xs>
-            <Paper className={classes.paper}>space (dev)</Paper>
-          </Grid>
+          <Grid item xs />
         </Grid>
       </div>
     </div>
