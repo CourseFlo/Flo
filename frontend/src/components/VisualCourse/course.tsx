@@ -6,12 +6,8 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles({
-  root: {
-    minWidth: 275,
-  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
@@ -26,31 +22,32 @@ const useStyles = makeStyles({
 });
 
 export default function Course(props: any) {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
-    <Box display="flex" alignSelf="flex-end">
-    <Card className={classes.root}>
+    <Card>
       <CardContent>
-        <Typography variant="h5" component="h2">
-          {props.courseStringCode} {props.courseDigitCode}
+        <Typography variant="h5">
+          {props.courseId}
         </Typography>
-        <Typography className={classes.pos} color="textSecondary">
-          
+        <Typography variant="caption">
+          {props.title}
         </Typography>
-        <Typography variant="body2" component="p">
+        <Typography variant="body2">
           {props.description}
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Expand</Button>
+        <Button onClick={() => {
+          console.log('You are here with course: ');
+          console.log(props);
+        }}
+        >
+          Details
+        </Button>
+        <Button href={props.website}>Visit Site</Button>
       </CardActions>
     </Card>
-    </Box>
-    
+
   );
 }
-
-/*
-  <div className='course'>
-*/
