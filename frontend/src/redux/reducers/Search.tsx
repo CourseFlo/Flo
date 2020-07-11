@@ -61,7 +61,7 @@ export const searchRetrieval = (store: Course[] = [], action: any) => {
   }
 };
 
-export const searchIsLoading = (isLoading: boolean = false, action: any) => {
+export const isSearchLoading = (isLoading: boolean = false, action: any) => {
   switch (action.type) {
     case SUBMIT_SEARCH:
       return false;
