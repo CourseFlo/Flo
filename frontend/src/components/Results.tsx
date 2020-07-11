@@ -34,7 +34,7 @@ const Results = (props: Props) => {
   return (
     <Grid container spacing={3}>
       {searchResults.map((item) => (
-        <Grid item xs={4}>
+        <Grid item xs={4} key={item.courseId}>
           <Card className={classes.root}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>

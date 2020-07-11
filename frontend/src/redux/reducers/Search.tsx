@@ -1,9 +1,9 @@
-import { CHANGE_FILTERS, SUBMIT_SEARCH } from '../constants';
+import { CHANGE_FILTERS, SUBMIT_SEARCH, SUBMIT_SEARCH_FAILURE, SET_LOADING_SEARCH_TRUE } from '../constants';
 import { Filters } from '../../type-interfaces/Search'; // eslint-disable-line no-unused-vars
 import { Course, buildCourseId, CourseId } from '../../type-interfaces/Course';
 
 const searchFilteringDefault: Filters = {
-  query: 'cpsc',
+  query: '',
   letterCodes: ['CPSC', 'ANTH'],
   numberRange: [200, 400],
 };
@@ -49,15 +49,27 @@ const sampleCourse1: Course = {
 const searchResultsDefault2: Course[] = [sampleCourse, sampleCourse1];
 const searchResultsDefault4: Course[] = [...searchResultsDefault2, ...searchResultsDefault2];
 const searchResultsDefault8: Course[] = [...searchResultsDefault4, ...searchResultsDefault4];
-export const searchRetrieval = (store: Course[] = searchResultsDefault8, action: any) => {
+export const searchRetrieval = (store: Course[] = [], action: any) => {
   switch (action.type) {
     // TODO add actual behaviour of searching
     case SUBMIT_SEARCH:
-      return [
-        ...store,
-        // action.searchResultsFromBackend?
-      ];
+      return action.offerings;
+    case SUBMIT_SEARCH_FAILURE:
+      return [];
     default:
       return store;
   }
 };
+
+export const searchIsLoading = (isLoading: boolean = false, action: any) => {
+  switch (action.type) {
+    case SUBMIT_SEARCH:
+      return false;
+    case SUBMIT_SEARCH_FAILURE:
+      return false;
+    case SET_LOADING_SEARCH_TRUE:
+      return true;
+    default:
+      return isLoading;
+  }
+}

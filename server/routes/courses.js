@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 // TODO Sanitize the input.
-router.get('/search', function (req, res, next) {
+router.post('/search', function (req, res, next) {
   // do a find on courseCode, courseDept, description, title
   let { minusculer, larger } = { minusculer: Number(req.body.courseNumberRange[0]), larger: Number(req.body.courseNumberRange[1]) };
 
