@@ -1,12 +1,13 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, CircularProgress } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import Results from '../components/Results';
 import Search from '../components/Search';
 
 interface Props {
+  isSearchLoading: boolean,
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Browse = (props: any) => {
   // eslint-disable-next-line no-shadow
-  const {}: Props = props;
+  const { isSearchLoading }: Props = props;
   const classes = useStyles();
 
   return (
@@ -35,6 +36,9 @@ const Browse = (props: any) => {
         <Grid item xs />
       </Grid>
       <Search />
+      {isSearchLoading ?
+        <CircularProgress /> :
+        <></>}
       <Results />
     </div>
   );
@@ -44,4 +48,12 @@ const Browse = (props: any) => {
 Browse.propTypes = {
 };
 
-export default connect(null, { })(Browse);
+interface BrowseState {
+  isSearchLoading: boolean,
+}
+const mapStateToProps = (state: BrowseState) => {
+  const { isSearchLoading }: BrowseState = state;
+  return { isSearchLoading };
+};
+
+export default connect(mapStateToProps, { })(Browse);
