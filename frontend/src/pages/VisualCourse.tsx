@@ -4,67 +4,69 @@ import { connect } from 'react-redux';
 import { Grid, Paper } from '@material-ui/core';
 
 import Course from '../components/VisualCourse/course';
+import { setCenteredCourse } from '../redux/actions/visualCourse';
 import '../components/VisualCourse/visualCourse.css';
 // import classes from '*.module.scss';
 
-const VisualCourse = (props: any) => {
+interface Props {
+  centeredCourse: any,
+  setCenteredCourseAction: Function,
+}
+const VisualCourse = (props: Props) => {
+  const { centeredCourse, setCenteredCourseAction }: Props = props;
   // console.log("VisualCourse props:");
   // console.log(props);
+
   const getCourseInfoCard = (courseInfoObj: any) => {
     // const { courseStringCode, courseDigitCode, description, courseId } = courseInfoObj;
     return (
-      <Course id="course" {...courseInfoObj} />
+      <Course {...courseInfoObj} />
     );
   };
 
-  const coursesListPrereqs = [
+  const coursesListPrereqs = centeredCourse.preReqs;
+  const coursesListPrereqsMockData: any = {
     // courses: props.courses
-    {
-      courseStringCode: 'CPSC',
-      courseDigitCode: '110',
+    'CPSC 110': {
+      courseId: 'CPSC 110',
+      title: 'Racket',
       description: 'Software Construction',
+      website: 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=110',
     },
-  ];
-
-  const courseCurr = {
-    courseStringCode: 'CPSC',
-    courseDigitCode: '210',
-    description: 'Software Construction',
   };
 
-  const coursesListFuture = [
-    {
-      courseStringCode: 'CPSC',
-      courseDigitCode: '213',
+  const coursesListFuture = centeredCourse.dep;
+  const coursesListDependentsMockData: any = {
+    'CPSC 213': {
+      courseId: 'CPSC 213',
+      title: 'systems',
       description: 'Computer Systems',
+      website: 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=213',
     },
-    {
-      courseStringCode: 'CPSC',
-      courseDigitCode: '221',
+    'CPSC 221': {
+      courseId: 'CPSC 221',
+      title: 'algos',
       description: 'Data Structures and Algorithms',
+      website: 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=221',
     },
-    {
-      courseStringCode: 'CPSC',
-      courseDigitCode: '310',
+    'CPSC 310': {
+      courseId: 'CPSC 310',
+      title: 'software engineering wtihout teaching you what you\'re actually building',
       description: 'Intro to Software Engineering',
+      website: 'https://courses.students.ubc.ca/cs/courseschedule?pname=subjarea&tname=subj-course&dept=CPSC&course=310',
     },
-  ];
+  };
 
-  const onClick = () => {
-    // let courseStringCode = document.getElementById
-  }
-
-  // <Courses {...coursesProps}></Courses>
   return (
     <>
-      <Grid container spacing={3} justify="center" alignItems="center">
+      <Grid container spacing={3} justify="center" alignItems="center" style={{ margin: '30px' }}>
         {/* <Grid item xs={false} sm={2} /> */}
         <Grid item xs={3}>
           <Paper>
-            <Grid container spacing={4} direction="column">
-              {coursesListPrereqs.map((courseInfoObj) => (
+            <Grid container spacing={4} justify="center" direction="column">
+              {coursesListPrereqs.map((courseId: string) => (
                 <Grid item xs={11}>
-                  {getCourseInfoCard(courseInfoObj)}
+                  {getCourseInfoCard(coursesListPrereqsMockData[courseId])}
                 </Grid>
               ))}
             </Grid>
@@ -72,9 +74,9 @@ const VisualCourse = (props: any) => {
         </Grid>
         <Grid item xs={3}>
           <Paper>
-            <Grid container spacing={4} direction="column">
-              <Grid item xs={11}>
-                {getCourseInfoCard(courseCurr)}
+            <Grid container spacing={4} justify="center" direction="column">
+              <Grid item justify="center" xs={11}>
+                {getCourseInfoCard(centeredCourse)}
               </Grid>
             </Grid>
           </Paper>
@@ -82,9 +84,9 @@ const VisualCourse = (props: any) => {
         <Grid item xs={3}>
           <Paper>
             <Grid container spacing={4} direction="column">
-              {coursesListFuture.map((courseInfoObj) => (
+              {coursesListFuture.map((courseId: string) => (
                 <Grid item xs={11}>
-                  {getCourseInfoCard(courseInfoObj)}
+                  {getCourseInfoCard(coursesListDependentsMockData[courseId])}
                 </Grid>
               ))}
             </Grid>
@@ -96,8 +98,10 @@ const VisualCourse = (props: any) => {
 };
 
 const mapStateToProps = (state: any) => {
-  const { courseArray }: any = state;
-  return { courseArray };
+  const { centeredCourse }: any = state;
+  return { centeredCourse };
 };
 
-export default connect(mapStateToProps, {})(VisualCourse);
+export default connect(mapStateToProps, {
+  setCenteredCourseAction: setCenteredCourse,
+})(VisualCourse);
