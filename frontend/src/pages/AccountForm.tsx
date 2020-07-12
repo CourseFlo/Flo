@@ -5,7 +5,6 @@ import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
-// import { blue } from '@material-ui/core/colors';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
@@ -19,6 +18,7 @@ const initialState = {
   courses: [
     'CPSC 110', 'CPSC 121', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 310',
   ],
+  id: '5f080b5a1ad963c82c07f475',
 };
 
 function AccountForm() {
@@ -27,10 +27,6 @@ function AccountForm() {
   const [editName, toggleEdit] = useState(false);
   const [editEmail, toggleEmail] = useState(false);
   const [editMajor, toggleMajor] = useState(false);
-  //   const [inputs, setInputs] = useState({});
-  const [profileName, setProfileName] = useState(profile.name);
-  const [profileEmail, setProfileEmail] = useState(initialState.email);
-  const [profileMajor, setProfileMajor] = useState(initialState.major);
 
   useEffect(() => {
     axios
@@ -41,6 +37,7 @@ function AccountForm() {
           email: data[0].email,
           major: data[0].major,
           courses: data[0].courses,
+          id: data[0].id,
         });
         console.log(data);
       });
@@ -63,63 +60,65 @@ function AccountForm() {
     }
   };
 
-  const handleNameChange = (e: any) => setProfileName(e.target.value);
-  // const handleNameChange = (e: any) => setProfileName(e.target.value);
+  const handleNameChange = (e: any) => setProfile({
+    name: e.target.value,
+    email: profile.email,
+    major: profile.major,
+    courses: profile.courses,
+    id: profile.id,
+  });
 
-  const handleEmailChange = (e: any) => setProfileEmail(e.target.value);
+  const handleEmailChange = (e: any) => setProfile({
+    name: profile.name,
+    email: e.target.value,
+    major: profile.major,
+    courses: profile.courses,
+    id: profile.id,
+  });
 
-  const handleMajorChange = (e: any) => setProfileMajor(e.target.value);
+  const handleMajorChange = (e: any) => setProfile({
+    name: profile.name,
+    email: profile.email,
+    major: e.target.value,
+    courses: profile.courses,
+    id: profile.id,
+  });
 
   const submitNameChange = () => {
     const newProfile = {
-      name: profileName,
+      name: profile.name,
       email: profile.email,
       major: profile.major,
       courses: profile.courses,
+      id: profile.id,
     };
     setProfile(newProfile);
-    axios.post('http://localhost:9000/users/add', {
-      name: profileName,
-      email: newProfile.email,
-      major: newProfile.major,
-      courses: newProfile.courses,
-      id: '5f080b5a1ad963c82c07f475',
-    });
+    axios.post('http://localhost:9000/users/add', newProfile);
     toggleEdit(!editName);
   };
 
   const submitEmailChange = () => {
     const newProfile = {
       name: profile.name,
-      email: profileEmail,
+      email: profile.email,
       major: profile.major,
       courses: profile.courses,
+      id: profile.id,
     };
     setProfile(newProfile);
-    axios.post('http://localhost:9000/users/add', {
-      name: newProfile.name,
-      email: profileEmail,
-      major: newProfile.major,
-      courses: newProfile.courses,
-      id: '5f080b5a1ad963c82c07f475',
-    });
+    axios.post('http://localhost:9000/users/add', newProfile);
     toggleEmail(!editEmail);
   };
   const submitMajorChange = () => {
     const newProfile = {
       name: profile.name,
       email: profile.email,
-      major: profileMajor,
+      major: profile.major,
       courses: profile.courses,
+      id: profile.id,
     };
     setProfile(newProfile);
-    axios.post('http://localhost:9000/users/add', {
-      name: newProfile.name,
-      email: newProfile.email,
-      major: profileMajor,
-      courses: newProfile.courses,
-      id: '5f080b5a1ad963c82c07f475',
-    });
+    axios.post('http://localhost:9000/users/add', newProfile);
     toggleMajor(!editMajor);
   };
 
