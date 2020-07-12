@@ -46,6 +46,7 @@ function parseCourseOfferings(rawData) {
       courseId: singleCourse.code,
       description: singleCourse.desc,
       preReqs: singleCourse.preq,
+      depn: singleCourse.depn,
       title: singleCourse.name,
       credits: Number(singleCourse.cred),
       link: singleCourse.link,

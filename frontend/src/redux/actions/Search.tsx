@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse, AxiosError } from 'axios';
 import { CHANGE_FILTERS, SUBMIT_SEARCH, SUBMIT_SEARCH_FAILURE, SET_LOADING_SEARCH_TRUE } from '../constants';
 import { Filters } from '../../type-interfaces/Search';
 
@@ -23,19 +23,17 @@ export const setLoadingSearchTrue = () => ({
   type: SET_LOADING_SEARCH_TRUE,
 });
 
-export const submitSearch = (filters: Filters) => {
-  return (dispatch: Function) => {
-    dispatch(setLoadingSearchTrue());
-    axios.post('http://localhost:9000/courses/search', {
-      courseNumberRange: filters.numberRange,
-      courseLetterCodes: filters.letterCodes,
-      queryString: filters.query,
-    }).then(response => {
-      const offerings = response.data;
-      dispatch(submitSearchSuccess(offerings));
-    }).catch(err => {
-      const errorMsg = err.message;
-      dispatch(submitSearchFailure(errorMsg));
-    });
-  }
-}
+export const submitSearch = (filters: Filters) => (dispatch: Function) => {
+  dispatch(setLoadingSearchTrue());
+  axios.post('http://localhost:9000/courses/search', {
+    courseNumberRange: filters.numberRange,
+    courseLetterCodes: filters.letterCodes,
+    queryString: filters.query,
+  }).then((response: AxiosResponse<any>) => {
+    const offerings = response.data;
+    dispatch(submitSearchSuccess(offerings));
+  }).catch((err: AxiosError) => {
+    const errorMsg = err.message;
+    dispatch(submitSearchFailure(errorMsg));
+  });
+};

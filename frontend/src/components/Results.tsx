@@ -1,10 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+// import PropTypes from 'prop-types';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Course } from '../type-interfaces/Course';
 import { CardContent, Card, Typography, CardActions, Button, Grid } from '@material-ui/core';
+
+import { Course } from '../type-interfaces/Course';
+import { getVisualizedCourses } from '../redux/actions/courses';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -25,10 +27,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 interface Props {
   searchResults: Course[],
+  getVisualizedCoursesAction: Function,
 }
 
 const Results = (props: Props) => {
-  const { searchResults }: Props = props;
+  const { searchResults, getVisualizedCoursesAction }: Props = props;
   const classes = useStyles();
 
   return (
@@ -46,7 +49,7 @@ const Results = (props: Props) => {
                 {item.courseDigitCode}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {`Restrictions: ${  item.restrictionInfo}`}
+                {`Restrictions: ${item.restrictionInfo}`}
                 {` | Pre-reqs: ${Object.keys(item.preReqs)}`}
               </Typography>
               <Typography variant="body2" component="p">
@@ -54,7 +57,7 @@ const Results = (props: Props) => {
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small">Learn More</Button>
+              <Button size="small" onClick={() => getVisualizedCoursesAction(item.courseId)}>Learn More</Button>
             </CardActions>
           </Card>
         </Grid>
@@ -63,10 +66,10 @@ const Results = (props: Props) => {
   );
 };
 
-// TODO Review custom
-Results.propTypes = {
-  searchResults: PropTypes.any.isRequired, // eslint-disable-line react/forbid-prop-types
-};
+// // TODO Review custom proptypes
+// Results.propTypes = {
+//   searchResults: PropTypes.CourseArray,
+// };
 
 interface ResultsState {
   searchResults: any,
@@ -76,7 +79,8 @@ const mapStateToProps = (state: ResultsState) => {
   return { searchResults };
 };
 
-const mapDispatchToProps = {
-};
+const mapDispatchToProps = (dispatch: any) => ({
+  getVisualizedCoursesAction: (params: string) => dispatch(getVisualizedCourses(params)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

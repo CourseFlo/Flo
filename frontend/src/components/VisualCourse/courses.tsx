@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Course from './course';
+import Course from './Course';
 
-
+// REVIEW and delete if not necessary. Unused/WIP Components don't need to be committed.
 function Courses(courses: any) {
   console.log('courses: ');
   console.log(courses);
