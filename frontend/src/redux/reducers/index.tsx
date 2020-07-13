@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 import { searchFiltering, searchRetrieval, isSearchLoading } from './Search';
 import { setLogin, getUsers } from './User';
-import { centeredCourse } from './visualCourse';
+import { visualizedCourses } from './visualCourse';
 
 export default combineReducers({
   searchFilters: searchFiltering,
   searchResults: searchRetrieval,
+  isSearchLoading,
   isLoggedin: setLogin,
   users: getUsers,
-  centeredCourse,
-  isSearchLoading,
+  visualizedCourses,
   //   reducer: someReducer              // TODO: ADD REDUCERS HERE
 
 });
