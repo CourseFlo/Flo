@@ -9,9 +9,17 @@ import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 
-// const emails = ['username@gmail.com', 'user02@gmail.com'];
+import { User } from '../type-interfaces/User';
+// import { getUsers } from '../redux/actions/User';
 
-const initialState = {
+// interface Props {
+//   editName: false,
+//   editEmail: false,
+//   editMajor: false,
+//   user: UserState,
+// }
+
+const initialState: User = {
   name: 'Sam Ip',
   email: 'samip@email.com',
   major: 'Computer Science',
@@ -22,13 +30,13 @@ const initialState = {
 };
 
 function AccountForm() {
-//   const [open, setOpen] = useState(false);
   const [profile, setProfile] = useState(initialState);
   const [editName, toggleEdit] = useState(false);
   const [editEmail, toggleEmail] = useState(false);
   const [editMajor, toggleMajor] = useState(false);
 
   useEffect(() => {
+    // separate this
     axios
       .get('http://localhost:9000/users')
       .then(({ data }) => {
@@ -41,6 +49,15 @@ function AccountForm() {
         });
         console.log(data);
       });
+    // const userData: any = getUsers();
+    // console.log(userData);
+    // setProfile({
+    //   name: userData[0].name,
+    //   email: userData[0].email,
+    //   major: userData[0].major,
+    //   courses: userData[0].courses,
+    //   id: userData[0].id,
+    // });
   }, []);
 
   const handleEditName = () => {
@@ -53,6 +70,11 @@ function AccountForm() {
   const handleEditMajor = () => {
     toggleMajor(!editMajor);
   };
+
+  // const handleEdit = (field: boolean) => {
+  //   this.props.
+  // }
+
 
   const handleSubmit = (event: any) => {
     if (event) {
@@ -192,4 +214,21 @@ function AccountForm() {
   );
 }
 
-export default connect(null, null)(AccountForm);
+interface UserState {
+  setEditName: boolean,
+  setEditEmail: boolean,
+  setEditMajor: boolean,
+  setProfileState: User,
+}
+
+const mapStateToProps = (state: UserState) => {
+  const { setEditName, setEditEmail, setEditMajor, setProfileState } = state;
+  return {
+    editName: setEditName,
+    editEmail: setEditEmail,
+    editMajor: setEditMajor,
+    user: setProfileState,
+  };
+};
+
+export default connect(mapStateToProps, null)(AccountForm);
