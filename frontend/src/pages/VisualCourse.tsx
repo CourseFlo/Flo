@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Grid, Paper } from '@material-ui/core';
 
-import Course from '../components/VisualCourse/Course';
+import Course from '../components/Course';
 // import classes from '*.module.scss';
 
 interface Props {
