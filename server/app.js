@@ -7,6 +7,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
+const path = require('path');
 
 // Routers
 var indexRouter = require('./routes/index');
@@ -58,5 +59,15 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+// Serve static assets
+if (process.env.NODE_ENV === 'production') {
+  // static cfolder
+  app.use(express.static('frontend/build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 
 module.exports = app;
