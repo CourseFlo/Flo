@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { GET_VISUALIZED_COURSE, GET_VISUALIZED_COURSE_FAILURE } from '../constants';
+import { API } from '../../util/config';
 // import { Course } from '../../type-interfaces/Course';
 
 export const getVisualizedCoursesSuccess = (visualizedCourses: any) => ({
@@ -14,7 +15,7 @@ export const getVisualizedCoursesFailure = (errMsg: string) => ({
 
 export const getVisualizedCourses = (courseId: string) => {
   return (dispatch: Function) => {
-    axios.get(`http://localhost:9000/courses/getRelated/${courseId}`)
+    axios.get(`${API}/courses/getRelated/${courseId}`)
       .then((response) => {
         console.log(response);
         dispatch(getVisualizedCoursesSuccess(response.data));

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { SET_LOGIN } from '../constants';
+import { API } from '../../util/config';
 
 export const setLogin = (loggedIn: boolean) => ({
   type: SET_LOGIN,
@@ -20,7 +21,7 @@ export const getUsersSuccess = (users : any[]) => ({
 // Get the user info
 export const getUsers = () => {
   return (dispatch: Function) => {
-    axios.get(`http://localhost:9000/users`)
+    axios.get(`${API}/users`)
       .then((response) => {
         dispatch(getUsersSuccess(response.data));
       })
