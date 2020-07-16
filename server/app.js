@@ -43,15 +43,21 @@ app.use('/otherRoute', otherRouter);
 app.use('/courses', coursesRouter);
 app.use('/scraping', scriptRouter);
 
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+
 // if (process.env.NODE_ENV === 'production') {
-  const BUILD = path.resolve(__dirname, 'frontend/build');
-  app.use(express.static(BUILD));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(BUILD, '/index.html'));
-  });
-  app.get('/', function(req, res) {
-    res.sendFile(path.join(BUILD, '/index.html'));
-  });
+  // const BUILD = path.join(__dirname, 'frontend/build');
+  // app.use(express.static(BUILD));
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.join(BUILD, '/index.html'));
+  // });
+  // // app.get('/favicon.ico', (req, res) => {
+  // //   res.sendFile(path.join(BUILD, '/favicon.ico'));
+  // // });
+  // app.get('/', function(req, res) {
+  //   res.sendFile(path.join(BUILD, '/index.html'));
+  // });
 // }
 
 // catch 404 and forward to error handler
