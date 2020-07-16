@@ -26,7 +26,7 @@ export const setLoadingSearchTrue = () => ({
 
 export const submitSearch = (filters: Filters) => (dispatch: Function) => {
   dispatch(setLoadingSearchTrue());
-  axios.post(`${API}/courses/search`, {
+  axios.post(`courses/search`, {
     courseNumberRange: filters.numberRange,
     courseLetterCodes: filters.letterCodes,
     queryString: filters.query,

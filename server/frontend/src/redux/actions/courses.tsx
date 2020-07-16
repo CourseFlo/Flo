@@ -15,7 +15,7 @@ export const getVisualizedCoursesFailure = (errMsg: string) => ({
 
 export const getVisualizedCourses = (courseId: string) => {
   return (dispatch: Function) => {
-    axios.get(`${API}/courses/getRelated/${courseId}`)
+    axios.get(`/courses/getRelated/${courseId}`)
       .then((response) => {
         console.log(response);
         dispatch(getVisualizedCoursesSuccess(response.data));
