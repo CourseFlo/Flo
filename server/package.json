@@ -6,7 +6,7 @@
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
     "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart",
-    "heroku-postbuild": "cd frontend && npm install --only=dev && npm run build"
+    "heroku-postbuild": "cd frontend && npm install && npm run build"
   },
   "dependencies": {
     "axios": "^0.19.2",
