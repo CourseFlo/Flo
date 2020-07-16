@@ -31,7 +31,7 @@ app.use(cookieParser());
 // Setup mongoose connection
 const uri = process.env.ATLAS_URI;
 mongoose.connect(uri, {
-  useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false
+  useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false,
 });
 const connection = mongoose.connection;
 connection.once('open', () => {
@@ -43,18 +43,16 @@ app.use('/otherRoute', otherRouter);
 app.use('/courses', coursesRouter);
 app.use('/scraping', scriptRouter);
 
-if (process.env.NODE_ENV === 'production') {
+// if (process.env.NODE_ENV === 'production') {
   const BUILD = path.resolve(__dirname, 'frontend/build');
   app.use(express.static(BUILD));
   app.get('*', (req, res) => {
-    console.log("actually serving front end other paths though");
     res.sendFile(path.join(BUILD, '/index.html'));
   });
   app.get('/', function(req, res) {
-    console.log("actually serving front end");
     res.sendFile(path.join(BUILD, '/index.html'));
   });
-}
+// }
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
