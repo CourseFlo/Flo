@@ -7,10 +7,10 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
-const path = require('path');
+// const path = require('path');
 
 // Routers
-var indexRouter = require('./routes/index');
+// var indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const otherRouter = require('./routes/otherRouter');
 const coursesRouter = require('./routes/courses');
@@ -26,23 +26,35 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+// app.use(express.static(path.join(__dirname, 'public')));
 
+// Setup mongoose connection
 const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false });
-
+mongoose.connect(uri, {
+  useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true, useFindAndModify: false
+});
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
-})
+});
 
-
-
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/otherRoute', otherRouter);
 app.use('/courses', coursesRouter);
 app.use('/scraping', scriptRouter);
+
+if (process.env.NODE_ENV === 'production') {
+  const BUILD = path.resolve(__dirname, 'frontend/build');
+  app.use(express.static(BUILD));
+  app.get('*', (req, res) => {
+    console.log("actually serving front end other paths though");
+    res.sendFile(path.join(BUILD, '/index.html'));
+  });
+  app.get('/', function(req, res) {
+    console.log("actually serving front end");
+    res.sendFile(path.join(BUILD, '/index.html'));
+  });
+}
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -59,15 +71,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// Serve static assets
-if (process.env.NODE_ENV === 'production') {
-  // static cfolder
-  app.use(express.static('frontend/build'));
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
-  });
-}
 
 module.exports = app;
