@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 // const path = require('path');
 
 // Routers
-// var indexRouter = require('./routes/index');
+const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const otherRouter = require('./routes/otherRouter');
 const coursesRouter = require('./routes/courses');
@@ -38,6 +38,7 @@ connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 });
 
+app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/otherRoute', otherRouter);
 app.use('/courses', coursesRouter);
