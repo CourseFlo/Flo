@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { GET_VISUALIZED_COURSE, GET_VISUALIZED_COURSE_FAILURE } from '../constants';
-import { API } from '../../util/config';
 // import { Course } from '../../type-interfaces/Course';
 
 export const getVisualizedCoursesSuccess = (visualizedCourses: any) => ({
@@ -40,7 +39,7 @@ export const getVisualizedCourses = (courseId: string) => {
 
 // export const submitGetCourse = (courseId) => {
 //   return (dispatch: Function) => {
-//     axios.get(`http://localhost:9000/courses/${courseId}`)
+//     axios.get(`/courses/${courseId}`)
 //       .then(response => {
 //         const offerings = response.data;
 //         dispatch(getCourseSuccess(offerings));

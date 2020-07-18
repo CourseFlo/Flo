@@ -10,7 +10,6 @@ import Typography from '@material-ui/core/Typography';
 // import { blue } from '@material-ui/core/colors';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
-import { API } from '../util/config';
 
 // const emails = ['username@gmail.com', 'user02@gmail.com'];
 
@@ -36,7 +35,7 @@ function AccountForm() {
 
   useEffect(() => {
     axios
-      .get(`${API}/users`)
+      .get(`/users`)
       .then(({ data }) => {
         setProfile({
           name: data[0].name,
@@ -80,7 +79,7 @@ function AccountForm() {
       courses: profile.courses,
     };
     setProfile(newProfile);
-    axios.post(`${API}/users/add`, {
+    axios.post(`/users/add`, {
       name: profileName,
       email: newProfile.email,
       major: newProfile.major,
@@ -98,7 +97,7 @@ function AccountForm() {
       courses: profile.courses,
     };
     setProfile(newProfile);
-    axios.post(`${API}/users/add`, {
+    axios.post(`/users/add`, {
       name: newProfile.name,
       email: profileEmail,
       major: newProfile.major,
@@ -115,7 +114,7 @@ function AccountForm() {
       courses: profile.courses,
     };
     setProfile(newProfile);
-    axios.post(`${API}/users/add`, {
+    axios.post(`/users/add`, {
       name: newProfile.name,
       email: newProfile.email,
       major: profileMajor,
