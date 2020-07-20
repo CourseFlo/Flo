@@ -5,8 +5,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www",
-    "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart",
-    "heroku-postbuild": "cd frontend && npm install && npm run build"
+    "serverstart": "DEBUG=express-locallibrary-tutorial:* npm run devstart"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -25,8 +24,5 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.21.2",
     "nodemon": "^2.0.4"
-  },
-  "engines": {
-    "node": "12.x"
   }
 }
