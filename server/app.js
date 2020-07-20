@@ -27,7 +27,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
 
 // Setup mongoose connection
 const uri = process.env.ATLAS_URI;
@@ -44,21 +44,6 @@ app.use('/users', usersRouter);
 app.use('/otherRoute', otherRouter);
 app.use('/courses', coursesRouter);
 app.use('/scraping', scriptRouter);
-
-
-// if (process.env.NODE_ENV === 'production') {
-  // const BUILD = path.join(__dirname, 'frontend/build');
-  // app.use(express.static(BUILD));
-  // app.get('*', (req, res) => {
-  //   res.sendFile(path.join(BUILD, '/index.html'));
-  // });
-  // // app.get('/favicon.ico', (req, res) => {
-  // //   res.sendFile(path.join(BUILD, '/favicon.ico'));
-  // // });
-  // app.get('/', function(req, res) {
-  //   res.sendFile(path.join(BUILD, '/index.html'));
-  // });
-// }
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -77,7 +62,7 @@ app.use(function(err, req, res, next) {
 });
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'frontend', 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
 });
 
 module.exports = app;
