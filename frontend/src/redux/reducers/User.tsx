@@ -17,3 +17,14 @@ export const getUsers = (store: any[] = [], action: any) => {
       return store;
   }
 };
+
+export const getCurrentUser = (store: any = {}, action: any) => { // TODO: temporary setup for single user
+  switch (action.type) {
+    case 'GET_USERS':
+      return action.users[0];
+    case 'UPDATE_USER':
+      return action.user;
+    default:
+      return store;
+  }
+};

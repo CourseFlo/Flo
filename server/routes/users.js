@@ -15,8 +15,10 @@ router.get('/:userId', function(req, res, next) {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+// add user
+
 // update user
-router.route('/add').post((req, res) => {
+router.route('/update').post((req, res) => {
   const name = req.body.name;
   const email = req.body.email;
   const major = req.body.major;
@@ -28,7 +30,7 @@ router.route('/add').post((req, res) => {
 
   filter = { id: id };
 
-  User.where().findOneAndUpdate({}, updates, { new: true }, 
+  User.where().findOneAndUpdate({}, updates, { new: true },
     (err, doc) => {
       if (err) {
         res.send("Error: " + err);
@@ -36,6 +38,19 @@ router.route('/add').post((req, res) => {
         res.send("Update successful: " + doc);
       }
     });
+});
+
+router.route('/update/:id').post((req, res) => {
+  const id = req.params.id;
+  const name = req.body.name;
+  const email = req.body.email;
+  const major = req.body.major;
+  // const courses = req.body.courses;
+  const updates = { name: name, email: email, major: major };
+  User.findByIdAndUpdate(id, updates, { new: true })
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err))
+
 });
 
 module.exports = router;

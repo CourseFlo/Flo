@@ -3,5 +3,5 @@ export interface User {
     email: string,
     major: string,
     courses: Array<string>,
-    id: string
+    _id: string
 }
