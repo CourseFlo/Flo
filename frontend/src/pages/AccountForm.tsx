@@ -39,7 +39,7 @@ function AccountForm(props: any) {
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [major, setMajor] = useState(currentUser.major);
-  const [courses, setCourses] = useState([]);
+  const [courses, setCourses] = useState(currentUser.courses);
 
   useEffect(() => {
     // axios.get('/users')
