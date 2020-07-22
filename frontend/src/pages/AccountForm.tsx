@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
+import axios from 'axios';
+
 // import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
@@ -7,7 +9,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
-import axios from 'axios';
 
 import { User } from '../type-interfaces/User';
 import { FieldEditState } from '../type-interfaces/FieldEditState';
@@ -41,7 +42,7 @@ function AccountForm(props: any) {
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    axios.get('http://localhost:9000/users')
+    axios.get('/users')
       .then((response) => {
         const user = response.data[0];
         setName(user.name);

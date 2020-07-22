@@ -22,7 +22,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const Browse = (props: any) => {
-  // eslint-disable-next-line no-shadow
   const { isSearchLoading }: Props = props;
   const classes = useStyles();
 
@@ -36,9 +35,9 @@ const Browse = (props: any) => {
         <Grid item xs />
       </Grid>
       <Search />
-      {isSearchLoading ?
-        <CircularProgress /> :
-        <></>}
+      {isSearchLoading
+        ? <CircularProgress />
+        : <></>}
       <Results />
     </div>
   );
@@ -56,4 +55,4 @@ const mapStateToProps = (state: BrowseState) => {
   return { isSearchLoading };
 };
 
-export default connect(mapStateToProps, { })(Browse);
+export default connect(mapStateToProps, null)(Browse);

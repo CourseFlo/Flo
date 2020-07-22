@@ -10,6 +10,7 @@ const courseOfferingSchema = new Schema({
   courseId: String,
   description: String,
   preReqs: Array,
+  depn: Array,
   restrictionInfo: String,
   title: String,
   credits: Number,

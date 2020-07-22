@@ -25,7 +25,7 @@ export const updateUserSuccess = (user: any) => ({ //TODO set the user type????
 // Get the user info
 export const getUsers = () => {
   return (dispatch: Function) => {
-    axios.get('http://localhost:9000/users')
+    axios.get(`/users`)
       .then((response) => {
         dispatch(getUsersSuccess(response.data));
       })
@@ -35,7 +35,7 @@ export const getUsers = () => {
 
 export const updateUser = (id: String, fields: Object) => {
   return (dispatch: Function) => {
-    axios.post(`http://localhost:9000/users/update/${id}`, {
+    axios.post(`/users/update/${id}`, {
       ...fields,
     }).then((response) => {
       dispatch(updateUserSuccess(response.data));
@@ -45,7 +45,7 @@ export const updateUser = (id: String, fields: Object) => {
 
 // export const getUsers = () => {
 //   const res: any = axios
-//     .get('http://localhost:9000/users')
+//     .get('/users')
 //     .then( ({result}) => result.json());
 //   return res;
 // };

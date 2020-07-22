@@ -39,10 +39,6 @@ const Login = (props: any) => {
           </Link>
         </div>
       </Container>
-      <div>
-        Users:
-        {users.map((user: any) => user.username) }
-      </div>
     </div>
   );
 };
