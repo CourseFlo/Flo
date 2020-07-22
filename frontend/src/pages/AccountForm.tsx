@@ -36,23 +36,26 @@ const initialState: User = {
 
 function AccountForm(props: any) {
   const { isEditingField, currentUser, setField, getUsers, updateUser } : Props = props;
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [major, setMajor] = useState('');
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+  const [major, setMajor] = useState(currentUser.major);
   const [courses, setCourses] = useState([]);
 
   useEffect(() => {
-    axios.get('/users')
-      .then((response) => {
-        const user = response.data[0];
-        setName(user.name);
-        setEmail(user.email);
-        setMajor(user.major);
-        setCourses(user.courses);
-      }); // TODO: WE SHOULD NOT BE CALLING THE API TWICE, THIS IS TEMP
+    // axios.get('/users')
+    //   .then((response) => {
+    //     const user = response.data[0];
+    //     setName(user.name);
+    //     setEmail(user.email);
+    //     setMajor(user.major);
+    //     setCourses(user.courses);
+    //   }); // TODO: WE SHOULD NOT BE CALLING THE API TWICE, THIS IS TEMP
 
     getUsers();
   }, []);
+
+  console.log(currentUser);
+  // setName(currentUser.name);
 
   const handleEditName = () => {
     setField('name', true);

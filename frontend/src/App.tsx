@@ -11,9 +11,9 @@ import Navbar from './components/Navbar';
 import Home from './pages/Home';
 
 import ProfilePage from './pages/ProfilePage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-
   return (
     <main>
       <TempNavbar />
@@ -23,7 +23,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/Browse" component={Browse} />
         <Route path="/VisualCourse" component={VisualCourse} />
-        <Route path="/ProfilePage" component={ProfilePage} />
+        <ProtectedRoute path="/ProfilePage" component={ProfilePage} />
         <Route path="/signup" component={Signup} />
         <Route component={ErrorPage} />
       </Switch>

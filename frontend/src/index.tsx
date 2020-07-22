@@ -21,15 +21,15 @@ const store = createStore(reducers,
     : applyMiddleware(thunk));
 
 ReactDOM.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <ThemeProvider theme={createMuiTheme(Theme)}>
-        <Provider store={store}>
+  <React.StrictMode>
+    <ThemeProvider theme={createMuiTheme(Theme)}>
+      <Provider store={store}>
+        <BrowserRouter>
           <App />
-        </Provider>
-      </ThemeProvider>
-    </React.StrictMode>
-  </BrowserRouter>,
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
+  </React.StrictMode>,
   document.getElementById('root'),
 );
 

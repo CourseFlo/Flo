@@ -17,30 +17,26 @@ export const getUsersSuccess = (users : any[]) => ({
   users,
 });
 
-export const updateUserSuccess = (user: any) => ({ //TODO set the user type????
+export const updateUserSuccess = (user: any) => ({ // TODO set the user type????
   type: 'UPDATE_USER',
   user,
 });
 
 // Get the user info
-export const getUsers = () => {
-  return (dispatch: Function) => {
-    axios.get(`/users`)
-      .then((response) => {
-        dispatch(getUsersSuccess(response.data));
-      })
-      .catch((err) => err);
-  };
+export const getUsers = () => (dispatch: Function) => {
+  axios.get('/users')
+    .then((response) => {
+      dispatch(getUsersSuccess(response.data));
+    })
+    .catch((err) => err);
 };
 
-export const updateUser = (id: String, fields: Object) => {
-  return (dispatch: Function) => {
-    axios.post(`/users/update/${id}`, {
-      ...fields,
-    }).then((response) => {
-      dispatch(updateUserSuccess(response.data));
-    }).catch((err) => err);
-  };
+export const updateUser = (id: String, fields: Object) => (dispatch: Function) => {
+  axios.post(`/users/update/${id}`, {
+    ...fields,
+  }).then((response) => {
+    dispatch(updateUserSuccess(response.data));
+  }).catch((err) => err);
 };
 
 // export const getUsers = () => {
