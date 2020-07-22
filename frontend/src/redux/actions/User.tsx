@@ -20,7 +20,7 @@ export const getUsersSuccess = (users : any[]) => ({
 // Get the user info
 export const getUsers = () => {
   return (dispatch: Function) => {
-    axios.get(`http://localhost:9000/users`)
+    axios.get(`/users`)
       .then((response) => {
         dispatch(getUsersSuccess(response.data));
       })

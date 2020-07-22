@@ -14,7 +14,7 @@ export const getVisualizedCoursesFailure = (errMsg: string) => ({
 
 export const getVisualizedCourses = (courseId: string) => {
   return (dispatch: Function) => {
-    axios.get(`http://localhost:9000/courses/getRelated/${courseId}`)
+    axios.get(`/courses/getRelated/${courseId}`)
       .then((response) => {
         console.log(response);
         dispatch(getVisualizedCoursesSuccess(response.data));
@@ -39,7 +39,7 @@ export const getVisualizedCourses = (courseId: string) => {
 
 // export const submitGetCourse = (courseId) => {
 //   return (dispatch: Function) => {
-//     axios.get(`http://localhost:9000/courses/${courseId}`)
+//     axios.get(`/courses/${courseId}`)
 //       .then(response => {
 //         const offerings = response.data;
 //         dispatch(getCourseSuccess(offerings));
