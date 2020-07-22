@@ -5,15 +5,6 @@ import { connect } from 'react-redux';
 
 function ProtectedRoute(props: any) {
   const { currentUser, component: Component, ...rest } = props;
-  // if (!currentUser) {
-  //   return (
-  //     <Route path='/login' component={Login}></Route>
-  //   );
-  // } else {
-  //   return (
-  //     <Component  />
-  //   );
-  // }
   return (
     <Route
       {...rest}

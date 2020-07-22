@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 
 // import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -11,35 +11,23 @@ import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 
 import { User } from '../type-interfaces/User';
-import { FieldEditState } from '../type-interfaces/FieldEditState';
-import { setField } from '../redux/actions/Profile';
 import { getUsers, updateUser } from '../redux/actions/User';
-// import { getUsers } from '../redux/actions/User';
 
 interface Props {
-  isEditingField: FieldEditState,
   currentUser: User,
-  setField: Function,
   getUsers: Function,
-  updateUser: Function
+  updateUser: Function,
 }
 
-const initialState: User = {
-  name: 'Sam Ip',
-  email: 'samip@email.com',
-  major: 'Computer Science',
-  courses: [
-    'CPSC 110', 'CPSC 121', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 310',
-  ],
-  _id: '5f080b5a1ad963c82c07f475',
-};
-
 function AccountForm(props: any) {
-  const { isEditingField, currentUser, setField, getUsers, updateUser } : Props = props;
+  const { currentUser, getUsers, updateUser } : Props = props;
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [major, setMajor] = useState(currentUser.major);
   const [courses, setCourses] = useState(currentUser.courses);
+  const [editingName, toggleEditingName] = useState(false);
+  const [editingEmail, toggleEditingEmail] = useState(false);
+  const [editingMajor, toggleEditingMajor] = useState(false);
 
   useEffect(() => {
     // axios.get('/users')
@@ -54,18 +42,14 @@ function AccountForm(props: any) {
     getUsers();
   }, []);
 
-  console.log(currentUser);
-  // setName(currentUser.name);
-
   const handleEditName = () => {
-    setField('name', true);
+    toggleEditingName(true);
   };
-
   const handleEditEmail = () => {
-    setField('email', true);
+    toggleEditingEmail(true);
   };
   const handleEditMajor = () => {
-    setField('major', true);
+    toggleEditingMajor(true);
   };
 
   const handleNameChange = (e: any) => {
@@ -87,16 +71,16 @@ function AccountForm(props: any) {
     };
     // eslint-disable-next-line no-underscore-dangle
     updateUser(currentUser._id, changedFields);
-    setField('name', false);
-    setField('email', false);
-    setField('major', false);
+    toggleEditingName(false);
+    toggleEditingEmail(false);
+    toggleEditingMajor(false);
   };
 
   return (
     <div>
       <List>
         {/* Name Field */}
-        {isEditingField.name
+        {editingName
           ? (
             <ListItem>
               <form>
@@ -115,7 +99,7 @@ function AccountForm(props: any) {
             </ListItem>
           )}
         {/* Email Field */}
-        {isEditingField.email
+        {editingEmail
           ? (
             <ListItem>
               <form>
@@ -134,7 +118,7 @@ function AccountForm(props: any) {
             </ListItem>
           )}
         {/* Major Field */}
-        {isEditingField.major
+        {editingMajor
           ? (
             <ListItem>
               <form>
@@ -165,17 +149,10 @@ function AccountForm(props: any) {
   );
 }
 
-interface UserState {
-  setEditName: boolean,
-  setEditEmail: boolean,
-  setEditMajor: boolean,
-  setProfileState: User,
-}
-
 const mapStateToProps = (state: any) => {
-  const { isEditingField, currentUser } = state;
-  return { isEditingField, currentUser };
+  const { currentUser } = state;
+  return { currentUser };
 };
 
-export default connect(mapStateToProps, { setField, getUsers, updateUser })(AccountForm);
+export default connect(mapStateToProps, { getUsers, updateUser })(AccountForm);
 // TODO: change get users to get specific user. this is placeholder before we implement new action
