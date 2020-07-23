@@ -1,0 +1,51 @@
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+const auth = require('../middleware/auth');
+
+const router = express.Router();
+
+// authenticate user: public
+router.post('/', async (req, res, next) => {
+  const { email, password } = req.body;
+
+  // validation
+  if (!email || !password) {
+    return res.status(400).json({ msg: 'Please enter all required fields' });
+  }
+
+  try {
+    const user = await User.findOne({ email });
+    if (!user) throw Error('User does not exists');
+
+    // validate password
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw Error('Invalid credentials');
+
+    const token = await jwt.sign(
+      { id: user.id },
+      process.env.JWT_SECRET,
+      { expiresIn: 3600 },
+    );
+    return res.json({
+      token,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+      },
+    });
+  } catch (e) {
+    return res.status(400).json({ msg: e.message });
+  }
+});
+
+// get current user data using token: private
+router.get('/user', auth, (req, res, next) => {
+  User.findById(req.user.id)
+    .select('-password')
+    .then((user) => res.json(user));
+});
+
+module.exports = router;
