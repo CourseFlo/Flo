@@ -1,5 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.get('/:userId', function(req, res, next) {
 });
 
 // add user
-router.post('/', function(req, res, next) {
+router.post('/', async (req, res, next) => {
   const { name, email, password } = req.body;
 
   // validation
@@ -25,39 +26,29 @@ router.post('/', function(req, res, next) {
     return res.status(400).json({ msg: 'Please enter all required fields' });
   }
 
-  // Check for existing user
-  User.findOne({ email })
-    // eslint-disable-next-line consistent-return
-    .then((user) => {
-      if (user) return res.status(400).json({ msg: 'User already exists' });
+  try {
+    const user = await User.findOne({ email });
+    if (user) throw Error('User already exists');
 
-      const newUser = new User({
-        name,
-        email,
-        password,
-      });
-
-      // Create salt and hash
-      bcrypt.genSalt(10)
-        .then((salt) => bcrypt.hash(newUser.password, salt))
-        .then((hash) => {
-          newUser.password = hash;
-          return newUser.save();
-        })
-        .then((savedUser) => {
-          res.json({
-            user: {
-              id: savedUser.id,
-              name: savedUser.name,
-              email: savedUser.email,
-            },
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-          res.status(400).json(err);
-        });
+    const newUser = new User({
+      name,
+      email,
+      password,
     });
+
+    const salt = await bcrypt.genSalt(10);
+    newUser.password = await bcrypt.hash(newUser.password, salt);
+    const savedUser = await newUser.save();
+    return res.json({
+      user: {
+        id: savedUser.id,
+        name: savedUser.name,
+        email: savedUser.email,
+      },
+    });
+  } catch (e) {
+    return res.status(400).json({ msg: e.message });
+  }
 });
 
 // update user
