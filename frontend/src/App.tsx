@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import './App.css';
+import { connect } from 'react-redux';
 import Browse from './pages/Browse';
 import VisualCourse from './pages/VisualCourse';
 import TempNavbar from './components/TempNavbar';
@@ -9,11 +10,17 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
+import { loadUser } from './redux/actions/auth';
 
 import ProfilePage from './pages/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
 
-function App() {
+function App(props: any) { // TODO: prop types?
+  const { loadUser } : { loadUser : Function } = props;
+  useEffect(() => {
+    loadUser();
+  }, []);
+
   return (
     <main>
       <TempNavbar />
@@ -31,4 +38,5 @@ function App() {
   );
 }
 
-export default App;
+// export default App;
+export default connect(null, { loadUser })(App);
