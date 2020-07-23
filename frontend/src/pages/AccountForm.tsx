@@ -30,15 +30,7 @@ function AccountForm(props: any) {
   const [editingMajor, toggleEditingMajor] = useState(false);
 
   useEffect(() => {
-    // axios.get('/users')
-    //   .then((response) => {
-    //     const user = response.data[0];
-    //     setName(user.name);
-    //     setEmail(user.email);
-    //     setMajor(user.major);
-    //     setCourses(user.courses);
-    //   }); // TODO: WE SHOULD NOT BE CALLING THE API TWICE, THIS IS TEMP
-
+    // TODO: make this a specific get current user action
     getUsers();
   }, []);
 

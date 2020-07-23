@@ -1,4 +1,4 @@
-import { SET_LOGIN } from '../constants';
+import { SET_LOGIN, GET_USERS, UPDATE_USER } from '../constants';
 
 export const setLogin = (store: boolean = false, action: any) => {
   switch (action.type) {
@@ -11,7 +11,7 @@ export const setLogin = (store: boolean = false, action: any) => {
 
 export const getUsers = (store: any[] = [], action: any) => {
   switch (action.type) {
-    case 'GET_USERS':
+    case GET_USERS:
       return action.users;
     default:
       return store;
@@ -20,9 +20,9 @@ export const getUsers = (store: any[] = [], action: any) => {
 
 export const getCurrentUser = (store: any = {}, action: any) => { // TODO: temporary setup for single user
   switch (action.type) {
-    case 'GET_USERS':
+    case GET_USERS:
       return action.users[0];
-    case 'UPDATE_USER':
+    case UPDATE_USER:
       return action.user;
     default:
       return store;
