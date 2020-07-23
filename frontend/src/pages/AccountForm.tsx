@@ -1,190 +1,137 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 
 // import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
-// import { blue } from '@material-ui/core/colors';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 
-// const emails = ['username@gmail.com', 'user02@gmail.com'];
+import { User } from '../type-interfaces/User';
+import { getUsers, updateUser } from '../redux/actions/User';
 
-const initialState = {
-  name: 'Sam Ip',
-  email: 'samip@email.com',
-  major: 'Computer Science',
-  courses: [
-    'CPSC 110', 'CPSC 121', 'CPSC 210', 'CPSC 213', 'CPSC 221', 'CPSC 310',
-  ],
-};
+interface Props {
+  currentUser: User,
+  getUsers: Function,
+  updateUser: Function,
+}
 
-function AccountForm() {
-//   const [open, setOpen] = useState(false);
-  const [profile, setProfile] = useState(initialState);
-  const [editName, toggleEdit] = useState(false);
-  const [editEmail, toggleEmail] = useState(false);
-  const [editMajor, toggleMajor] = useState(false);
-  //   const [inputs, setInputs] = useState({});
-  const [profileName, setProfileName] = useState(profile.name);
-  const [profileEmail, setProfileEmail] = useState(initialState.email);
-  const [profileMajor, setProfileMajor] = useState(initialState.major);
+function AccountForm(props: any) {
+  const { currentUser, getUsers, updateUser } : Props = props;
+  const [name, setName] = useState(currentUser.name);
+  const [email, setEmail] = useState(currentUser.email);
+  const [major, setMajor] = useState(currentUser.major);
+  const [courses, setCourses] = useState(currentUser.courses);
+  const [editingName, toggleEditingName] = useState(false);
+  const [editingEmail, toggleEditingEmail] = useState(false);
+  const [editingMajor, toggleEditingMajor] = useState(false);
 
   useEffect(() => {
-    axios
-      .get(`/users`)
-      .then(({ data }) => {
-        setProfile({
-          name: data[0].name,
-          email: data[0].email,
-          major: data[0].major,
-          courses: data[0].courses,
-        });
-        console.log(data);
-      });
+    // TODO: make this a specific get current user action
+    getUsers();
   }, []);
 
   const handleEditName = () => {
-    toggleEdit(!editName);
+    toggleEditingName(true);
   };
-
   const handleEditEmail = () => {
-    toggleEmail(!editEmail);
+    toggleEditingEmail(true);
   };
   const handleEditMajor = () => {
-    toggleMajor(!editMajor);
+    toggleEditingMajor(true);
   };
 
-  const handleSubmit = (event: any) => {
-    if (event) {
-      event.preventDefault();
-    }
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+  };
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value);
+  };
+  const handleMajorChange = (e: any) => {
+    setMajor(e.target.value);
   };
 
-  const handleNameChange = (e: any) => setProfileName(e.target.value);
-  // const handleNameChange = (e: any) => setProfileName(e.target.value);
-
-  const handleEmailChange = (e: any) => setProfileEmail(e.target.value);
-
-  const handleMajorChange = (e: any) => setProfileMajor(e.target.value);
-
-  const submitNameChange = () => {
-    const newProfile = {
-      name: profileName,
-      email: profile.email,
-      major: profile.major,
-      courses: profile.courses,
+  const handleSubmitChange = (event: any) => {
+    event.preventDefault();
+    const changedFields = {
+      name,
+      email,
+      major,
     };
-    setProfile(newProfile);
-    axios.post(`/users/add`, {
-      name: profileName,
-      email: newProfile.email,
-      major: newProfile.major,
-      courses: newProfile.courses,
-      id: '5f080b5a1ad963c82c07f475',
-    });
-    toggleEdit(!editName);
-  };
-
-  const submitEmailChange = () => {
-    const newProfile = {
-      name: profile.name,
-      email: profileEmail,
-      major: profile.major,
-      courses: profile.courses,
-    };
-    setProfile(newProfile);
-    axios.post(`/users/add`, {
-      name: newProfile.name,
-      email: profileEmail,
-      major: newProfile.major,
-      courses: newProfile.courses,
-      id: '5f080b5a1ad963c82c07f475',
-    });
-    toggleEmail(!editEmail);
-  };
-  const submitMajorChange = () => {
-    const newProfile = {
-      name: profile.name,
-      email: profile.email,
-      major: profileMajor,
-      courses: profile.courses,
-    };
-    setProfile(newProfile);
-    axios.post(`/users/add`, {
-      name: newProfile.name,
-      email: newProfile.email,
-      major: profileMajor,
-      courses: newProfile.courses,
-      id: '5f080b5a1ad963c82c07f475',
-    });
-    toggleMajor(!editMajor);
+    // eslint-disable-next-line no-underscore-dangle
+    updateUser(currentUser._id, changedFields);
+    toggleEditingName(false);
+    toggleEditingEmail(false);
+    toggleEditingMajor(false);
   };
 
   return (
     <div>
       <List>
         {/* Name Field */}
-        {editName && (
-          <ListItem>
-            <form>
-              <TextField label="Name" onChange={handleNameChange} />
-              <Button onClick={submitNameChange} onSubmit={handleSubmit}>Submit</Button>
-            </form>
-          </ListItem>
-        )}
-        {!editName && (
-          <ListItem>
-            <Typography display="inline" variant="subtitle1">
-              Name:
-              {profile.name}
-            </Typography>
-            <Button onClick={handleEditName} startIcon={<EditIcon />}> </Button>
-          </ListItem>
-        )}
+        {editingName
+          ? (
+            <ListItem>
+              <form>
+                <TextField label="Name" value={name} onChange={handleNameChange} />
+                <Button onClick={handleSubmitChange}>Submit</Button>
+              </form>
+            </ListItem>
+          )
+          : (
+            <ListItem>
+              <Typography variant="subtitle1">
+                Name:
+                {currentUser.name}
+              </Typography>
+              <Button onClick={handleEditName} startIcon={<EditIcon />} />
+            </ListItem>
+          )}
         {/* Email Field */}
-        {editEmail && (
-          <ListItem>
-            <form>
-              <TextField label="Email" onChange={handleEmailChange} />
-              <Button onClick={submitEmailChange} onSubmit={handleSubmit}>Submit</Button>
-            </form>
-          </ListItem>
-        )}
-        {!editEmail && (
-          <ListItem>
-            <Typography variant="subtitle1">
-              Email:
-              {profile.email}
-            </Typography>
-            <Button onClick={handleEditEmail} startIcon={<EditIcon />}>  </Button>
-          </ListItem>
-        )}
+        {editingEmail
+          ? (
+            <ListItem>
+              <form>
+                <TextField label="Email" value={email} onChange={handleEmailChange} />
+                <Button onClick={handleSubmitChange}>Submit</Button>
+              </form>
+            </ListItem>
+          )
+          : (
+            <ListItem>
+              <Typography variant="subtitle1">
+                Email:
+                {currentUser.email}
+              </Typography>
+              <Button onClick={handleEditEmail} startIcon={<EditIcon />} />
+            </ListItem>
+          )}
         {/* Major Field */}
-        {editMajor && (
-          <ListItem>
-            <form>
-              <TextField label="Major" onChange={handleMajorChange} />
-              <Button onClick={submitMajorChange} onSubmit={handleSubmit}>Submit</Button>
-            </form>
-          </ListItem>
-        )}
-        {!editMajor && (
-          <ListItem>
-            <Typography variant="subtitle1">
-              Major:
-              {profile.major}
-            </Typography>
-            <Button onClick={handleEditMajor} startIcon={<EditIcon />}>  </Button>
-          </ListItem>
-        )}
+        {editingMajor
+          ? (
+            <ListItem>
+              <form>
+                <TextField label="Major" value={major} onChange={handleMajorChange} />
+                <Button onClick={handleSubmitChange}>Submit</Button>
+              </form>
+            </ListItem>
+          )
+          : (
+            <ListItem>
+              <Typography variant="subtitle1">
+                Major:
+                {currentUser.major}
+              </Typography>
+              <Button onClick={handleEditMajor} startIcon={<EditIcon />} />
+            </ListItem>
+          )}
         <ListItem>
           <Typography variant="subtitle1">Courses:</Typography>
           <List>
-            {profile.courses.map((course) => (
+            {courses.map((course) => (
               <ListItem button key={course}>{course}</ListItem>
             ))}
           </List>
@@ -194,4 +141,10 @@ function AccountForm() {
   );
 }
 
-export default connect(null, null)(AccountForm);
+const mapStateToProps = (state: any) => {
+  const { currentUser } = state;
+  return { currentUser };
+};
+
+export default connect(mapStateToProps, { getUsers, updateUser })(AccountForm);
+// TODO: change get users to get specific user. this is placeholder before we implement new action
