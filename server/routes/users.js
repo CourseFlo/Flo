@@ -1,6 +1,7 @@
-var express = require('express');
-var router = express.Router();
-let User = require('../models/user');
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const User = require('../models/user');
+const router = express.Router();
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -16,6 +17,48 @@ router.get('/:userId', function(req, res, next) {
 });
 
 // add user
+router.post('/', function(req, res, next) {
+  const { name, email, password } = req.body;
+
+  // validation
+  if (!name || !email || !password) {
+    return res.status(400).json({ msg: 'Please enter all required fields' });
+  }
+
+  // Check for existing user
+  User.findOne({ email })
+    // eslint-disable-next-line consistent-return
+    .then((user) => {
+      if (user) return res.status(400).json({ msg: 'User already exists' });
+
+      const newUser = new User({
+        name,
+        email,
+        password,
+      });
+
+      // Create salt and hash
+      bcrypt.genSalt(10)
+        .then((salt) => bcrypt.hash(newUser.password, salt))
+        .then((hash) => {
+          newUser.password = hash;
+          return newUser.save();
+        })
+        .then((savedUser) => {
+          res.json({
+            user: {
+              id: savedUser.id,
+              name: savedUser.name,
+              email: savedUser.email,
+            },
+          });
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(400).json(err);
+        });
+    });
+});
 
 // update user
 router.route('/update').post((req, res) => {
