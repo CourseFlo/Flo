@@ -52,6 +52,7 @@ router.get('/getRelated/:courseId', async function(req, res, next) {
 // TODO Sanitize the input.
 router.post('/search', function (req, res, next) {
   // do a find on courseCode, courseDept, description, title
+  console.log("here is search post req.body: ", req.body);
   let { minusculer, larger } = { minusculer: Number(req.body.courseNumberRange[0]), larger: Number(req.body.courseNumberRange[1]) };
 
   let queryString = req.body.queryString;

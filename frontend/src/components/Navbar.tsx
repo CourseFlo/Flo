@@ -7,10 +7,13 @@ import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom';
+
 import { Filters } from '../type-interfaces/Search';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
 import { changeFilters, submitSearch } from '../redux/actions/Search';
-import {Link} from "react-router-dom";
+
+// TODO: TAKE OUT CHANGEFILTERS, SEARCHFILTERS FROM SEARCH BASIC, AND SEARCH NAVBAR
 
 interface Props {
   loggedIn: boolean,
@@ -90,6 +93,13 @@ function Navbar(props: any) {
     changeFilters(currFilters);
   };
 
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      // alert(`Enter! ${currFilters.query}`);
+      return submitSearch(currFilters);
+    }
+  };
+
   return (
     <AppBar className={classes.navBar} position="static" color="transparent">
       <Toolbar>
@@ -123,7 +133,8 @@ function Navbar(props: any) {
             }}
             inputProps={{ 'aria-label': 'search' }}
             onChange={handleQueryChange}
-            onSubmit={() => submitSearch(currFilters)}
+            onKeyDown={handleKeyDown}
+            // onSubmit={() => submitSearch(currFilters)}
           />
         </div>
         <Button className={classes.buttons} color="inherit" href="/VisualCourse">Visualize</Button>
