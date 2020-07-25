@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 // import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -11,28 +11,37 @@ import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 
 import { User } from '../type-interfaces/User';
-import { getUsers, updateUser } from '../redux/actions/User';
+import { updateUser } from '../redux/actions/User';
+import { getVisualizedCourses } from '../redux/actions/courses';
+import {loadUser} from "../redux/actions/auth";
 
 interface Props {
   currentUser: User,
-  getUsers: Function,
+  loadUser: Function,
   updateUser: Function,
+  getVisualizedCourses: Function,
 }
 
 function AccountForm(props: any) {
-  const { currentUser, getUsers, updateUser } : Props = props;
+  const { currentUser, loadUser, updateUser, getVisualizedCourses } : Props = props;
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [major, setMajor] = useState(currentUser.major);
   const [courses, setCourses] = useState(currentUser.courses);
+  const [starredCourses, setStarredCourses] = useState(currentUser.starredCourses);
   const [editingName, toggleEditingName] = useState(false);
   const [editingEmail, toggleEditingEmail] = useState(false);
   const [editingMajor, toggleEditingMajor] = useState(false);
 
   useEffect(() => {
-    // TODO: make this a specific get current user action
-    getUsers();
+    loadUser();
   }, []);
+
+  let history = useHistory();
+  function handleViewCourse(course: any) {
+    getVisualizedCourses(course);
+    history.push("/VisualCourse");
+  }
 
   const handleEditName = () => {
     toggleEditingName(true);
@@ -132,7 +141,15 @@ function AccountForm(props: any) {
           <Typography variant="subtitle1">Courses:</Typography>
           <List>
             {courses.map((course) => (
-              <ListItem button key={course}>{course}</ListItem>
+              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+            ))}
+          </List>
+        </ListItem>
+        <ListItem>
+          <Typography variant="subtitle1">Starred Courses:</Typography>
+          <List>
+            {starredCourses.map((course) => (
+              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
             ))}
           </List>
         </ListItem>
@@ -141,10 +158,6 @@ function AccountForm(props: any) {
   );
 }
 
-const mapStateToProps = (state: any) => {
-  const { currentUser } = state;
-  return { currentUser };
-};
+const mapStateToProps = (state: any) => ({ currentUser: state.auth.user });
 
-export default connect(mapStateToProps, { getUsers, updateUser })(AccountForm);
-// TODO: change get users to get specific user. this is placeholder before we implement new action
+export default connect(mapStateToProps, { loadUser, updateUser, getVisualizedCourses })(AccountForm);
