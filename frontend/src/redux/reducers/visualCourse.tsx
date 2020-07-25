@@ -6,7 +6,7 @@ const initialVisualizedData = {
   target: {
     _id: '5f0807c719f93935a8485939',
     preReqs: ['CPSC 110'],
-    dep: ['CPSC 213', 'CPSC 221', 'CPSC 310'],
+    depn: ['CPSC 213', 'CPSC 221', 'CPSC 310'],
     courseLetterCode: 'CPSC',
     courseDigitCode: '210',
     courseId: 'CPSC 210',

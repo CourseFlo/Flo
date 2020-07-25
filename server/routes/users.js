@@ -71,14 +71,12 @@ router.route('/update/').post(auth, (req, res) => {
 
 // Update the starred courses. Adds if doesn't already exist, removes if it does.
 router.route('/update/starredCourses/').post(auth, (req, res) => {
-  console.log("entered starred api call");
   const { id } = req.user;
   const courseToModify = req.body.starredCourse;
   User.findById(id).select('-password')
     .then(user => {
       let starredCourses = user.starredCourses;
       const exists = starredCourses.includes(courseToModify);
-      console.log(courseToModify, starredCourses, exists);
       if (exists) {
         starredCourses = starredCourses.filter(course => course !== courseToModify);
       } else {

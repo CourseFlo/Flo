@@ -2,8 +2,6 @@ import axios, { AxiosResponse, AxiosError } from 'axios';
 import { SUBMIT_SEARCH, SUBMIT_SEARCH_FAILURE, SET_LOADING_SEARCH_TRUE } from '../constants';
 import { Filters } from '../../type-interfaces/Search';
 
-export const changeFilters = (val: any) => {console.log(val)}; // FIXME Delete this once Navbar changes pulled in
-
 export const submitSearchSuccess = (offerings: any[]) => ({
   type: SUBMIT_SEARCH,
   offerings,
@@ -19,7 +17,6 @@ export const setLoadingSearchTrue = () => ({
 });
 
 export const submitSearch = (filters: Filters) => (dispatch: Function) => {
-  console.log(filters);
   dispatch(setLoadingSearchTrue());
   axios.post(`/courses/search`, {
     courseNumberRange: filters.numberRange,

@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
 import { Switch, Route } from 'react-router-dom';
-import './App.css';
 import { connect } from 'react-redux';
+
 import Browse from './pages/Browse';
 import VisualCourse from './pages/VisualCourse';
-import TempNavbar from './components/TempNavbar';
 import ErrorPage from './components/ErrorPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
 import Home from './pages/Home';
-import { loadUser } from './redux/actions/auth';
-
 import ProfilePage from './pages/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
+import { loadUser } from './redux/actions/auth';
+import './App.css';
 
 function App(props: any) { // TODO: prop types?
   const { loadUser } : { loadUser : Function } = props;
@@ -23,7 +22,6 @@ function App(props: any) { // TODO: prop types?
 
   return (
     <main>
-      <TempNavbar />
       <Navbar />
       <Switch>
         <Route path="/" component={Home} exact />
@@ -38,5 +36,4 @@ function App(props: any) { // TODO: prop types?
   );
 }
 
-// export default App;
 export default connect(null, { loadUser })(App);

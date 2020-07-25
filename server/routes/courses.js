@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/getSingle/:courseId', function(req, res, next) {
-  console.log(req.params);
   CourseOffering.findOne({courseId: req.params.courseId})
     .then(offering => res.json(offering))
     .catch(err => res.status(400).json('Error: ' + err));
@@ -64,7 +63,6 @@ router.post('/search', function (req, res, next) {
     query.courseLetterCode = { $in : req.body.courseLetterCodes };
   if (queryPieces.length > 0)
     query.description = { $in: queryStringRegexes };
-  console.log(query);
 
   CourseOffering.find(query)
     .then(offerings => res.json(offerings))

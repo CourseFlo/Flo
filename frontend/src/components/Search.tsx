@@ -111,7 +111,6 @@ const Search = (props: any) => {
     };
     submitSearch(searchInputs);
   };
-  console.log()
 
   return (
     <div className={classes.root}>

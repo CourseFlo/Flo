@@ -130,8 +130,8 @@ function Navbar(props: any) {
             onKeyDown={handleKeyDown}
           />
         </div>
+        <Button className={classes.buttons} color="inherit" onClick={() => history.push('/Browse')}>Search</Button>
         <Button className={classes.buttons} color="inherit" onClick={() => history.push('/VisualCourse')}>Visualize</Button>
-        <Button className={classes.buttons} color="inherit">Contact Us</Button>
         {isLoggedIn
           ? <Button className={classes.buttons} variant="outlined" color="inherit" onClick={() => history.push('/ProfilePage')}>Profile</Button>
           : <Button className={classes.buttons} variant="outlined" color="inherit" onClick={() => history.push('/login')}>Login</Button>}
