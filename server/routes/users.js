@@ -29,7 +29,7 @@ router.post('/', async (req, res, next) => {
   }
 
   try {
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
     if (user) throw Error('User already exists');
 
     const newUser = new User({
@@ -46,13 +46,10 @@ router.post('/', async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: 3600 },
     );
+    user = await User.findById(savedUser.id).select('-password');
     return res.json({
       token,
-      user: {
-        id: savedUser.id,
-        name: savedUser.name,
-        email: savedUser.email,
-      },
+      user,
     });
   } catch (e) {
     return res.status(400).json({ msg: e.message });

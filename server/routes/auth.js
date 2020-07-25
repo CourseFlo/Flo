@@ -16,7 +16,7 @@ router.post('/', async (req, res, next) => {
   }
 
   try {
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
     if (!user) throw Error('User does not exists');
 
     // validate password
@@ -28,14 +28,10 @@ router.post('/', async (req, res, next) => {
       process.env.JWT_SECRET,
       { expiresIn: 3600 },
     );
+    user = await User.findById(user.id).select('-password');
     return res.json({
       token,
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        courses: user.courses,
-      },
+      user,
     });
   } catch (e) {
     return res.status(400).json({ msg: e.message });
