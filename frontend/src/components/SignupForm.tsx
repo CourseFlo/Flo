@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -34,6 +35,7 @@ const SignupForm = (props: any) => {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const classes = useStyles();
+  const history = useHistory();
 
   const handleNameChange = (e: any) => {
     setName(e.target.value);
@@ -65,6 +67,7 @@ const SignupForm = (props: any) => {
     if (isAuthenticated) {
       // clearErrors();
       // redirect to profile page
+      history.push('/ProfilePage');
     }
   }, [error, isAuthenticated]);
 

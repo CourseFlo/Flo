@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+
 import { login } from '../redux/actions/auth';
 import { LOGIN_FAIL, REGISTER_FAIL } from '../redux/constants';
 
@@ -30,6 +33,7 @@ const LoginForm = (props: any) => {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const classes = useStyles();
+  const history = useHistory();
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -57,6 +61,7 @@ const LoginForm = (props: any) => {
     if (isAuthenticated) {
       // clearErrors();
       // redirect to profile page
+      history.push('/ProfilePage');
     }
   }, [error, isAuthenticated]);
 

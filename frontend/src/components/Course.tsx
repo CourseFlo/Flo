@@ -12,7 +12,7 @@ function Course(props: any) {
   const { courseData, getVisualizedCoursesAction, starCourseAction, auth } = props;
   const history = useHistory();
   const isAuthed = auth.isAuthenticated;
-  const [isStarred, setIsStarred] = useState(false);
+  const [isStarred, setIsStarred] = useState<boolean>(false);
 
   let starredCoursesSet;
   useEffect(() => {
@@ -20,7 +20,7 @@ function Course(props: any) {
       starredCoursesSet = new Set(auth.user.starredCourses);
       setIsStarred(starredCoursesSet.has(courseData.courseId));
     }
-  }, [auth.user]);
+  }, [auth.user, courseData]);
 
   const handleStar = (courseId: any) => {
     if (isAuthed) {
@@ -37,6 +37,7 @@ function Course(props: any) {
       <CardContent>
         <Typography variant="h5">
           {courseData.courseLetterCode}
+          {' '}
           {courseData.courseDigitCode}
         </Typography>
         <Typography variant="caption">
@@ -64,9 +65,7 @@ function Course(props: any) {
   );
 }
 
-const mapStateToProps = (state: any) => {
-  return { auth: state.auth };
-};
+const mapStateToProps = (state: any) => ({ auth: state.auth });
 
 export default connect(mapStateToProps, {
   getVisualizedCoursesAction: getVisualizedCourses,
