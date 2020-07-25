@@ -1,12 +1,7 @@
 import axios from 'axios';
-import { SET_LOGIN, GET_USERS, UPDATE_USER } from '../constants';
+import { GET_USERS, UPDATE_USER } from '../constants';
 import { CourseId } from '../../type-interfaces/Course';
 import { tokenConfig } from './auth';
-
-export const setLogin = (loggedIn: boolean) => ({
-  type: SET_LOGIN,
-  loggedIn,
-});
 
 export const getUsersSuccess = (users : any[]) => ({
   type: GET_USERS,
@@ -42,10 +37,3 @@ export const starCourse = (starredCourse: CourseId) => (dispatch: Function, getS
     dispatch(updateUserSuccess(response.data));
   }).catch((err) => err);
 };
-
-// export const getUsers = () => {
-//   const res: any = axios
-//     .get('/users')
-//     .then( ({result}) => result.json());
-//   return res;
-// };

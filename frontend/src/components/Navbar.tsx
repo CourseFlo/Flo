@@ -1,20 +1,16 @@
 import React from 'react';
-import { AppBar } from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import SearchIcon from '@material-ui/icons/Search';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, InputBase, Button } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { Filters } from '../type-interfaces/Search';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
 import { submitSearch } from '../redux/actions/Search';
 
 interface Props {
-  loggedIn: boolean,
+  isLoggedIn: boolean,
   submitSearch: Function,
 }
 
@@ -73,7 +69,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Navbar(props: any) {
   // eslint-disable-next-line no-shadow
-  const { loggedIn, submitSearch }: Props = props;
+  const { isLoggedIn, submitSearch }: Props = props;
   const classes = useStyles();
   const history = useHistory();
   const currFilters: Filters = {
@@ -134,21 +130,16 @@ function Navbar(props: any) {
             onKeyDown={handleKeyDown}
           />
         </div>
-        <Button className={classes.buttons} color="inherit" href="/VisualCourse">Visualize</Button>
+        <Button className={classes.buttons} color="inherit" onClick={() => history.push('/VisualCourse')}>Visualize</Button>
         <Button className={classes.buttons} color="inherit">Contact Us</Button>
-        {loggedIn
-          ? <Button className={classes.buttons} variant="outlined" color="inherit" href="/Sam">Profile</Button>
-          : <Button className={classes.buttons} variant="outlined" color="inherit" href="/login">Login</Button>}
+        {isLoggedIn
+          ? <Button className={classes.buttons} variant="outlined" color="inherit" onClick={() => history.push('/ProfilePage')}>Profile</Button>
+          : <Button className={classes.buttons} variant="outlined" color="inherit" onClick={() => history.push('/login')}>Login</Button>}
       </Toolbar>
     </AppBar>
   );
 }
-interface UserState {
-  setLogin: boolean,
-}
-const mapStateToProps = (state: UserState) => {
-  const { setLogin }: UserState = state;
-  return { loggedIn: setLogin };
-};
+
+const mapStateToProps = (state: any) => ({ isLoggedIn: state.auth.isAuthenticated });
 
 export default connect(mapStateToProps, { submitSearch })(Navbar);

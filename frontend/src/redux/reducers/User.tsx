@@ -1,13 +1,4 @@
-import { SET_LOGIN, GET_USERS } from '../constants';
-
-export const setLogin = (store: boolean = false, action: any) => {
-  switch (action.type) {
-    case SET_LOGIN:
-      return action.loggedIn;
-    default:
-      return store;
-  }
-};
+import { GET_USERS } from '../constants';
 
 export const getUsers = (store: any[] = [], action: any) => {
   switch (action.type) {
