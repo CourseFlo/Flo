@@ -71,7 +71,7 @@ function AccountForm(props: any) {
       major,
     };
     // eslint-disable-next-line no-underscore-dangle
-    updateUser(currentUser._id, changedFields);
+    updateUser(changedFields);
     toggleEditingName(false);
     toggleEditingEmail(false);
     toggleEditingMajor(false);

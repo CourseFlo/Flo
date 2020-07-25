@@ -1,6 +1,7 @@
 import {
   USER_LOADING,
   USER_LOADED,
+  UPDATE_USER,
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -16,6 +17,7 @@ const initialState = {
   user: null,
 };
 
+// eslint-disable-next-line import/prefer-default-export
 export const authReducer = (state: any = initialState, action: any) => {
   switch (action.type) {
     case USER_LOADING:
@@ -29,6 +31,11 @@ export const authReducer = (state: any = initialState, action: any) => {
         isAuthenticated: true,
         isLoading: false,
         user: action.payload,
+      };
+    case UPDATE_USER:
+      return {
+        ...state,
+        user: action.user,
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:

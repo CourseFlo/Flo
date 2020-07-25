@@ -9,8 +9,7 @@ import { CardContent, Card, Typography, CardActions, Button, Grid, IconButton } 
 
 import { Course, CourseId } from '../type-interfaces/Course';
 import { getVisualizedCourses } from '../redux/actions/courses';
-// import { starCourse } from '../redux/actions/User';
-const starCourse = (courseId: any) => { console.log('Starring course: ', courseId); }; // FIXME Delete
+import { starCourse } from '../redux/actions/User';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -44,7 +43,14 @@ const Results = (props: Props) => {
   const { searchResults, getVisualizedCoursesAction, auth }: Props = props;
   const history = useHistory();
   const classes = useStyles();
-  const isAuthed = false; // auth.isAuthenticated;
+  const isAuthed = auth.isAuthenticated;
+  // let starredCourses;
+  // if (isAuthed) {
+  //   auth.user.starredCourses.reduceRight((result: any, item: CourseId) => {
+  //     result[item] = item; //a, b, c
+  //     return result;
+  //   }, {});
+  // }
 
   // Pre-emptively get info and redirect to the visualizer to see the course selected
   const handleSelect = (course: any) => {
@@ -52,9 +58,10 @@ const Results = (props: Props) => {
     history.push('/VisualCourse');
   };
 
-  const handleStar = (course: any) => {
+  const handleStar = (courseId: any) => {
     if (isAuthed) {
-      starCourse(course.courseId);
+      // eslint-disable-next-line no-underscore-dangle
+      starCourse(courseId);
     } else {
       // Force the user to go login // FIX I hate this feature. Let's make a modal instead
       history.push('/login');
@@ -67,10 +74,10 @@ const Results = (props: Props) => {
         <Grid item xs={4} key={course.courseId}>
           <Card className={classes.root}>
             <CardContent>
-              <Typography className={classes.title} color="textSecondary" gutterBottom>
+              {/* <Typography className={classes.title} color="textSecondary" gutterBottom>
                 {course.sessionYear}
                 {course.sessionTerm}
-              </Typography>
+              </Typography> */}
               <Typography variant="h5" component="h2">
                 {course.courseLetterCode}
                 {course.courseDigitCode}
@@ -81,12 +88,12 @@ const Results = (props: Props) => {
                 {course.preReqs.length > 0 ? `Pre-reqs: ${course.preReqs.join(', ')}` : null}
               </Typography>
               <Typography variant="body2" component="p">
-                {course.description}
+                {/* {course.description} */}
               </Typography>
             </CardContent>
             <CardActions>
               <Button size="small" onClick={() => handleSelect(course)}>Learn More</Button>
-              <IconButton aria-label="add to favorites" onClick={() => handleStar(course)}>
+              <IconButton aria-label="add to favorites" onClick={() => handleStar(course.courseId)}>
                 <Favorite />
               </IconButton>
             </CardActions>
@@ -104,7 +111,7 @@ const mapStateToProps = (state: ResultsState) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
   getVisualizedCoursesAction: (params: string) => dispatch(getVisualizedCourses(params)),
-  starCourse: (param: CourseId) => dispatch(starCourse(param)),
+  starCourse: (courseId: CourseId) => dispatch(starCourse(courseId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);

@@ -14,7 +14,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/:userId', (req, res, next) => {
-  User.findById(req.params.userId)
+  User.findById(req.params.userId).select('-password')
     .then((user) => res.json(user))
     .catch((err) => res.status(400).json(`Error: ${err}`));
 });
@@ -57,23 +57,24 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-router.route('/update/:id').post((req, res) => {
-  const { id } = req.params;
+router.route('/update/').post(auth, (req, res) => {
+  const { id } = req.user;
   const { name } = req.body;
   const { email } = req.body;
   const { major } = req.body;
   // const courses = req.body.courses;
   const updates = { name, email, major };
-  User.findByIdAndUpdate(id, updates, { new: true })
+  User.findByIdAndUpdate(id, updates, { new: true }).select('-password')
     .then(user => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
 // Update the starred courses. Adds if doesn't already exist, removes if it does.
-router.route('/update/starredCourses/:id').post((req, res) => {
-  const id = req.params.id;
+router.route('/update/starredCourses/').post(auth, (req, res) => {
+  console.log("entered starred api call");
+  const { id } = req.user;
   const courseToModify = req.body.starredCourse;
-  User.findById(req.params.id)
+  User.findById(id).select('-password')
     .then(user => {
       let starredCourses = user.starredCourses;
       const exists = starredCourses.includes(courseToModify);
