@@ -74,8 +74,10 @@ const MiniCourse = (props: any) => {
           </Typography>
           <Typography className={classes.pos} color="textSecondary">
             {courseData.restrictionInfo ? `Restrictions: ${courseData.restrictionInfo}` : null}
-            {(courseData.restrictionInfo && courseData.preReqs.length > 0) ? ' | ' : null}
+            {(courseData.restrictionInfo && courseData.preReqs.length > 0) ? <br />: null}
             {courseData.preReqs.length > 0 ? `Pre-reqs: ${courseData.preReqs.join(', ')}` : null}
+            {((courseData.restrictionInfo || courseData.preReqs.length > 0) && courseData.depn.length > 0) ? <br /> : null}
+            {courseData.depn.length > 0 ? `Dependents: ${courseData.depn.join(', ')}` : null}
           </Typography>
         </CardContent>
         <CardActions>

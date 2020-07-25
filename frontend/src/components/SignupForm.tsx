@@ -4,7 +4,6 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { getUsers } from '../redux/actions/User';
 import { register } from '../redux/actions/auth';
 import { REGISTER_FAIL } from '../redux/constants';
 import { clearErrors } from '../redux/actions/error';
@@ -65,7 +64,7 @@ const SignupForm = (props: any) => {
     }
 
     if (isAuthenticated) {
-      // clearErrors();
+      clearErrors();
       // redirect to profile page
       history.push('/ProfilePage');
     }
