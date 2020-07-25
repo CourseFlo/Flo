@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-// import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 // import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -12,15 +12,17 @@ import TextField from '@material-ui/core/TextField';
 
 import { User } from '../type-interfaces/User';
 import { getUsers, updateUser } from '../redux/actions/User';
+import { getVisualizedCourses } from '../redux/actions/courses';
 
 interface Props {
   currentUser: User,
   getUsers: Function,
   updateUser: Function,
+  getVisualizedCoursesAction: Function,
 }
 
 function AccountForm(props: any) {
-  const { currentUser, getUsers, updateUser } : Props = props;
+  const { currentUser, getUsers, updateUser, getVisualizedCoursesAction } : Props = props;
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [major, setMajor] = useState(currentUser.major);
@@ -33,6 +35,12 @@ function AccountForm(props: any) {
     // TODO: make this a specific get current user action
     getUsers();
   }, []);
+
+  let history = useHistory();
+  function handleViewCourse(course: any) {
+    getVisualizedCoursesAction(course);
+    history.push("/VisualCourse");
+  }
 
   const handleEditName = () => {
     toggleEditingName(true);
@@ -132,7 +140,9 @@ function AccountForm(props: any) {
           <Typography variant="subtitle1">Courses:</Typography>
           <List>
             {courses.map((course) => (
-              <ListItem button key={course}>{course}</ListItem>
+              // On click for the list item, redirect to visual course with the course key
+              // need to implement 
+              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
             ))}
           </List>
         </ListItem>
@@ -146,5 +156,11 @@ const mapStateToProps = (state: any) => {
   return { currentUser };
 };
 
-export default connect(mapStateToProps, { getUsers, updateUser })(AccountForm);
+const mapDispatchToProps = (dispatch: any) => ({
+  getVisualizedCoursesAction: (params: string) => dispatch(getVisualizedCourses(params)),
+  getUsers: () => dispatch(getUsers()),
+  updateUser: (uid: string, fields: Object) => dispatch(updateUser(uid, fields)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountForm);
 // TODO: change get users to get specific user. this is placeholder before we implement new action
