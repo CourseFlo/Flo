@@ -7,15 +7,15 @@ import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+
 import { Filters } from '../type-interfaces/Search';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
-import { changeFilters, submitSearch } from '../redux/actions/Search';
-import {Link} from "react-router-dom";
+import { submitSearch } from '../redux/actions/Search';
 
 interface Props {
   loggedIn: boolean,
   submitSearch: Function,
-  changeFilters: Function
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -73,8 +73,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Navbar(props: any) {
   // eslint-disable-next-line no-shadow
-  const { loggedIn, submitSearch, changeFilters }: Props = props;
+  const { loggedIn, submitSearch }: Props = props;
   const classes = useStyles();
+  const history = useHistory();
   const currFilters: Filters = {
     query: '',
     letterCodes: [],
@@ -87,7 +88,14 @@ function Navbar(props: any) {
       return;
     }
     currFilters.query = value;
-    changeFilters(currFilters);
+  };
+
+  // eslint-disable-next-line consistent-return
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      submitSearch(currFilters);
+      return history.push('/Browse');
+    }
   };
 
   return (
@@ -123,7 +131,7 @@ function Navbar(props: any) {
             }}
             inputProps={{ 'aria-label': 'search' }}
             onChange={handleQueryChange}
-            onSubmit={() => submitSearch(currFilters)}
+            onKeyDown={handleKeyDown}
           />
         </div>
         <Button className={classes.buttons} color="inherit" href="/VisualCourse">Visualize</Button>
@@ -143,4 +151,4 @@ const mapStateToProps = (state: UserState) => {
   return { loggedIn: setLogin };
 };
 
-export default connect(mapStateToProps, { submitSearch, changeFilters })(Navbar);
+export default connect(mapStateToProps, { submitSearch })(Navbar);
