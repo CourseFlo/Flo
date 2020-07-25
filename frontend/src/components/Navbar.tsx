@@ -1,21 +1,17 @@
 import React from 'react';
-import { AppBar } from '@material-ui/core';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { connect } from 'react-redux';
+import { Link, useHistory } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, InputBase, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import InputBase from '@material-ui/core/InputBase';
-import { connect } from 'react-redux';
+
 import { Filters } from '../type-interfaces/Search';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
-import { changeFilters, submitSearch } from '../redux/actions/Search';
-import {Link} from "react-router-dom";
+import { submitSearch } from '../redux/actions/Search';
 
 interface Props {
-  loggedIn: boolean,
+  isLoggedIn: boolean,
   submitSearch: Function,
-  changeFilters: Function
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -73,8 +69,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Navbar(props: any) {
   // eslint-disable-next-line no-shadow
-  const { loggedIn, submitSearch, changeFilters }: Props = props;
+  const { isLoggedIn, submitSearch }: Props = props;
   const classes = useStyles();
+  const history = useHistory();
   const currFilters: Filters = {
     query: '',
     letterCodes: [],
@@ -87,7 +84,14 @@ function Navbar(props: any) {
       return;
     }
     currFilters.query = value;
-    changeFilters(currFilters);
+  };
+
+  // eslint-disable-next-line consistent-return
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      submitSearch(currFilters);
+      return history.push('/Browse');
+    }
   };
 
   return (
@@ -123,24 +127,19 @@ function Navbar(props: any) {
             }}
             inputProps={{ 'aria-label': 'search' }}
             onChange={handleQueryChange}
-            onSubmit={() => submitSearch(currFilters)}
+            onKeyDown={handleKeyDown}
           />
         </div>
-        <Button className={classes.buttons} color="inherit" href="/VisualCourse">Visualize</Button>
-        <Button className={classes.buttons} color="inherit">Contact Us</Button>
-        {loggedIn
-          ? <Button className={classes.buttons} variant="outlined" color="inherit" href="/Sam">Profile</Button>
-          : <Button className={classes.buttons} variant="outlined" color="inherit" href="/login">Login</Button>}
+        <Button className={classes.buttons} color="inherit" onClick={() => history.push('/Browse')}>Search</Button>
+        <Button className={classes.buttons} color="inherit" onClick={() => history.push('/VisualCourse')}>Visualize</Button>
+        {isLoggedIn
+          ? <Button className={classes.buttons} variant="outlined" color="inherit" onClick={() => history.push('/ProfilePage')}>Profile</Button>
+          : <Button className={classes.buttons} variant="outlined" color="inherit" onClick={() => history.push('/login')}>Login</Button>}
       </Toolbar>
     </AppBar>
   );
 }
-interface UserState {
-  setLogin: boolean,
-}
-const mapStateToProps = (state: UserState) => {
-  const { setLogin }: UserState = state;
-  return { loggedIn: setLogin };
-};
 
-export default connect(mapStateToProps, { submitSearch, changeFilters })(Navbar);
+const mapStateToProps = (state: any) => ({ isLoggedIn: state.auth.isAuthenticated });
+
+export default connect(mapStateToProps, { submitSearch })(Navbar);

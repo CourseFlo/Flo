@@ -22,9 +22,6 @@ router.post('/callExternalAPI', function (req, res, next) {
     })
     .then(() => res.json('course offerings added'))
     .catch(err => {
-      console.log(`Possibly getting session term ${req.params.sessionYrTerm}`);
-      console.log(`Or error in insertion of Courses into DB ${req.params.sessionYrTerm}`);
-      console.log(`${err}`);
       res.status(400).json('Error: ' + err);
     });
 });
@@ -46,6 +43,7 @@ function parseCourseOfferings(rawData) {
       courseId: singleCourse.code,
       description: singleCourse.desc,
       preReqs: singleCourse.preq,
+      depn: singleCourse.depn,
       title: singleCourse.name,
       credits: Number(singleCourse.cred),
       link: singleCourse.link,

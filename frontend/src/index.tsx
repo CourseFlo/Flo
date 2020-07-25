@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'; // eslint-disable-line no-unused-vars
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
@@ -16,22 +15,21 @@ import * as serviceWorker from './serviceWorker';
 
 import Theme from './util/style';
 
-// eslint-disable-next-line no-underscore-dangle
 const store = createStore(reducers,
   process.env.NODE_ENV === 'development'
     ? composeWithDevTools(applyMiddleware(thunk))
     : applyMiddleware(thunk));
 
 ReactDOM.render(
-  <BrowserRouter>
-    <React.StrictMode>
-      <ThemeProvider theme={createMuiTheme(Theme)}>
-        <Provider store={store}>
+  <React.StrictMode>
+    <ThemeProvider theme={createMuiTheme(Theme)}>
+      <Provider store={store}>
+        <BrowserRouter>
           <App />
-        </Provider>
-      </ThemeProvider>
-    </React.StrictMode>
-  </BrowserRouter>,
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
+  </React.StrictMode>,
   document.getElementById('root'),
 );
 

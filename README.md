@@ -1,4 +1,4 @@
-CoursefFlo (subject to name change) is a webapp designed to help students see the required pre-req and co-req’s that they need before graduation in a visually pleasing manner, and allows users to explore their degree programs to better understand their options. It will store data in the form of user login, preferences, saved courses, and recent searches; we will be scraping and storing all the SSC course data, every time it is updated by UBC. Our additional functionalities that we could add or remove are: a complete API system to scrape and parse SSC data as a standalone repository, a visualizer that can display courses in 3d, and a recommender system that can give suggestions towards where we can take further courses in the future.
+[CourseFlo](https://course-flo.herokuapp.com) (subject to name change) is designed to help students see the required pre-req and co-req’s that they need before graduation in a visually pleasing manner, and allows users to explore their degree programs to better understand their options. It will store data in the form of user login, preferences, and saved courses, as well as scraped and stored UBC SSC course data. Our additional functionalities that we could add or remove are: a complete API system to scrape and parse SSC data as a standalone repository, a visualizer that can display courses in 3d, and a recommender system that can give suggestions towards where we can take further courses in the future.
 
 Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Brandon](https://github.com/beetai), [Guanting](https://github.com/baconandchips).
 
@@ -27,28 +27,39 @@ Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Bran
             *   We have a Visualizer page
             *   Webpages can display text, images and/or tables to users
         *   Database:
-            *   Can store simple data for authentication.
+            *   Can store simple course data for frontend.
     *      3-7 "standard" requirements (will most likely complete)
         *   Backend: 
-            *   Modify [https://github.com/eyqs/req](https://github.com/eyqs/req)
-            *   We should use [http://www.calendar.ubc.ca/vancouver/courses.cfm?page=name&code=CPSC](http://www.calendar.ubc.ca/vancouver/courses.cfm?page=name&code=CPSC)
-            *   Backend retrieves and updates data as needed by frontend
+            *   Backend retrieves and updates user data as needed
+            *   Backend retrieves course data as queried or selected on frontend
+            *   User data endpoint, with additional personalization.
+            *   User login and signup, using custom auth + jwt tokens stored in store.
         *   Frontend: 
             *   Visualizer page displays the selected course of the user in a 2D way.
             *   Basic course search
+            *   User profile page
             *   Personalization of courses to the user
+            *   User-friendly flow between pages
         *   Database: 
-            *   Store user’s ‘starred’ courses, store their degree program, recent searches
+            *   Store user’s ‘starred’ courses, store their degree program
+            *   Store user login info + passwords (hashed, of course)
+            *   Can store simple course data for frontend.
+        *   Deployed app to Heroku.
+            *   Setup continuous deployment on Github actions.
     *      2-3 stretch requirements (plan to complete 1!)
         *   Backend:
-            *   Make an API out of our adapted [https://github.com/eyqs/req](https://github.com/eyqs/req)
-        *   Frontend: 
+            *   Modify [existing scraper](https://github.com/eyqs/req) to scrape data from UBC directly (We should use [the calendar](http://www.calendar.ubc.ca/vancouver/courses.cfm?page=name&code=CPSC) )
+            *   Make an API out of our adapted scraper or DB data.
+        *   Frontend:
             *   Visualizer can display the course relationships in 3D
-        *   Mix (far stretch):
+            *   Visualizer can show multiple layers of depth in course relationships
+            *   Focus/view course details vs Overview of courses, prereqs, and dependents
+        *   Mix of vague ideas/stretch features:
+            *   Backend: Recommend courses to add based on what courses you’ve taken (exploratory)
             *   Backend: System can retrieve degree programs, allowing users to view listings of full degree programs
             *   Frontend: System can visualize the full course listing of the degree, allowing you to explore each course node as needed to see further req details
-            *   Backend: Recommend courses to add to their degree program, based on need and what you’ve taken 
-            *   Backend: Recommend courses to add based on what courses you’ve taken (exploratory)
+            *   Backend: Recommend courses to add to their degree program, based on need and what you’ve completed.
+
 *   Breakdown of 2 minimum requirements into ~2-5 smaller tasks:
     *   Backend: 
         *   Complete an analysis and hacky test of the current ubcexplorer.io API, to figure out the data structure
@@ -59,10 +70,3 @@ Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Bran
         *   Choose UI library for components in React
         *   Individual pages with navigation between them
         *   Actions (login, signup, add/delete courses, **visualize courses**, db querying/storing for each of the pages)
-    *   This will help you divide up work among your teammates
-
-Here are some basic wireframes/prototype sketches:
-
-<img src="sketches/FigmaSketch1.png" alt="Sketch1" width="1000"/>
-<img src="sketches/FigmaSketch2.png" alt="Sketch2" width="1000"/>
-<img src="sketches/FigmaSketch3.png" alt="Sketch3" width="1000"/>

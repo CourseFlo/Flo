@@ -18,6 +18,7 @@ module.exports = {
     },
     ecmaVersion: 2018,
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   plugins: [
     'react',
@@ -41,7 +42,8 @@ module.exports = {
       "ImportDeclaration": "never",
       "ExportDeclaration": { "multiline": true, "minProperties": 3 }
     }],
-    "react/jsx-fragments": "off"
+    "react/jsx-fragments": "off",
+    "react/require-default-props": ["error", { forbidDefaultForRequired: false, ignoreFunctionalComponents: false}]
     },
   settings: {
   }

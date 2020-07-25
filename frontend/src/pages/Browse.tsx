@@ -19,10 +19,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textAlign: 'center',
   },
   paper: {},
+  progressCircle: {
+    textAlign: 'center',
+    margin: '10px',
+  },
 }));
 
 const Browse = (props: any) => {
-  // eslint-disable-next-line no-shadow
   const { isSearchLoading }: Props = props;
   const classes = useStyles();
 
@@ -36,16 +39,12 @@ const Browse = (props: any) => {
         <Grid item xs />
       </Grid>
       <Search />
-      {isSearchLoading ?
-        <CircularProgress /> :
-        <></>}
+      {isSearchLoading
+        ? <div className={classes.progressCircle}><CircularProgress /></div>
+        : <></>}
       <Results />
     </div>
   );
-};
-
-// TODO Review proptypes
-Browse.propTypes = {
 };
 
 interface BrowseState {
@@ -56,4 +55,4 @@ const mapStateToProps = (state: BrowseState) => {
   return { isSearchLoading };
 };
 
-export default connect(mapStateToProps, { })(Browse);
+export default connect(mapStateToProps, null)(Browse);
