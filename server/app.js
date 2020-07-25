@@ -7,7 +7,15 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
-// const path = require('path');
+const fs = require('fs');
+
+const doesBuildDirExist = () => {
+  try {
+    return fs.existsSync(path.join(__dirname, '..', 'frontend', 'build'));
+  } catch (err) {
+    return false;
+  }
+};
 
 // Routers
 const indexRouter = require('./routes/index');
@@ -27,12 +35,14 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 // Serving a frontend
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
-} else {
-  app.use(express.static(path.join(__dirname, 'public'))); // Fallback in case the frontend build does not exist
+} else if (doesBuildDirExist) { // only serve build if exists. Explicit for code readability.
   app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+} else {
+  app.use(express.static(path.join(__dirname, 'public'))); // Fallback in case the frontend build does not exist (dev only)
 }
 
 // Setup mongoose connection
@@ -52,6 +62,20 @@ app.use('/courses', coursesRouter);
 app.use('/scraping', scriptRouter);
 app.use('/auth', authRouter);
 
+// Serving the frontend on wildcard. NEEDS TO REMAIN ABOVE 404 error
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
+  });
+} else if (doesBuildDirExist) {
+  // checks to be able to see server endpoints in development
+  app.get('/*', (req, res) => {
+    // probably will never serve the generator files gain
+    // res.sendFile(path.join(__dirname, '..', 'frontend', 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
+  });
+}
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
@@ -67,16 +91,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-// Serving a frontend
-if (process.env.NODE_ENV === 'production') {
-  app.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', '/index.html'));
-  });
-} else {
-  // app.get('/*', (req, res) => {
-  //   res.sendFile(path.join(__dirname, './frontend/public/index.html')); // off to be able to see server endpoints in development
-  // });
-}
 
 module.exports = app;
