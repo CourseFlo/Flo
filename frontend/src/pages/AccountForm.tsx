@@ -11,18 +11,19 @@ import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 
 import { User } from '../type-interfaces/User';
-import { getUsers, updateUser } from '../redux/actions/User';
+import { updateUser } from '../redux/actions/User';
 import { getVisualizedCourses } from '../redux/actions/courses';
+import {loadUser} from "../redux/actions/auth";
 
 interface Props {
   currentUser: User,
-  getUsers: Function,
+  loadUser: Function,
   updateUser: Function,
-  getVisualizedCoursesAction: Function,
+  getVisualizedCourses: Function,
 }
 
 function AccountForm(props: any) {
-  const { currentUser, getUsers, updateUser, getVisualizedCoursesAction } : Props = props;
+  const { currentUser, loadUser, updateUser, getVisualizedCourses } : Props = props;
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [major, setMajor] = useState(currentUser.major);
@@ -33,13 +34,12 @@ function AccountForm(props: any) {
   const [editingMajor, toggleEditingMajor] = useState(false);
 
   useEffect(() => {
-    // TODO: make this a specific get current user action
-    getUsers();
+    loadUser();
   }, []);
 
   let history = useHistory();
   function handleViewCourse(course: any) {
-    getVisualizedCoursesAction(course);
+    getVisualizedCourses(course);
     history.push("/VisualCourse");
   }
 
@@ -158,16 +158,6 @@ function AccountForm(props: any) {
   );
 }
 
-const mapStateToProps = (state: any) => {
-  const { currentUser } = state;
-  return { currentUser };
-};
+const mapStateToProps = (state: any) => ({ currentUser: state.auth.user });
 
-const mapDispatchToProps = (dispatch: any) => ({
-  getVisualizedCoursesAction: (params: string) => dispatch(getVisualizedCourses(params)),
-  getUsers: () => dispatch(getUsers()),
-  updateUser: (uid: string, fields: Object) => dispatch(updateUser(uid, fields)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AccountForm);
-// TODO: change get users to get specific user. this is placeholder before we implement new action
+export default connect(mapStateToProps, { loadUser, updateUser, getVisualizedCourses })(AccountForm);

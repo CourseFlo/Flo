@@ -1,58 +1,73 @@
-var express = require('express');
-var router = express.Router();
-let User = require('../models/user');
+const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
+const auth = require('../middleware/auth');
+
+const router = express.Router();
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', (req, res, next) => {
   User.find()
-    .then(users => res.json(users))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then((users) => res.json(users))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
-router.get('/:userId', function(req, res, next) {
+router.get('/:userId', (req, res, next) => {
   User.findById(req.params.userId)
-    .then(user => res.json(user))
-    .catch(err => res.status(400).json('Error: ' + err));
+    .then((user) => res.json(user))
+    .catch((err) => res.status(400).json(`Error: ${err}`));
 });
 
-// add user
+// add/register user
+router.post('/', async (req, res, next) => {
+  const { name, email, password } = req.body;
 
-// update user
-// router.route('/update').post((req, res) => {
-//  // TODO Remove?  const name = req.body.name;
-//   const email = req.body.email;
-//   const major = req.body.major;
-//   const courses = req.body.courses;
-//   const id = req.body.id;
+  // validation
+  if (!name || !email || !password) {
+    return res.status(400).json('Please enter all required fields');
+  }
 
-//   // const newUser = new User({name, email, major, courses, id });
-//   const updates = { name, email, major, courses };
+  try {
+    let user = await User.findOne({ email });
+    if (user) throw Error('User already exists');
 
-//   filter = { id: id };
+    const newUser = new User({
+      name,
+      email,
+      password,
+      major: '',
+    });
 
-//   User.where().findOneAndUpdate({}, updates, { new: true },
-//     (err, doc) => {
-//       if (err) {
-//         res.send("Error: " + err);
-//       } else {
-//         res.send("Update successful: " + doc);
-//       }
-//     });
-// });
+    const salt = await bcrypt.genSalt(10);
+    newUser.password = await bcrypt.hash(newUser.password, salt);
+    const savedUser = await newUser.save();
+    const token = await jwt.sign(
+      { id: newUser.id },
+      process.env.JWT_SECRET,
+      { expiresIn: 3600 },
+    );
+    user = await User.findById(savedUser.id).select('-password');
+    return res.json({
+      token,
+      user,
+    });
+  } catch (e) {
+    return res.status(400).json(e.message);
+  }
+});
 
 router.route('/update/:id').post((req, res) => {
-  const id = req.params.id;
-  const name = req.body.name;
-  const email = req.body.email;
-  const major = req.body.major;
+  const { id } = req.params;
+  const { name } = req.body;
+  const { email } = req.body;
+  const { major } = req.body;
   // const courses = req.body.courses;
-  const updates = { name: name, email: email, major: major };
+  const updates = { name, email, major };
   User.findByIdAndUpdate(id, updates, { new: true })
     .then(user => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-
-    
 
 // Update the starred courses. Adds if doesn't already exist, removes if it does.
 router.route('/update/starredCourses/:id').post((req, res) => {
@@ -73,21 +88,5 @@ router.route('/update/starredCourses/:id').post((req, res) => {
     .then(user => res.json(user))
     .catch(err => res.status(400).json('Error: ' + err));
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;

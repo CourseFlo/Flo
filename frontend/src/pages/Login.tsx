@@ -23,7 +23,7 @@ const Login = (props: any) => {
   const classes = useStyles();
   console.log(users);
   useEffect(() => {
-    getUsers();
+    // getUsers();
   }, []);
 
   return (
