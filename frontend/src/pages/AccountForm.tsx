@@ -12,15 +12,16 @@ import TextField from '@material-ui/core/TextField';
 
 import { User } from '../type-interfaces/User';
 import { getUsers, updateUser } from '../redux/actions/User';
+import {loadUser} from "../redux/actions/auth";
 
 interface Props {
   currentUser: User,
-  getUsers: Function,
+  loadUser: Function,
   updateUser: Function,
 }
 
 function AccountForm(props: any) {
-  const { currentUser, getUsers, updateUser } : Props = props;
+  const { currentUser, loadUser, updateUser } : Props = props;
   const [name, setName] = useState(currentUser.name);
   const [email, setEmail] = useState(currentUser.email);
   const [major, setMajor] = useState(currentUser.major);
@@ -31,7 +32,8 @@ function AccountForm(props: any) {
 
   useEffect(() => {
     // TODO: make this a specific get current user action
-    getUsers();
+    // getUsers();
+    loadUser();
   }, []);
 
   const handleEditName = () => {
@@ -141,10 +143,7 @@ function AccountForm(props: any) {
   );
 }
 
-const mapStateToProps = (state: any) => {
-  const { currentUser } = state;
-  return { currentUser };
-};
+const mapStateToProps = (state: any) => ({ currentUser: state.auth.user });
 
-export default connect(mapStateToProps, { getUsers, updateUser })(AccountForm);
+export default connect(mapStateToProps, { loadUser, updateUser })(AccountForm);
 // TODO: change get users to get specific user. this is placeholder before we implement new action

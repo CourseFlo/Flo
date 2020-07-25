@@ -34,6 +34,7 @@ router.post('/', async (req, res, next) => {
         id: user.id,
         name: user.name,
         email: user.email,
+        courses: user.courses,
       },
     });
   } catch (e) {

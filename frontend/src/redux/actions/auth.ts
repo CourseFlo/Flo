@@ -9,7 +9,7 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL,
+  REGISTER_FAIL, GET_ERRORS,
 } from '../constants';
 
 // setup configs, headers, and token
@@ -31,7 +31,7 @@ export const tokenConfig = (getState: Function): AxiosRequestConfig => {
 };
 
 // Check token and load user
-export const loadUser = () => (dispatch: Function, getState: Function) => { //
+export const loadUser = () => (dispatch: Function, getState: Function) => {
   dispatch({ type: USER_LOADING });
 
   axios.get('/auth/user', tokenConfig(getState))
@@ -45,4 +45,37 @@ export const loadUser = () => (dispatch: Function, getState: Function) => { //
       dispatch(returnErrors(err.response?.data, err.response?.status));
       dispatch({ type: AUTH_ERROR });
     });
+};
+
+// register user
+export const register = ({ name, email, password }: any) => (dispatch: Function) => { // TODO: set destruct param type?
+  axios.post('/users', {
+    name, email, password,
+  }).then((response: AxiosResponse) => {
+    dispatch({
+      type: REGISTER_SUCCESS,
+      payload: response.data,
+    });
+  }).catch((err: AxiosError) => {
+    dispatch(returnErrors(err.response?.data, err.response?.status, REGISTER_FAIL));
+    dispatch({ type: REGISTER_FAIL });
+  });
+};
+
+// logout user
+export const logout = () => ({ type: LOGOUT_SUCCESS });
+
+// login user
+export const login = ({ email, password }: any) => (dispatch: Function) => { // TODO: set destruct param type?
+  axios.post('/auth', {
+    email, password,
+  }).then((response: AxiosResponse) => {
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: response.data,
+    });
+  }).catch((err: AxiosError) => {
+    dispatch(returnErrors(err.response?.data, err.response?.status, LOGIN_FAIL));
+    dispatch({ type: LOGIN_FAIL });
+  });
 };

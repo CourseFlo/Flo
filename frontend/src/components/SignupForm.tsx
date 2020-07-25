@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { getUsers } from '../redux/actions/User';
+import { register } from '../redux/actions/auth';
+import { REGISTER_FAIL } from '../redux/constants';
+import { clearErrors } from '../redux/actions/error';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -14,32 +19,83 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-const SignupForm = () => {
+interface Props {
+  isAuthenticated: boolean,
+  error: any,
+  register: Function,
+  clearErrors: Function,
+}
+
+const SignupForm = (props: any) => {
+  const { isAuthenticated, error, register, clearErrors }: Props = props;
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errorMsg, setErrorMsg] = useState(null);
+
   const classes = useStyles();
+
+  const handleNameChange = (e: any) => {
+    setName(e.target.value);
+  };
+  const handleEmailChange = (e: any) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e: any) => {
+    setPassword(e.target.value);
+  };
+
+  const handleSubmit = (e: any) => {
+    const newUser = {
+      name,
+      email,
+      password,
+    };
+
+    register(newUser);
+  };
+
+  useEffect(() => {
+    if (error.id === REGISTER_FAIL) {
+      setErrorMsg(error.msg.msg);
+    } else {
+      setErrorMsg(null);
+    }
+
+    if (isAuthenticated) {
+      // clearErrors();
+      // redirect to profile page
+    }
+  }, [error, isAuthenticated]);
 
   return (
     <form>
+      { errorMsg ? <div>{errorMsg}</div> : null}
       <Input
-        placeholder="First name"
+        placeholder="Name"
+        id="name"
+        name="name"
         required
         className={classes.inputFields}
-      />
-      <Input
-        placeholder="Last name"
-        required
-        className={classes.inputFields}
+        onChange={handleNameChange}
       />
       <Input
         placeholder="Email"
         type="email"
+        id="email"
+        name="email"
         required
         className={classes.inputFields}
+        onChange={handleEmailChange}
       />
       <Input
         placeholder="Password"
         type="password"
+        id="password"
+        name="password"
         required
         className={classes.inputFields}
+        onChange={handlePasswordChange}
       />
       <Input
         placeholder="Retype password"
@@ -47,9 +103,14 @@ const SignupForm = () => {
         required
         className={classes.inputFields}
       />
-      <Button variant="contained" className={classes.loginButton}>Sign up</Button>
+      <Button variant="contained" className={classes.loginButton} onClick={handleSubmit}>Sign up</Button>
     </form>
   );
 };
 
-export default SignupForm;
+const mapStateToProps = (state: any) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  error: state.error,
+});
+
+export default connect(mapStateToProps, { register, clearErrors })(SignupForm);
