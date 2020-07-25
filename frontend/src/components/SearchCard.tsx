@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Container, Button } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
@@ -9,23 +10,19 @@ import { Filters } from '../type-interfaces/Search';
 import { submitSearch } from '../redux/actions/Search';
 import { MAX_COURSE_CODE, MIN_COURSE_CODE } from '../util/UIConstants';
 
-// TODO: TAKE OUT CHANGEFILTERS, SEARCHFILTERS FROM SEARCH BASIC, AND SEARCH NAVBAR
-
 interface Props {
-  // searchFilters: Filters,
-  // changeFilters: Function,
   submitSearch: Function,
 }
 
 const SearchCard = (props: any) => {
   // eslint-disable-next-line no-shadow
   const { submitSearch }: Props = props;
+  const history = useHistory();
 
   const searchInputs: Filters = {
     query: '',
     letterCodes: [],
     numberRange: [MIN_COURSE_CODE, MAX_COURSE_CODE],
-    // ...searchFilters,
   };
   const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target as HTMLSelectElement;
@@ -33,7 +30,6 @@ const SearchCard = (props: any) => {
       return;
     }
     searchInputs.query = value;
-    // changeFilters(searchInputs);
   };
 
   return (
@@ -51,7 +47,10 @@ const SearchCard = (props: any) => {
             variant="contained"
             color="primary"
             size="medium"
-            onClick={() => { submitSearch(searchInputs); }}
+            onClick={() => {
+              submitSearch(searchInputs);
+              history.push('/Browse');
+            }}
             startIcon={<SearchIcon />}
           />
         </form>
