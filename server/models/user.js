@@ -22,7 +22,10 @@ const userSchema = new Schema({
   },
   id: {
     type: String
-  }
+  },
+  starredCourses: {
+    type: [String]
+  },
   
 }, {
   timestamps: true,
