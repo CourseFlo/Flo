@@ -36,6 +36,7 @@ router.post('/', async (req, res, next) => {
       name,
       email,
       password,
+      major: '',
     });
 
     const salt = await bcrypt.genSalt(10);
