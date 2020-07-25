@@ -149,7 +149,7 @@ function AccountForm(props: any) {
           <Typography variant="subtitle1">Starred Courses:</Typography>
           <List>
             {starredCourses.map((course) => (
-              <ListItem button key={course} >{course}</ListItem>
+              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
             ))}
           </List>
         </ListItem>
