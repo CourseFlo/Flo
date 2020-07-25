@@ -57,29 +57,6 @@ router.post('/', async (req, res, next) => {
   }
 });
 
-// update user
-router.route('/update').post((req, res) => {
-  const { name } = req.body;
-  const { email } = req.body;
-  const { major } = req.body;
-  const { courses } = req.body;
-  const { id } = req.body;
-
-  // const newUser = new User({name, email, major, courses, id });
-  const updates = {
-    name, email, major, courses,
-  };
-
-  User.where().findOneAndUpdate({}, updates, { new: true },
-    (err, doc) => {
-      if (err) {
-        res.send(`Error: ${err}`);
-      } else {
-        res.send(`Update successful: ${doc}`);
-      }
-    });
-});
-
 router.route('/update/:id').post((req, res) => {
   const { id } = req.params;
   const { name } = req.body;
@@ -88,8 +65,28 @@ router.route('/update/:id').post((req, res) => {
   // const courses = req.body.courses;
   const updates = { name, email, major };
   User.findByIdAndUpdate(id, updates, { new: true })
-    .then((user) => res.json(user))
-    .catch((err) => res.status(400).json(`Error: ${err}`));
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// Update the starred courses. Adds if doesn't already exist, removes if it does.
+router.route('/update/starredCourses/:id').post((req, res) => {
+  const id = req.params.id;
+  const courseToModify = req.body.starredCourse;
+  User.findById(req.params.id)
+    .then(user => {
+      let starredCourses = user.starredCourses;
+      const exists = starredCourses.includes(courseToModify);
+      console.log(courseToModify, starredCourses, exists);
+      if (exists) {
+        starredCourses = starredCourses.filter(course => course !== courseToModify);
+      } else {
+        starredCourses.push(courseToModify);
+      }
+      return User.findByIdAndUpdate(id, { starredCourses }, { new: true });
+    })
+    .then(user => res.json(user))
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 module.exports = router;

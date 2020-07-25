@@ -22,6 +22,9 @@ const userSchema = new Schema({
   courses: {
     type: [String],
   },
+  starredCourses: {
+    type: [String]
+  },
   password: {
     type: String,
     required: true,
