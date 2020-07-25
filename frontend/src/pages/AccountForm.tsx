@@ -31,8 +31,6 @@ function AccountForm(props: any) {
   const [editingMajor, toggleEditingMajor] = useState(false);
 
   useEffect(() => {
-    // TODO: make this a specific get current user action
-    // getUsers();
     loadUser();
   }, []);
 
@@ -146,4 +144,3 @@ function AccountForm(props: any) {
 const mapStateToProps = (state: any) => ({ currentUser: state.auth.user });
 
 export default connect(mapStateToProps, { loadUser, updateUser })(AccountForm);
-// TODO: change get users to get specific user. this is placeholder before we implement new action

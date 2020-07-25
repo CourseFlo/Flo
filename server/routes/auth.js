@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
 
   // validation
   if (!email || !password) {
-    return res.status(400).json({ msg: 'Please enter all required fields' });
+    return res.status(400).json('Please enter all required fields');
   }
 
   try {
@@ -34,7 +34,7 @@ router.post('/', async (req, res, next) => {
       user,
     });
   } catch (e) {
-    return res.status(400).json({ msg: e.message });
+    return res.status(400).json(e.message);
   }
 });
 

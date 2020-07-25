@@ -9,7 +9,7 @@ function ProtectedRoute(props: any) {
     <Route
       {...rest}
       render={(props) => (
-        auth.user
+        auth.isAuthenticated
           ? <Component />
           : <Redirect exact to="/login" />
       )}

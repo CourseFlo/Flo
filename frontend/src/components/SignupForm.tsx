@@ -57,7 +57,7 @@ const SignupForm = (props: any) => {
 
   useEffect(() => {
     if (error.id === REGISTER_FAIL) {
-      setErrorMsg(error.msg.msg);
+      setErrorMsg(error.msg);
     } else {
       setErrorMsg(null);
     }

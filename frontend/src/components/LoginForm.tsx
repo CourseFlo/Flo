@@ -49,7 +49,7 @@ const LoginForm = (props: any) => {
 
   useEffect(() => {
     if (error.id === LOGIN_FAIL) {
-      setErrorMsg(error.msg.msg);
+      setErrorMsg(error.msg);
     } else {
       setErrorMsg(null);
     }

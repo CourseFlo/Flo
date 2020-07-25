@@ -9,7 +9,7 @@ import {
   LOGIN_FAIL,
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
-  REGISTER_FAIL, GET_ERRORS,
+  REGISTER_FAIL,
 } from '../constants';
 
 // setup configs, headers, and token
