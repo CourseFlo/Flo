@@ -16,11 +16,10 @@ export const getVisualizedCourses = (courseId: string) => {
   return (dispatch: Function) => {
     axios.get(`/courses/getRelated/${courseId}`)
       .then((response) => {
-        console.log(response);
         dispatch(getVisualizedCoursesSuccess(response.data));
       })
       .catch((err) => {
-        console.log("Somehow we're getting an error", err);
+        console.log("Error: ", err);
         // dispatch(getVisualizedCoursesFailure(err.message));
       });
   };

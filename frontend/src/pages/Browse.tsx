@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     textAlign: 'center',
   },
   paper: {},
+  progressCircle: {
+    textAlign: 'center',
+    margin: '10px',
+  },
 }));
 
 const Browse = (props: any) => {
@@ -36,15 +40,11 @@ const Browse = (props: any) => {
       </Grid>
       <Search />
       {isSearchLoading
-        ? <CircularProgress />
+        ? <div className={classes.progressCircle}><CircularProgress /></div>
         : <></>}
       <Results />
     </div>
   );
-};
-
-// TODO Review proptypes
-Browse.propTypes = {
 };
 
 interface BrowseState {

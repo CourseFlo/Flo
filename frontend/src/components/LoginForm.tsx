@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+
 import { login } from '../redux/actions/auth';
-import { LOGIN_FAIL, REGISTER_FAIL } from '../redux/constants';
+import { LOGIN_FAIL } from '../redux/constants';
+import { clearErrors } from '../redux/actions/error';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -21,15 +25,17 @@ interface Props {
   isAuthenticated: boolean,
   error: any,
   login: Function,
+  clearErrors: Function,
 }
 
 const LoginForm = (props: any) => {
-  const { isAuthenticated, error, login }: Props = props;
+  const { isAuthenticated, error, login, clearErrors }: Props = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
 
   const classes = useStyles();
+  const history = useHistory();
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -55,8 +61,9 @@ const LoginForm = (props: any) => {
     }
 
     if (isAuthenticated) {
-      // clearErrors();
+      clearErrors();
       // redirect to profile page
+      history.push('/ProfilePage');
     }
   }, [error, isAuthenticated]);
 
@@ -91,4 +98,4 @@ const mapStateToProps = (state: any) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { login })(LoginForm);
+export default connect(mapStateToProps, { login, clearErrors })(LoginForm);
