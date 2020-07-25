@@ -27,8 +27,13 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+// Serving a frontend
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+} else {
+  app.use(express.static(path.join(__dirname, 'public'))); // Fallback in case the frontend build does not exist
+  app.use(express.static(path.join(__dirname, '..', 'frontend', 'build')));
+}
 
 // Setup mongoose connection
 const uri = process.env.ATLAS_URI;
@@ -63,8 +68,15 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '..', 'frontend', 'build', 'index.html'));
-});
+// Serving a frontend
+if (process.env.NODE_ENV === 'production') {
+  app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'frontend', 'build', '/index.html'));
+  });
+} else {
+  // app.get('/*', (req, res) => {
+  //   res.sendFile(path.join(__dirname, './frontend/public/index.html')); // off to be able to see server endpoints in development
+  // });
+}
 
 module.exports = app;
