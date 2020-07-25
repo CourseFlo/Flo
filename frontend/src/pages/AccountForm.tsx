@@ -27,6 +27,7 @@ function AccountForm(props: any) {
   const [email, setEmail] = useState(currentUser.email);
   const [major, setMajor] = useState(currentUser.major);
   const [courses, setCourses] = useState(currentUser.courses);
+  const [starredCourses, setStarredCourses] = useState(currentUser.starredCourses);
   const [editingName, toggleEditingName] = useState(false);
   const [editingEmail, toggleEditingEmail] = useState(false);
   const [editingMajor, toggleEditingMajor] = useState(false);
@@ -140,9 +141,15 @@ function AccountForm(props: any) {
           <Typography variant="subtitle1">Courses:</Typography>
           <List>
             {courses.map((course) => (
-              // On click for the list item, redirect to visual course with the course key
-              // need to implement 
               <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+            ))}
+          </List>
+        </ListItem>
+        <ListItem>
+          <Typography variant="subtitle1">Starred Courses:</Typography>
+          <List>
+            {starredCourses.map((course) => (
+              <ListItem button key={course} >{course}</ListItem>
             ))}
           </List>
         </ListItem>

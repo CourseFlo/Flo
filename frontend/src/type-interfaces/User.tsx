@@ -3,5 +3,6 @@ export interface User {
     email: string,
     major: string,
     courses: Array<string>,
-    _id: string
+    _id: string,
+    starredCourses: Array<string>,
 }
