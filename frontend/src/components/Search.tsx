@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -8,7 +7,7 @@ import { Grid, Box, TextField, FormControl, InputLabel, Select, Button, Typograp
 import SearchIcon from '@material-ui/icons/Search';
 
 import { Filters } from '../type-interfaces/Search';
-import { changeFilters, submitSearch } from '../redux/actions/Search';
+import { submitSearch } from '../redux/actions/Search';
 import { MIN_COURSE_CODE, MAX_COURSE_CODE, SLIDER_STEP_SIZE } from '../util/UIConstants';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -47,7 +46,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-
 // REMOVE once we have actual data
 const names = [
   'ANTH',
@@ -59,25 +57,25 @@ const names = [
 ];
 
 // Create array of slider marks: MIN_COURSE_CODE to MAX_COURSE_CODE, in steps of SLIDER_STEP_SIZE
-const sliderRange: any[] = Array.from(Array((MAX_COURSE_CODE - MIN_COURSE_CODE) / SLIDER_STEP_SIZE + 1).keys());
+const sliderRange: any[] = Array
+  .from(Array((MAX_COURSE_CODE - MIN_COURSE_CODE) / SLIDER_STEP_SIZE + 1)
+    .keys());
 const sliderMarks = sliderRange.map((_num, i) => ({
   value: (MIN_COURSE_CODE + i * SLIDER_STEP_SIZE),
   label: `${MIN_COURSE_CODE + i * SLIDER_STEP_SIZE}`,
 }));
 
 interface Props {
-  searchFilters: Filters,
-  changeFilters: Function,
   submitSearch: Function,
 }
 
 const Search = (props: any) => {
   // eslint-disable-next-line no-shadow
-  const { searchFilters, changeFilters, submitSearch }: Props = props;
+  const { submitSearch }: Props = props;
   const classes = useStyles();
-  const searchInputs: Filters = {
-    ...searchFilters,
-  };
+  const [letterCodes, setLetterCodes] = useState<any[]>([]);
+  const [queryString, setQueryString] = useState<string>('');
+  const [numberRange, setNumberRange] = useState<number[]>([200, 400]);
 
   const handleLetterCodeChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { options } = event.target as HTMLSelectElement;
@@ -87,9 +85,7 @@ const Search = (props: any) => {
         codes.push(options[i].value);
       }
     }
-
-    searchInputs.letterCodes = codes;
-    changeFilters(searchInputs);
+    setLetterCodes(codes);
   };
 
   const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -97,18 +93,25 @@ const Search = (props: any) => {
     if (value.trim() === '' || value.trim() === '') {
       return;
     }
-    searchInputs.query = value;
-    changeFilters(searchInputs);
+    setQueryString(value);
   };
 
   const handleNumberRangeChange = (_event: any, newValue: number | number[]) => {
     if (!Array.isArray(newValue) || newValue.length !== 2) {
       return;
     }
-    const newRange: number | number[] = newValue;
-    searchInputs.numberRange = newRange;
-    changeFilters(searchInputs);
+    setNumberRange(newValue);
   };
+
+  const handleSubmit = () => {
+    const searchInputs: Filters = {
+      letterCodes,
+      query: queryString,
+      numberRange,
+    };
+    submitSearch(searchInputs);
+  };
+  console.log()
 
   return (
     <div className={classes.root}>
@@ -141,7 +144,7 @@ const Search = (props: any) => {
                 <Select
                   multiple
                   native
-                  value={searchInputs.letterCodes}
+                  value={letterCodes}
                   onChange={handleLetterCodeChangeMultiple}
                   inputProps={{
                     id: 'select-multiple-native',
@@ -155,7 +158,7 @@ const Search = (props: any) => {
                 </Select>
               </FormControl>
               {'Selected Codes: '}
-              <Typography>{searchInputs.letterCodes.map((code) => `${code} , `)}</Typography>
+              <Typography>{letterCodes.join(', ')}</Typography>
             </Box>
           </Grid>
           <Grid item xs>
@@ -164,7 +167,7 @@ const Search = (props: any) => {
                 Course number range:
               </Typography>
               <Slider
-                value={searchInputs.numberRange}
+                value={numberRange}
                 onChange={handleNumberRangeChange}
                 orientation="horizontal"
                 min={MIN_COURSE_CODE}
@@ -184,7 +187,7 @@ const Search = (props: any) => {
               variant="contained"
               color="primary"
               size="medium"
-              onClick={() => { submitSearch(searchInputs); }}
+              onClick={handleSubmit}
               className={classes.searchButton}
               startIcon={<SearchIcon />}
             >
@@ -198,20 +201,12 @@ const Search = (props: any) => {
   );
 };
 
-// TODO Review proptypes
-Search.propTypes = {
-  searchFilters: PropTypes.object.isRequired, // eslint-disable-line react/forbid-prop-types
-  changeFilters: PropTypes.func.isRequired,
-  submitSearch: PropTypes.func.isRequired,
-};
+// TODO grab list of letter code filters from db?
+// // Subset of full state used here
+// interface SearchState {
+// }
+// const mapStateToProps = (state: SearchState) => {
+//   return {};
+// };
 
-// Subset of full state used here
-interface SearchState {
-  searchFilters: Filters,
-}
-const mapStateToProps = (state: SearchState) => {
-  const { searchFilters }: SearchState = state;
-  return { searchFilters };
-};
-
-export default connect(mapStateToProps, { changeFilters, submitSearch })(Search);
+export default connect(null, { submitSearch })(Search);

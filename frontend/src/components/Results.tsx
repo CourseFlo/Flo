@@ -1,12 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { CardContent, Card, Typography, CardActions, Button, Grid } from '@material-ui/core';
+import { Favorite } from '@material-ui/icons/';
+import { CardContent, Card, Typography, CardActions, Button, Grid, IconButton } from '@material-ui/core';
 
-import { Course } from '../type-interfaces/Course';
+import { Course, CourseId } from '../type-interfaces/Course';
 import { getVisualizedCourses } from '../redux/actions/courses';
+// import { starCourse } from '../redux/actions/User';
+const starCourse = (courseId: any) => { console.log('Starring course: ', courseId); }; // FIXME Delete
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -25,39 +29,66 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
+interface ResultsState {
+  searchResults: any,
+  auth: any
+}
+
 interface Props {
   searchResults: Course[],
+  auth: any
   getVisualizedCoursesAction: Function,
 }
 
 const Results = (props: Props) => {
-  const { searchResults, getVisualizedCoursesAction }: Props = props;
+  const { searchResults, getVisualizedCoursesAction, auth }: Props = props;
+  const history = useHistory();
   const classes = useStyles();
+  const isAuthed = false; // auth.isAuthenticated;
+
+  // Pre-emptively get info and redirect to the visualizer to see the course selected
+  const handleSelect = (course: any) => {
+    getVisualizedCoursesAction(course.courseId);
+    history.push('/VisualCourse');
+  };
+
+  const handleStar = (course: any) => {
+    if (isAuthed) {
+      starCourse(course.courseId);
+    } else {
+      // Force the user to go login // FIX I hate this feature. Let's make a modal instead
+      history.push('/login');
+    }
+  };
 
   return (
     <Grid container spacing={3}>
-      {searchResults.map((item) => (
-        <Grid item xs={4} key={item.courseId}>
+      {searchResults.map((course) => (
+        <Grid item xs={4} key={course.courseId}>
           <Card className={classes.root}>
             <CardContent>
               <Typography className={classes.title} color="textSecondary" gutterBottom>
-                {item.sessionYear}
-                {item.sessionTerm}
+                {course.sessionYear}
+                {course.sessionTerm}
               </Typography>
               <Typography variant="h5" component="h2">
-                {item.courseLetterCode}
-                {item.courseDigitCode}
+                {course.courseLetterCode}
+                {course.courseDigitCode}
               </Typography>
               <Typography className={classes.pos} color="textSecondary">
-                {`Restrictions: ${item.restrictionInfo}`}
-                {` | Pre-reqs: ${Object.keys(item.preReqs)}`}
+                {course.restrictionInfo ? `Restrictions: ${course.restrictionInfo}` : null}
+                {(course.restrictionInfo !== '' && course.preReqs.length > 0) ? ' | ' : null}
+                {course.preReqs.length > 0 ? `Pre-reqs: ${course.preReqs.join(', ')}` : null}
               </Typography>
               <Typography variant="body2" component="p">
-                {item.description}
+                {course.description}
               </Typography>
             </CardContent>
             <CardActions>
-              <Button size="small" onClick={() => getVisualizedCoursesAction(item.courseId)}>Learn More</Button>
+              <Button size="small" onClick={() => handleSelect(course)}>Learn More</Button>
+              <IconButton aria-label="add to favorites" onClick={() => handleStar(course)}>
+                <Favorite />
+              </IconButton>
             </CardActions>
           </Card>
         </Grid>
@@ -66,21 +97,14 @@ const Results = (props: Props) => {
   );
 };
 
-// // TODO Review custom proptypes
-// Results.propTypes = {
-//   searchResults: PropTypes.CourseArray,
-// };
-
-interface ResultsState {
-  searchResults: any,
-}
 const mapStateToProps = (state: ResultsState) => {
-  const { searchResults }: ResultsState = state;
-  return { searchResults };
+  const { searchResults, auth }: ResultsState = state;
+  return { searchResults, auth };
 };
 
 const mapDispatchToProps = (dispatch: any) => ({
   getVisualizedCoursesAction: (params: string) => dispatch(getVisualizedCourses(params)),
+  starCourse: (param: CourseId) => dispatch(starCourse(param)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Results);
