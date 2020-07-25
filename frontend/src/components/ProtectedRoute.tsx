@@ -4,12 +4,12 @@ import { Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 function ProtectedRoute(props: any) {
-  const { currentUser, component: Component, ...rest } = props;
+  const { auth, component: Component, ...rest } = props;
   return (
     <Route
       {...rest}
       render={(props) => (
-        currentUser.name
+        auth.isAuthenticated
           ? <Component />
           : <Redirect exact to="/login" />
       )}
@@ -18,8 +18,8 @@ function ProtectedRoute(props: any) {
 }
 
 const mapStateToProps = (state: any) => {
-  const { currentUser } = state;
-  return { currentUser };
+  const { auth } = state;
+  return { auth };
 };
 
 export default connect(mapStateToProps)(ProtectedRoute);

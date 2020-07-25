@@ -7,11 +7,13 @@ const userSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    minlength: 3
+    minlength: 3,
   },
   email: {
     type: String,
     minlength: 3,
+    required: true,
+    unique: true,
   },
   major: {
     type: String,
@@ -20,10 +22,10 @@ const userSchema = new Schema({
   courses: {
     type: [String],
   },
-  id: {
-    type: String
-  }
-  
+  password: {
+    type: String,
+    required: true,
+  },
 }, {
   timestamps: true,
 });
