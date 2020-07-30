@@ -1,12 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 const ErrorPage = () => (
   <div style={{ textAlign: 'center' }}>
-    <h1>Page not found!</h1>
-    <p>
-      Why don't you try again from <Link to="/"> home</Link>.
-    </p>
+    <Typography variant="h1">Page not found!</Typography>
+    <Typography variant="body1">
+      Why don&apos;t you try again from&nbsp;
+      <Link to="/">home</Link>
+      .
+    </Typography>
   </div>
 );
 

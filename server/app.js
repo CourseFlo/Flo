@@ -8,7 +8,6 @@ const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
 
-
 // Routers
 const usersRouter = require('./routes/users');
 const coursesRouter = require('./routes/courses');
