@@ -9,6 +9,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { login } from '../redux/actions/auth';
 import { LOGIN_FAIL } from '../redux/constants';
 import { clearErrors } from '../redux/actions/error';
+import { clearModals } from '../redux/actions/modal';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -26,10 +27,11 @@ interface Props {
   error: any,
   login: Function,
   clearErrors: Function,
+  clearModals: Function,
 }
 
 const LoginForm = (props: any) => {
-  const { isAuthenticated, error, login, clearErrors }: Props = props;
+  const { isAuthenticated, error, login, clearErrors, clearModals }: Props = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
@@ -62,6 +64,7 @@ const LoginForm = (props: any) => {
 
     if (isAuthenticated) {
       clearErrors();
+      clearModals();
       // redirect to profile page
       history.push('/ProfilePage');
     }
@@ -98,4 +101,4 @@ const mapStateToProps = (state: any) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { login, clearErrors })(LoginForm);
+export default connect(mapStateToProps, { login, clearErrors, clearModals })(LoginForm);
