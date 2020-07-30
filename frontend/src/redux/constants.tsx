@@ -20,3 +20,8 @@ export const REGISTER_FAIL = 'REGISTER_FAIL';
 // error constants
 export const GET_ERRORS = 'GET_ERRORS';
 export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+
+// modal constants
+export const OPEN_SIGNUP = 'OPEN_SIGNUP';
+export const OPEN_LOGIN = 'OPEN_LOGIN';
+export const CLEAR_MODALS = 'CLEAR_MODALS';

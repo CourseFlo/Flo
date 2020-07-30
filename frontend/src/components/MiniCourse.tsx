@@ -7,6 +7,7 @@ import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 
 import { getVisualizedCourses } from '../redux/actions/courses';
 import { starCourse } from '../redux/actions/User';
+import {openSignupModal} from "../redux/actions/modal";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const MiniCourse = (props: any) => {
-  const { courseData, getVisualizedCoursesAction, starCourseAction, auth } = props;
+  const { courseData, getVisualizedCoursesAction, starCourseAction, openModal, auth } = props;
   const classes = useStyles();
   const history = useHistory();
   const isAuthed = auth.isAuthenticated;
@@ -46,7 +47,8 @@ const MiniCourse = (props: any) => {
       starCourseAction(courseId);
     } else {
       // Force the user to go login // FIX I hate this feature. Let's make a modal instead
-      history.push('/login');
+      // history.push('/login');
+      openModal();
     }
   };
 
@@ -98,4 +100,5 @@ const mapStateToProps = (state: any) => {
 export default connect(mapStateToProps, {
   getVisualizedCoursesAction: getVisualizedCourses,
   starCourseAction: starCourse,
+  openModal: openSignupModal,
 })(MiniCourse);
