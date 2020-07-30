@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { register } from '../redux/actions/auth';
 import { REGISTER_FAIL } from '../redux/constants';
 import { clearErrors } from '../redux/actions/error';
+import { clearModals } from '../redux/actions/modal';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -24,10 +25,11 @@ interface Props {
   error: any,
   register: Function,
   clearErrors: Function,
+  clearModals: Function,
 }
 
 const SignupForm = (props: any) => {
-  const { isAuthenticated, error, register, clearErrors }: Props = props;
+  const { isAuthenticated, error, register, clearErrors, clearModals }: Props = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -65,6 +67,7 @@ const SignupForm = (props: any) => {
 
     if (isAuthenticated) {
       clearErrors();
+      clearModals();
       // redirect to profile page
       history.push('/ProfilePage');
     }
@@ -115,4 +118,4 @@ const mapStateToProps = (state: any) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { register, clearErrors })(SignupForm);
+export default connect(mapStateToProps, { register, clearErrors, clearModals })(SignupForm);
