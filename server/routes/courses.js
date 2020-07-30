@@ -69,4 +69,10 @@ router.post('/search', function (req, res, next) {
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.get('/letterCodes', (req, res, next) => {
+  CourseOffering.find().distinct('courseLetterCode')
+    .then((letterCodes) => res.json(letterCodes))
+    .catch((err) => res.status(400).json('Error: ' + err));
+});
+
 module.exports = router;

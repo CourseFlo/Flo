@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import axios, { AxiosResponse } from 'axios';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Box, TextField, FormControl, InputLabel, Select, Button, Typography, Slider } from '@material-ui/core';
@@ -46,16 +47,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-// REMOVE once we have actual data
-const names = [
-  'ANTH',
-  'ARTI',
-  'CPSC',
-  'OTHE',
-  'STHE',
-  'TTHE',
-];
-
 // Create array of slider marks: MIN_COURSE_CODE to MAX_COURSE_CODE, in steps of SLIDER_STEP_SIZE
 const sliderRange: any[] = Array
   .from(Array((MAX_COURSE_CODE - MIN_COURSE_CODE) / SLIDER_STEP_SIZE + 1)
@@ -76,6 +67,17 @@ const Search = (props: any) => {
   const [letterCodes, setLetterCodes] = useState<any[]>([]);
   const [queryString, setQueryString] = useState<string>('');
   const [numberRange, setNumberRange] = useState<number[]>([200, 400]);
+  const [names, setNames] = useState<string[]>([]);
+
+  useEffect(() => {
+    axios.get('/courses/letterCodes')
+      .then((response: AxiosResponse) => {
+        setNames(response.data);
+      })
+      .catch(() => {
+        console.log('error fetching course letter codes');
+      });
+  }, []);
 
   const handleLetterCodeChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { options } = event.target as HTMLSelectElement;
@@ -199,13 +201,5 @@ const Search = (props: any) => {
     </div>
   );
 };
-
-// TODO grab list of letter code filters from db?
-// // Subset of full state used here
-// interface SearchState {
-// }
-// const mapStateToProps = (state: SearchState) => {
-//   return {};
-// };
 
 export default connect(null, { submitSearch })(Search);
