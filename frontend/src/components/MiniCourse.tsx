@@ -43,7 +43,6 @@ const MiniCourse = (props: any) => {
 
   const handleStar = (courseId: any) => {
     if (isAuthed) {
-      // eslint-disable-next-line no-underscore-dangle
       starCourseAction(courseId);
     } else {
       // Force the user to go login // FIX I hate this feature. Let's make a modal instead

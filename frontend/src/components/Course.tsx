@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { Card, IconButton, Typography, CardActions, CardContent, Button } from '@material-ui/core/';
 import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
@@ -11,7 +10,6 @@ import { openLoginModal } from '../redux/actions/modal';
 
 function Course(props: any) {
   const { courseData, getVisualizedCoursesAction, starCourseAction, openModal, auth } = props;
-  const history = useHistory();
   const isAuthed = auth.isAuthenticated;
   const [isStarred, setIsStarred] = useState<boolean>(false);
 
@@ -25,7 +23,6 @@ function Course(props: any) {
 
   const handleStar = (courseId: any) => {
     if (isAuthed) {
-      // eslint-disable-next-line no-underscore-dangle
       starCourseAction(courseId);
     } else {
       // Force the user to go login // FIX I hate this feature. Let's make a modal instead
