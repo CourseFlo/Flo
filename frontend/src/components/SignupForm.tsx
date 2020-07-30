@@ -31,6 +31,7 @@ const SignupForm = (props: any) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPw, setConfirmPw] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
 
   const classes = useStyles();
@@ -45,12 +46,16 @@ const SignupForm = (props: any) => {
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
+  const handleConfirmPasswordChange = (e: any) => {
+    setConfirmPw(e.target.value);
+  };
 
   const handleSubmit = (e: any) => {
     const newUser = {
       name,
       email,
       password,
+      confirmPw
     };
 
     register(newUser);
@@ -102,8 +107,11 @@ const SignupForm = (props: any) => {
       <Input
         placeholder="Retype password"
         type="password"
+        id="confirmPassword"
+        name="confirmPassword"
         required
         className={classes.inputFields}
+        onChange={handleConfirmPasswordChange}
       />
       <Button variant="contained" className={classes.loginButton} onClick={handleSubmit}>Sign up</Button>
     </form>
