@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Browse from './pages/Browse';
 import VisualCourse from './pages/VisualCourse';
-import ErrorPage from './components/ErrorPage';
+import ErrorPage from './pages/ErrorPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Navbar from './components/Navbar';
