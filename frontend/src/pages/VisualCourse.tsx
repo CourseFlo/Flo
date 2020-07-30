@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Grid, Paper } from '@material-ui/core';
 
 import Course from '../components/Course';
+import ThreeDee from '../components/ThreeDee';
 
 interface Props {
   visualizedCourses: any,
@@ -49,6 +50,7 @@ const VisualCourse = (props: Props) => {
           </Paper>
         </Grid>
       </Grid>
+      <ThreeDee />
     </>
   );
 };

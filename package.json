@@ -8,5 +8,13 @@
   },
   "engines": {
     "node": "14.x"
+  },
+  "dependencies": {
+    "d3": "^5.16.0",
+    "d3-hierarchy": "^1.1.9",
+    "react-d3-tree": "^1.16.1"
+  },
+  "devDependencies": {
+    "@types/d3": "^5.7.2"
   }
 }
