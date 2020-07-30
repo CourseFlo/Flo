@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Typography } from '@material-ui/core';
+import { Fade, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { clearModals, openLoginModal } from '../redux/actions/modal';
@@ -48,13 +48,15 @@ const SignupModal = (props: any) => {
       onClose={handleClose}
       className={classes.modal}
     >
-      <div className={classes.paper}>
-        <Typography variant="h5" align="center">
-          Sign up here
-        </Typography>
-        <SignupForm />
-        <button onClick={handleModalSwitch}>Log in</button>
-      </div>
+      <Fade in={open}>
+        <div className={classes.paper}>
+          <Typography variant="h5" align="center">
+            Sign up here
+          </Typography>
+          <SignupForm />
+          <button onClick={handleModalSwitch}>Log in</button>
+        </div>
+      </Fade>
     </Modal>
   );
 };
