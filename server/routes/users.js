@@ -21,11 +21,15 @@ router.get('/:userId', (req, res, next) => {
 
 // add/register user
 router.post('/', async (req, res, next) => {
-  const { name, email, password } = req.body;
+  const { name, email, password, confirmPw } = req.body;
 
   // validation
   if (!name || !email || !password) {
     return res.status(400).json('Please enter all required fields');
+  }
+
+  if (password !== confirmPw) {
+    return res.status(400).json('Password fields need to match');
   }
 
   try {
