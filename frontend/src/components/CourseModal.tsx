@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Fade, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { clearModals } from '../redux/actions/modal';
 import { getVisualizedCourses } from '../redux/actions/courses';
 
@@ -33,6 +33,7 @@ const CourseModal = (props: any) => {
   const { open, courseId, clearModals, getVisualizedCourses }: Props = props;
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
 
   const handleClose = () => {
     clearModals();
@@ -41,7 +42,7 @@ const CourseModal = (props: any) => {
   const handleVisualize = () => {
     getVisualizedCourses(courseId);
     clearModals();
-    history.push('/VisualCourse');
+    if (location.pathname !== '/VisualCourse') history.push('/VisualCourse');
   };
 
   return (
