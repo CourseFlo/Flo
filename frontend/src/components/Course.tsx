@@ -6,10 +6,10 @@ import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 
 import { getVisualizedCourses } from '../redux/actions/courses';
 import { starCourse } from '../redux/actions/User';
-import { openLoginModal } from '../redux/actions/modal';
+import { openLoginModal, openCourseModal } from '../redux/actions/modal';
 
 function Course(props: any) {
-  const { courseData, getVisualizedCoursesAction, starCourseAction, openModal, auth } = props;
+  const { courseData, starCourseAction, openLoginModal, openCourseModal, auth } = props;
   const isAuthed = auth.isAuthenticated;
   const [isStarred, setIsStarred] = useState<boolean>(false);
 
@@ -26,7 +26,7 @@ function Course(props: any) {
       starCourseAction(courseId);
     } else {
       // Force the user to go login // FIX I hate this feature. Let's make a modal instead
-      openModal();
+      openLoginModal();
     }
   };
 
@@ -53,7 +53,7 @@ function Course(props: any) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => getVisualizedCoursesAction(courseData.courseId)}>
+        <Button onClick={() => openCourseModal(courseData.courseId)}>
           Details.
         </Button>
         <Button href={courseData.link}>Visit Site</Button>
@@ -70,5 +70,6 @@ const mapStateToProps = (state: any) => ({ auth: state.auth });
 export default connect(mapStateToProps, {
   getVisualizedCoursesAction: getVisualizedCourses,
   starCourseAction: starCourse,
-  openModal: openLoginModal,
+  openLoginModal,
+  openCourseModal,
 })(Course);

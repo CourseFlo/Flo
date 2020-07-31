@@ -46,11 +46,6 @@ const MiniCourse = (props: any) => {
     }
   };
 
-  // Pre-emptively get info and redirect to the visualizer to see the course selected
-  const handleSelect = (course: any) => {
-    openCourseModal(course.courseId);
-  };
-
   return (
     <Grid item xs={4} key={courseData.courseId}>
       <Card className={classes.root}>
@@ -76,7 +71,7 @@ const MiniCourse = (props: any) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Button size="small" onClick={() => handleSelect(courseData)}>Learn More</Button>
+          <Button size="small" onClick={() => openCourseModal(courseData.courseId)}>Learn More</Button>
           <IconButton aria-label="add to favorites" onClick={() => handleStar(courseData.courseId)}>
             {isStarred ? <Favorite /> : <FavoriteBorderOutlined />}
           </IconButton>
