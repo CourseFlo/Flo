@@ -1,5 +1,5 @@
 import React from 'react';
-import { Fade, Modal, Typography } from '@material-ui/core';
+import { Fade, Link, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { clearModals, openSignupModal } from '../redux/actions/modal';
@@ -54,7 +54,11 @@ const LoginModal = (props: any) => {
             Log in to continue
           </Typography>
           <LoginForm />
-          <button onClick={handleModalSwitch}>Sign up</button>
+          <Typography>
+            Don&apos;t have an account?
+            {' '}
+            <Link onClick={handleModalSwitch}>Sign up</Link>
+          </Typography>
         </div>
       </Fade>
     </Modal>
