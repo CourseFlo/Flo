@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { Grid, Card, IconButton, Typography, CardActions, CardContent, Button, makeStyles, createStyles, Theme } from '@material-ui/core/';
 import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 
-import { getVisualizedCourses } from '../redux/actions/courses';
 import { starCourse } from '../redux/actions/User';
-import { openLoginModal } from '../redux/actions/modal';
+import { openCourseModal, openLoginModal } from '../redux/actions/modal';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -27,9 +25,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const MiniCourse = (props: any) => {
-  const { courseData, getVisualizedCoursesAction, starCourseAction, openModal, auth } = props;
+  const { courseData, starCourseAction, openLoginModal, openCourseModal, auth } = props;
   const classes = useStyles();
-  const history = useHistory();
   const isAuthed = auth.isAuthenticated;
   const [isStarred, setIsStarred] = useState(false);
 
@@ -45,15 +42,13 @@ const MiniCourse = (props: any) => {
     if (isAuthed) {
       starCourseAction(courseId);
     } else {
-      // Force the user to go login // FIX I hate this feature. Let's make a modal instead
-      openModal();
+      openLoginModal();
     }
   };
 
   // Pre-emptively get info and redirect to the visualizer to see the course selected
   const handleSelect = (course: any) => {
-    getVisualizedCoursesAction(course.courseId);
-    history.push('/VisualCourse');
+    openCourseModal(course.courseId);
   };
 
   return (
@@ -94,7 +89,7 @@ const MiniCourse = (props: any) => {
 const mapStateToProps = (state: any) => ({ auth: state.auth });
 
 export default connect(mapStateToProps, {
-  getVisualizedCoursesAction: getVisualizedCourses,
   starCourseAction: starCourse,
-  openModal: openLoginModal,
+  openLoginModal,
+  openCourseModal,
 })(MiniCourse);

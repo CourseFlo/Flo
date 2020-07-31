@@ -7,6 +7,7 @@ import Results from '../components/Results';
 import Search from '../components/Search';
 import SignupModal from '../components/SignupModal';
 import LoginModal from '../components/LoginModal';
+import CourseModal from '../components/CourseModal';
 
 interface Props {
   isSearchLoading: boolean,
@@ -47,6 +48,7 @@ const Browse = (props: any) => {
       <Results />
       <LoginModal />
       <SignupModal />
+      <CourseModal />
     </div>
   );
 };
