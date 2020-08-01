@@ -5,9 +5,11 @@ import CourseReg from '../assets/course-reg.jpg';
 
 const Home = () => (
   <div>
-    <Typography align="center" variant="h2">Welcome to CourseFlo</Typography>
-    <SearchCard />
-    <img src={CourseReg} style={{ width: '100%', position: 'fixed', bottom: '0px' }} alt="text" />
+    <div style={{ marginTop: '25%' }}>
+      <Typography align="center" variant="h2">Welcome to CourseFlo</Typography>
+      <SearchCard />
+    </div>
+    <img src={CourseReg} style={{ width: '100%', position: 'fixed', bottom: '0px' }} alt="homepage" />
   </div>
 );
 

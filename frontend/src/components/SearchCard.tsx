@@ -54,7 +54,6 @@ const SearchCard = (props: any) => {
           <TextField
             id="outlined-basic"
             label="Search for a course"
-            helperText="Use course names, numbers, or 4 letter codes."
             onChange={handleQueryChange}
             onKeyDown={handleKeyDown}
           />
@@ -65,8 +64,11 @@ const SearchCard = (props: any) => {
             onClick={() => {
               handleSubmit();
             }}
+            style={{ marginBottom: '-30px' }}
             startIcon={<SearchIcon />}
-          />
+          >
+            Search
+          </Button>
         </form>
       </Paper>
     </Container>

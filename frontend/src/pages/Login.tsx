@@ -4,6 +4,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
 import LoginForm from '../components/LoginForm';
+import Books from '../assets/bookstack.png';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   loginContainer: {
@@ -32,6 +33,7 @@ const Login = () => {
           </Link>
         </div>
       </Container>
+      <img src={Books} style={{ width: '75%', marginTop: '-100px', position: 'fixed', right: '-100px' }} alt="books" />
     </div>
   );
 };
