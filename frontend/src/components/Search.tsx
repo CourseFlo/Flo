@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import axios, { AxiosResponse } from 'axios';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Grid, Box, TextField, FormControl, InputLabel, Select, Button, Typography, Slider } from '@material-ui/core';
@@ -8,7 +7,7 @@ import { Grid, Box, TextField, FormControl, InputLabel, Select, Button, Typograp
 import SearchIcon from '@material-ui/icons/Search';
 
 import { Filters } from '../type-interfaces/Search';
-import { submitSearch } from '../redux/actions/Search';
+import { submitSearch, getLetterCodes } from '../redux/actions/Search';
 import { MIN_COURSE_CODE, MAX_COURSE_CODE, SLIDER_STEP_SIZE } from '../util/UIConstants';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -58,25 +57,23 @@ const sliderMarks = sliderRange.map((_num, i) => ({
 
 interface Props {
   submitSearch: Function,
+  getLetterCodes: Function,
+  allLetterCodes: string[],
 }
 
 const Search = (props: any) => {
   // eslint-disable-next-line no-shadow
-  const { submitSearch }: Props = props;
+  const { allLetterCodes, submitSearch, getLetterCodes }: Props = props;
   const classes = useStyles();
   const [letterCodes, setLetterCodes] = useState<any[]>([]);
   const [queryString, setQueryString] = useState<string>('');
   const [numberRange, setNumberRange] = useState<number[]>([200, 400]);
-  const [names, setNames] = useState<string[]>([]);
 
   useEffect(() => {
-    axios.get('/courses/letterCodes')
-      .then((response: AxiosResponse) => {
-        setNames(response.data);
-      })
-      .catch(() => {
-        console.log('error fetching course letter codes');
-      });
+    // On mount, try to get the letter code from db data
+    if (!allLetterCodes || allLetterCodes.length === 0) {
+      getLetterCodes();
+    }
   }, []);
 
   const handleLetterCodeChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
@@ -117,7 +114,6 @@ const Search = (props: any) => {
   return (
     <div className={classes.root}>
       <div className={classes.searchContainer}>
-        {/* TODO Extract this margin into a better system */}
         <Grid container spacing={3}>
           <Grid item xs />
           <Grid item xs>
@@ -128,7 +124,7 @@ const Search = (props: any) => {
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                helperText="Use course names, numbers, or 4 letter codes."
+                helperText="Use course names, numbers, or letter codes."
                 onChange={handleQueryChange}
               />
             </form>
@@ -140,7 +136,7 @@ const Search = (props: any) => {
             <Box className={classes.filterItem}>
               <FormControl className={classes.letterCodeForm}>
                 <InputLabel shrink htmlFor="select-multiple-native">
-                  4 Letter Course Codes
+                  Letter Course Codes
                 </InputLabel>
                 <Select
                   multiple
@@ -151,15 +147,24 @@ const Search = (props: any) => {
                     id: 'select-multiple-native',
                   }}
                 >
-                  {names.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
+                  {allLetterCodes.map((code) => (
+                    <option key={code} value={code}>
+                      {code}
                     </option>
                   ))}
                 </Select>
               </FormControl>
-              {'Selected Codes: '}
               <Typography>{letterCodes.join(', ')}</Typography>
+              {letterCodes && letterCodes.length ? (
+                <Button
+                  color="primary"
+                  size="small"
+                  onClick={() => setLetterCodes([])}
+                >
+                  Clear
+                </Button>
+              )
+                : null}
             </Box>
           </Grid>
           <Grid item xs>
@@ -202,4 +207,9 @@ const Search = (props: any) => {
   );
 };
 
-export default connect(null, { submitSearch })(Search);
+interface SearchState {
+  letterCodes: string[]
+}
+const mapStateToProps = (state: SearchState) => ({ allLetterCodes: state.letterCodes });
+
+export default connect(mapStateToProps, { submitSearch, getLetterCodes })(Search);
