@@ -8,7 +8,7 @@ let CourseOffering = require('../models/courseOffering');
 //     .catch(err => res.status(400).json('Error: ' + err));
 // });
 
-router.get('/getSingle/:courseId', function(req, res, next) {
+router.get('/:courseId', function(req, res, next) {
   CourseOffering.findOne({courseId: req.params.courseId})
     .then(offering => res.json(offering))
     .catch(err => res.status(400).json('Error: ' + err));

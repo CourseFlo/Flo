@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_VISUALIZED_COURSE, GET_VISUALIZED_COURSE_FAILURE } from '../constants';
+import { GET_VISUALIZED_COURSE, GET_VISUALIZED_COURSE_FAILURE, GET_COURSE_SUCCESS, GET_COURSE_FAILURE } from '../constants';
 // import { Course } from '../../type-interfaces/Course';
 
 export const getVisualizedCoursesSuccess = (visualizedCourses: any) => ({
@@ -26,25 +26,25 @@ export const getVisualizedCourses = (courseId: string) => {
 };
 
 // REVIEW if this is necessary
-// export const getCourseSuccess = (offerings: any[]) => ({
-//   type: GET_COURSE_SUCCESS,
-//   offerings,
-// });
+export const getCourseSuccess = (offering: any) => ({
+  type: GET_COURSE_SUCCESS,
+  payload: offering,
+});
 
-// export const getCourseFailure = (error: String) => ({
-//   type: GET_COURSE_FAILURE,
-//   error,
-// });
+export const getCourseFailure = (error: String) => ({
+  type: GET_COURSE_FAILURE,
+  error,
+});
 
-// export const submitGetCourse = (courseId) => {
-//   return (dispatch: Function) => {
-//     axios.get(`/courses/${courseId}`)
-//       .then(response => {
-//         const offerings = response.data;
-//         dispatch(getCourseSuccess(offerings));
-//       }).catch(err => {
-//         const errorMsg = err.message;
-//         dispatch(getCourseFailure(errorMsg));
-//       });
-//   };
-// };
+export const getCourse = (courseId: String) => {
+  return (dispatch: Function) => {
+    axios.get(`/courses/${courseId}`)
+      .then(response => {
+        const offering = response.data;
+        dispatch(getCourseSuccess(offering));
+      }).catch(err => {
+        const errorMsg = err.message;
+        dispatch(getCourseFailure(errorMsg));
+      });
+  };
+};
