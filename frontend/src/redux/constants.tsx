@@ -25,3 +25,8 @@ export const CLEAR_ERRORS = 'CLEAR_ERRORS';
 export const OPEN_SIGNUP = 'OPEN_SIGNUP';
 export const OPEN_LOGIN = 'OPEN_LOGIN';
 export const CLEAR_MODALS = 'CLEAR_MODALS';
+
+// modal state constants
+export const SIGNUP_MS = 'SIGNUP_MS';
+export const LOGIN_MS = 'LOGIN_MS';
+

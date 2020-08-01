@@ -5,17 +5,19 @@ import { clearModals, openLoginModal } from '../redux/actions/modal';
 import SignupForm from './SignupForm';
 import { clearErrors } from '../redux/actions/error';
 import modalStyles from '../util/modalStyles';
+import { SIGNUP_MS } from '../redux/constants';
 
 interface Props {
-  open: boolean,
+  modalState: string,
   clearErrors: Function,
   clearModals: Function,
   openLoginModal: Function,
 }
 
 const SignupModal = (props: any) => {
-  const { open, clearErrors, clearModals, openLoginModal }: Props = props;
+  const { modalState, clearErrors, clearModals, openLoginModal }: Props = props;
   const classes = modalStyles();
+  const open = modalState === SIGNUP_MS;
 
   const handleClose = () => {
     clearModals();
@@ -49,6 +51,6 @@ const SignupModal = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({ open: state.modal.signup });
+const mapStateToProps = (state: any) => ({ modalState: state.modal.state });
 
 export default connect(mapStateToProps, { clearErrors, clearModals, openLoginModal })(SignupModal);
