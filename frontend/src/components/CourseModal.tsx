@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
-import { Button, Fade, Modal, Typography } from '@material-ui/core';
+import { Button, Fade, Modal, Typography, IconButton } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router-dom';
 import { clearModals } from '../redux/actions/modal';
 import { getVisualizedCourses, getCourse } from '../redux/actions/courses';
 import { COURSE_MS } from '../redux/constants';
+import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 
 interface Props {
   modalState: string,
@@ -82,11 +83,25 @@ const CourseModal = (props: any) => {
     >
       <Fade in={open}>
         <div className={classes.paper}>
-          <Typography variant="h5" align="center">
-            {courseId}
-          </Typography>
+          <div style={{display: "flex"}}>
+            <Typography variant="h5" display="inline" style={{flex: 1}}>
+              {courseId}
+            </Typography>
+            <IconButton aria-label="add to favorites">
+              {true ? <Favorite /> : <FavoriteBorderOutlined />}
+            </IconButton>
+          </div>
+          {/* isStarred ..... onClick={() => handleStar(courseData.courseId)} */}
           { courseInfo ? <ModalBody /> : null}
-          <Button onClick={handleVisualize}>Visualize</Button>
+          <div style={
+            {
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }
+          }>
+            <Button onClick={handleVisualize}>Visualize</Button>
+          </div>
         </div>
       </Fade>
     </Modal>
