@@ -24,12 +24,26 @@ const SearchCard = (props: any) => {
     letterCodes: [],
     numberRange: [MIN_COURSE_CODE, MAX_COURSE_CODE],
   };
+
   const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target as HTMLSelectElement;
     if (value.trim() === '' || value.trim() === '') {
       return;
     }
     searchInputs.query = value;
+  };
+
+  const handleSubmit = () => {
+    submitSearch(searchInputs);
+    history.push('/Browse');
+  };
+
+  // eslint-disable-next-line consistent-return
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents page refresh
+      handleSubmit();
+    }
   };
 
   return (
@@ -42,14 +56,14 @@ const SearchCard = (props: any) => {
             label="Search for a course"
             helperText="Use course names, numbers, or 4 letter codes."
             onChange={handleQueryChange}
+            onKeyDown={handleKeyDown}
           />
           <Button
             variant="contained"
             color="primary"
             size="medium"
             onClick={() => {
-              submitSearch(searchInputs);
-              history.push('/Browse');
+              handleSubmit();
             }}
             startIcon={<SearchIcon />}
           />

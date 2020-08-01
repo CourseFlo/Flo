@@ -112,6 +112,14 @@ const Search = (props: any) => {
     submitSearch(searchInputs);
   };
 
+  // eslint-disable-next-line consistent-return
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents page refresh
+      handleSubmit();
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.searchContainer}>
@@ -128,6 +136,7 @@ const Search = (props: any) => {
                 margin="normal"
                 helperText="Use course names, numbers, or 4 letter codes."
                 onChange={handleQueryChange}
+                onKeyDown={handleKeyDown}
               />
             </form>
           </Grid>
