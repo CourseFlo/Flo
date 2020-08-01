@@ -13,7 +13,7 @@ import TextField from '@material-ui/core/TextField';
 import { User } from '../type-interfaces/User';
 import { updateUser } from '../redux/actions/User';
 import { getVisualizedCourses } from '../redux/actions/courses';
-import {loadUser} from "../redux/actions/auth";
+import { loadUser } from '../redux/actions/auth';
 
 interface Props {
   currentUser: User,
@@ -37,10 +37,10 @@ function AccountForm(props: any) {
     loadUser();
   }, []);
 
-  let history = useHistory();
+  const history = useHistory();
   function handleViewCourse(course: any) {
     getVisualizedCourses(course);
-    history.push("/VisualCourse");
+    history.push('/VisualCourse');
   }
 
   const handleEditName = () => {
