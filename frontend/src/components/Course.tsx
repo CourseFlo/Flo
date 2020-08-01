@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import { Card, IconButton, Typography, CardActions, CardContent, Button } from '@material-ui/core/';
 import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 
 import { getVisualizedCourses } from '../redux/actions/courses';
 import { starCourse } from '../redux/actions/User';
+import { openLoginModal } from '../redux/actions/modal';
 
 function Course(props: any) {
-  const { courseData, getVisualizedCoursesAction, starCourseAction, auth } = props;
-  const history = useHistory();
+  const { courseData, getVisualizedCoursesAction, starCourseAction, openModal, auth } = props;
   const isAuthed = auth.isAuthenticated;
   const [isStarred, setIsStarred] = useState<boolean>(false);
 
@@ -24,11 +23,10 @@ function Course(props: any) {
 
   const handleStar = (courseId: any) => {
     if (isAuthed) {
-      // eslint-disable-next-line no-underscore-dangle
       starCourseAction(courseId);
     } else {
       // Force the user to go login // FIX I hate this feature. Let's make a modal instead
-      history.push('/login');
+      openModal();
     }
   };
 
@@ -46,7 +44,7 @@ function Course(props: any) {
         <Typography variant="body2">
           {courseData.description}
         </Typography>
-        <Typography /* className={classes.pos}  */ color="textSecondary">
+        <Typography color="textSecondary">
           {courseData.restrictionInfo ? `Restrictions: ${courseData.restrictionInfo}` : null}
           {(courseData.restrictionInfo && courseData.preReqs.length > 0) ? <br /> : null}
           {courseData.preReqs.length > 0 ? `Pre-reqs: ${courseData.preReqs.join(', ')}` : null}
@@ -72,4 +70,5 @@ const mapStateToProps = (state: any) => ({ auth: state.auth });
 export default connect(mapStateToProps, {
   getVisualizedCoursesAction: getVisualizedCourses,
   starCourseAction: starCourse,
+  openModal: openLoginModal,
 })(Course);
