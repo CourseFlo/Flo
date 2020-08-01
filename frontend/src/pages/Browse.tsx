@@ -45,8 +45,6 @@ const Browse = (props: any) => {
         ? <div className={classes.progressCircle}><CircularProgress /></div>
         : <></>}
       <Results />
-      <LoginModal />
-      <SignupModal />
     </div>
   );
 };

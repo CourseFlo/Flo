@@ -51,8 +51,6 @@ const VisualCourse = (props: Props) => {
           </Paper>
         </Grid>
       </Grid>
-      <LoginModal />
-      <SignupModal />
     </>
   );
 };

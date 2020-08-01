@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { clearModals, openSignupModal } from '../redux/actions/modal';
 import LoginForm from './LoginForm';
 import { clearErrors } from '../redux/actions/error';
-import modalStyles from '../util/modalStyles';
+import modalStyles from '../styles/modalStyles';
 import { LOGIN_MS } from '../redux/constants';
 
 interface Props {
