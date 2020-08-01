@@ -4,6 +4,7 @@ import { getUsers } from './User';
 import { visualizedCourses } from './visualCourse';
 import { authReducer } from './auth';
 import { errorReducer } from './error';
+import { modalReducer } from './modal';
 
 export default combineReducers({
   searchResults: searchRetrieval,
@@ -13,4 +14,5 @@ export default combineReducers({
   auth: authReducer,
   error: errorReducer,
   letterCodes,
+  modal: modalReducer,
 });
