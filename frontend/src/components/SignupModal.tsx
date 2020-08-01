@@ -1,37 +1,23 @@
 import React from 'react';
-import { Fade, Modal, Typography } from '@material-ui/core';
+import { Fade, Link, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
 import { clearModals, openLoginModal } from '../redux/actions/modal';
 import SignupForm from './SignupForm';
 import { clearErrors } from '../redux/actions/error';
+import modalStyles from '../styles/modalStyles';
+import { SIGNUP_MS } from '../redux/constants';
 
 interface Props {
-  open: boolean,
+  modalState: string,
   clearErrors: Function,
   clearModals: Function,
   openLoginModal: Function,
 }
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    position: 'absolute',
-    width: '80%',
-    maxWidth: 400,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-}));
-
 const SignupModal = (props: any) => {
-  const { open, clearErrors, clearModals, openLoginModal }: Props = props;
-  const classes = useStyles();
+  const { modalState, clearErrors, clearModals, openLoginModal }: Props = props;
+  const classes = modalStyles();
+  const open = modalState === SIGNUP_MS;
 
   const handleClose = () => {
     clearModals();
@@ -54,13 +40,17 @@ const SignupModal = (props: any) => {
             Sign up here
           </Typography>
           <SignupForm />
-          <button onClick={handleModalSwitch}>Log in</button>
+          <Typography className={classes.modalSwitchText}>
+            Already have an account?
+            {' '}
+            <Link onClick={handleModalSwitch}>Log in</Link>
+          </Typography>
         </div>
       </Fade>
     </Modal>
   );
 };
 
-const mapStateToProps = (state: any) => ({ open: state.modal.signup });
+const mapStateToProps = (state: any) => ({ modalState: state.modal.state });
 
 export default connect(mapStateToProps, { clearErrors, clearModals, openLoginModal })(SignupModal);

@@ -5,9 +5,6 @@ import { Grid, Typography, CircularProgress } from '@material-ui/core';
 import { connect } from 'react-redux';
 import Results from '../components/Results';
 import Search from '../components/Search';
-import SignupModal from '../components/SignupModal';
-import LoginModal from '../components/LoginModal';
-import CourseModal from '../components/CourseModal';
 
 interface Props {
   isSearchLoading: boolean,
@@ -46,9 +43,6 @@ const Browse = (props: any) => {
         ? <div className={classes.progressCircle}><CircularProgress /></div>
         : <></>}
       <Results />
-      <LoginModal />
-      <SignupModal />
-      <CourseModal />
     </div>
   );
 };

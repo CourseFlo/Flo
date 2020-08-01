@@ -3,9 +3,6 @@ import { connect } from 'react-redux';
 import { Grid, Paper } from '@material-ui/core';
 
 import Course from '../components/Course';
-import LoginModal from '../components/LoginModal';
-import SignupModal from '../components/SignupModal';
-import CourseModal from '../components/CourseModal';
 
 interface Props {
   visualizedCourses: any,
@@ -52,9 +49,6 @@ const VisualCourse = (props: Props) => {
           </Paper>
         </Grid>
       </Grid>
-      <LoginModal />
-      <SignupModal />
-      <CourseModal />
     </>
   );
 };

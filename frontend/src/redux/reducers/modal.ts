@@ -3,12 +3,13 @@ import {
   OPEN_LOGIN,
   OPEN_COURSE,
   CLEAR_MODALS,
+  SIGNUP_MS,
+  LOGIN_MS,
+  COURSE_MS,
 } from '../constants';
 
 const initialState = {
-  signup: false,
-  login: false,
-  course: false,
+  state: null,
   courseId: null,
 };
 
@@ -17,30 +18,22 @@ export const modalReducer = (state: any = initialState, action: any) => {
   switch (action.type) {
     case OPEN_SIGNUP:
       return {
-        signup: true,
-        login: false,
-        course: false,
+        state: SIGNUP_MS,
         courseId: null,
       };
     case OPEN_LOGIN:
       return {
-        signup: false,
-        login: true,
-        course: false,
+        state: LOGIN_MS,
         courseId: null,
       };
     case OPEN_COURSE:
       return {
-        signup: false,
-        login: false,
-        course: true,
-        courseId: action.courseId,
+        state: COURSE_MS,
+        courseId: action.CourseId,
       };
     case CLEAR_MODALS:
       return {
-        signup: false,
-        login: false,
-        course: false,
+        state: null,
         courseId: null,
       };
     default:
