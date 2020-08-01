@@ -8,11 +8,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const mongoose = require('mongoose');
 
-
 // Routers
-const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-const otherRouter = require('./routes/otherRouter');
 const coursesRouter = require('./routes/courses');
 const authRouter = require('./routes/auth');
 const scriptRouter = require('./services/scripts');
@@ -46,9 +43,7 @@ connection.once('open', () => {
   console.log('MongoDB database connection established successfully');
 });
 
-app.use('/', indexRouter);
 app.use('/users', usersRouter);
-app.use('/otherRoute', otherRouter);
 app.use('/courses', coursesRouter);
 app.use('/scraping', scriptRouter);
 app.use('/auth', authRouter);

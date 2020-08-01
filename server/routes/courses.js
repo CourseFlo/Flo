@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 let CourseOffering = require('../models/courseOffering');
 
-router.get('/', function(req, res, next) {
-  CourseOffering.find()
-    .then(offerings => res.json(req.body.hello))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.get('/', function(req, res, next) {
+//   CourseOffering.find()
+//     .then(offerings => res.json(req.body.hello))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
 router.get('/getSingle/:courseId', function(req, res, next) {
   CourseOffering.findOne({courseId: req.params.courseId})
