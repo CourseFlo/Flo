@@ -5,9 +5,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router-dom';
 import { clearModals } from '../redux/actions/modal';
 import { getVisualizedCourses } from '../redux/actions/courses';
+import { COURSE_MS } from '../redux/constants';
 
 interface Props {
-  open: boolean,
+  modalState: string,
   courseId: string,
   clearModals: Function,
   getVisualizedCourses: Function,
@@ -30,10 +31,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CourseModal = (props: any) => {
-  const { open, courseId, clearModals, getVisualizedCourses }: Props = props;
+  const { modalState, courseId, clearModals, getVisualizedCourses }: Props = props;
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+  const open = modalState === COURSE_MS;
 
   const handleClose = () => {
     clearModals();
@@ -66,7 +68,7 @@ const CourseModal = (props: any) => {
 };
 
 const mapStateToProps = (state: any) => ({
-  open: state.modal.course,
+  modalState: state.modal.state,
   courseId: state.modal.courseId,
 });
 

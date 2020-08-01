@@ -15,6 +15,7 @@ import { loadUser } from './redux/actions/auth';
 import './App.css';
 import LoginModal from './components/LoginModal';
 import SignupModal from './components/SignupModal';
+import CourseModal from './components/CourseModal';
 
 function App(props: any) { // TODO: prop types?
   const { loadUser } : { loadUser : Function } = props;
@@ -36,6 +37,7 @@ function App(props: any) { // TODO: prop types?
       </Switch>
       <LoginModal />
       <SignupModal />
+      <CourseModal />
     </main>
   );
 }

@@ -29,7 +29,7 @@ export const modalReducer = (state: any = initialState, action: any) => {
     case OPEN_COURSE:
       return {
         state: COURSE_MS,
-        courseId: action.CourseId,
+        courseId: action.courseId,
       };
     case CLEAR_MODALS:
       return {
