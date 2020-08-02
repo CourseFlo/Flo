@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
@@ -38,6 +38,7 @@ const LoginForm = (props: any) => {
 
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -66,7 +67,7 @@ const LoginForm = (props: any) => {
       clearErrors();
       clearModals();
       // redirect to profile page
-      history.push('/ProfilePage');
+      if (location.pathname === '/Login') history.push('/ProfilePage');
     }
   }, [error, isAuthenticated]);
 
