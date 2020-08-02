@@ -40,7 +40,7 @@ const SearchCard = (props: any) => {
           <TextField
             id="outlined-basic"
             label="Search for a course"
-            helperText="Use course names, numbers, or 4 letter codes."
+            helperText="Use course names, numbers, or letter codes."
             onChange={handleQueryChange}
           />
           <Button
