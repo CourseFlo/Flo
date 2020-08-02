@@ -15,6 +15,7 @@ import { loadUser } from './redux/actions/auth';
 import './App.css';
 import LoginModal from './components/LoginModal';
 import SignupModal from './components/SignupModal';
+import CourseModal from './components/CourseModal';
 
 interface Props {
   loadUser: Function
@@ -40,6 +41,7 @@ function App(props: Props) {
       </Switch>
       <LoginModal />
       <SignupModal />
+      <CourseModal />
     </main>
   );
 }

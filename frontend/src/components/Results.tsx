@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Grid } from '@material-ui/core';
 
 import { Course } from '../type-interfaces/Course';
-import MiniCourse from './MiniCourse';
+import CourseCard from './Course';
 
 interface ResultsState {
   searchResults: any,
@@ -21,7 +21,9 @@ const Results = (props: Props) => {
   return (
     <Grid container spacing={3}>
       {searchResults.map((course) => (
-        <MiniCourse key={course.courseId} courseData={course} />
+        <Grid item xs={12} md={6} lg={4} key={course.courseId}>
+          <CourseCard key={course.courseId} courseData={course} />
+        </Grid>
       ))}
     </Grid>
   );
