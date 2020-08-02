@@ -14,7 +14,7 @@ const useStyles = makeStyles(() => createStyles({
 
 const Home = () => (
   <div style={{ background: `url(${CourseReg})`, height: '100vh', width: '100vw' }}>
-    <div style={{ /*marginTop: '25%'*/ }}>
+    <div style={{ padding: '25%' }}>
       <Typography align="center" variant="h2">Welcome to CourseFlo</Typography>
       <SearchCard />
     </div>
