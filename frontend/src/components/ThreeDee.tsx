@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Tree from 'react-d3-tree';
 
 const myTreeData = [
@@ -42,8 +42,13 @@ const myTreeData = [
   },
 ];
 
+const containerStyles = {
+  width: '100%',
+  height: '100vh',
+};
+
 interface Props {
-  data?: any
+  data?: any,
 }
 
 const svgSquare = {
@@ -53,14 +58,36 @@ const svgSquare = {
     height: 20,
     x: -10,
     y: -10,
-  }
-}
+  },
+};
+
 
 const ThreeDee = (props: Props) => {
-  return (
-    <div id="treeWrapper" style={{width: '100vh', height: '100vh'}}>
+  const { data }: Props = props;
+  const [position, setPosition] = useState({ x: 400, y: 400 });
+  const [treeContainer, setTreeContainer] = useState<Element | null>(null);
 
-      <Tree data={myTreeData}  nodeSvgShape={svgSquare}/>
+  useEffect(() => {
+    if (treeContainer?.getBoundingClientRect) {
+      const dim = treeContainer.getBoundingClientRect();
+      setPosition({
+        x: dim.width / 2,
+        y: dim.height / 2,
+      });
+    }
+  }, []);
+
+  return (
+    <div id="treeWrapper" style={{ width: '80%', height: '100vh', textAlign: 'center' }}>
+
+      <Tree data={myTreeData} nodeSvgShape={svgSquare} />
+      <div style={containerStyles} ref={(container) => setTreeContainer(container)}>
+        <Tree
+          data={myTreeData}
+          translate={position}
+          orientation={'horizontal'}
+        />
+      </div>
 
     </div>
   );
