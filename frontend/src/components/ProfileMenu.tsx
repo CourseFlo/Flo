@@ -29,16 +29,16 @@ const useStyles = makeStyles({
 
 function ProfileMenu(props: any) {
   const { logout } : { logout: Function } = props;
-  const [button, setButton] = useState('myAccount');
+  // const [button, setButton] = useState('myAccount');
   const classes = useStyles();
 
-  const profile = () => {
-    setButton('profile');
-  };
+  // const profile = () => {
+  //   setButton('profile');
+  // };
 
-  const myAccount = () => {
-    setButton('myAccount');
-  };
+  // const myAccount = () => {
+  //   setButton('myAccount');
+  // };
 
   const handleLogoutClick = () => {
     logout();
@@ -50,7 +50,7 @@ function ProfileMenu(props: any) {
         <React.Fragment>
           <Box className={classes.root}>
             <MenuList>
-              <MenuItem onClick={myAccount}>
+              <MenuItem >
                 <Typography color="primary" noWrap>
                   My account
                 </Typography>
@@ -69,8 +69,9 @@ function ProfileMenu(props: any) {
       </Grid>
       <Grid item xs={8}>
         <div>
-          {button === 'myAccount' && <AccountForm />}
-          {button === 'profile' && <ProfileForm />}
+          <AccountForm />
+          {/* {button === 'myAccount' && <AccountForm />}
+          {button === 'profile' && <ProfileForm />} */}
 
         </div>
       </Grid>

@@ -63,6 +63,5 @@ export default function ProfilePage() {
         <Box className={classes.sideBoxes} />
       </Grid>
     </React.Fragment>
-
   );
 }
