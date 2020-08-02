@@ -4,8 +4,6 @@ import { Grid, Paper } from '@material-ui/core';
 
 import Course from '../components/Course';
 import ThreeDee from '../components/ThreeDee';
-import LoginModal from '../components/LoginModal';
-import SignupModal from '../components/SignupModal';
 
 interface Props {
   visualizedCourses: any,
