@@ -16,7 +16,6 @@ const useStyles = makeStyles({
   root: {
     width: '100%',
     maxWidth: 500,
-    // backgroundColor: '#303030',
     height: '100vh',
   },
   secondMenuList: {
