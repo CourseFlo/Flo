@@ -67,7 +67,7 @@ const LoginForm = (props: any) => {
       clearErrors();
       clearModals();
       // allow user to remain on page if logged in through modal
-      if (location.pathname === '/Login') {
+      if (location.pathname === '/login') {
         history.push('/ProfilePage');
       }
     }

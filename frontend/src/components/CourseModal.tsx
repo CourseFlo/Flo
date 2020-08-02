@@ -90,7 +90,7 @@ const CourseModal = (props: any) => {
             <Typography variant="h5" display="inline" style={{ flex: 1 }}>
               {courseId}
             </Typography>
-            <FavButton courseId={courseInfo ? courseInfo.courseId : null} />
+            <FavButton courseId={courseInfo?.courseId} />
           </div>
           { courseInfo ? <ModalBody /> : null}
           <div style={
@@ -102,7 +102,7 @@ const CourseModal = (props: any) => {
           }
           >
             <Button onClick={handleVisualize} variant="outlined">Visualize</Button>
-            <Button href={courseInfo ? courseInfo.link : null} variant="outlined">Visit Site</Button>
+            <Button href={courseInfo?.link} variant="outlined">Visit Site</Button>
           </div>
         </div>
       </Fade>
