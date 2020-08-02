@@ -8,12 +8,15 @@ import {
   COURSE_MS,
   GET_COURSE_SUCCESS,
   GET_COURSE_FAILURE,
+  COURSE_LOADING,
+  COURSE_LOADED,
 } from '../constants';
 
 const initialState = {
   state: null,
   courseId: null,
   courseInfo: null,
+  loading: false,
   error: null,
 };
 
@@ -46,6 +49,16 @@ export const modalReducer = (state: any = initialState, action: any) => {
         ...state,
         error: action.error,
       };
+    case COURSE_LOADING:
+      return {
+        ...state,
+        loading: true,
+      }
+    case COURSE_LOADED:
+      return {
+        ...state,
+        loading: false,
+      }
     case CLEAR_MODALS:
       return initialState;
     default:

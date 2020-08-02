@@ -34,3 +34,5 @@ export const CLEAR_MODALS = 'CLEAR_MODALS';
 export const SIGNUP_MS = 'SIGNUP_MS';
 export const LOGIN_MS = 'LOGIN_MS';
 export const COURSE_MS = 'COURSE_MS';
+export const COURSE_LOADING = 'COURSE_LOADING';
+export const COURSE_LOADED = 'COURSE_LOADED'

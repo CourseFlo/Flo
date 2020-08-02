@@ -15,6 +15,7 @@ interface Props {
   getVisualizedCourses: Function,
   getCourse: Function,
   courseInfo: any,
+  isLoading: boolean,
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -34,11 +35,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CourseModal = (props: any) => {
-  const { modalState, courseId, clearModals, getVisualizedCourses, getCourse, courseInfo }: Props = props;
+  const { modalState, courseId, clearModals, getVisualizedCourses, getCourse, courseInfo, isLoading }: Props = props;
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
-  const open = modalState === COURSE_MS;
+  const open = modalState === COURSE_MS && !isLoading;
 
   const handleClose = () => {
     clearModals();
@@ -112,6 +113,7 @@ const mapStateToProps = (state: any) => ({
   modalState: state.modal.state,
   courseId: state.modal.courseId,
   courseInfo: state.modal.courseInfo,
+  isLoading: state.modal.loading,
 });
 
 export default connect(mapStateToProps, { clearModals, getVisualizedCourses, getCourse })(CourseModal);

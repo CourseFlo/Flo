@@ -1,5 +1,12 @@
 import axios from 'axios';
-import { GET_VISUALIZED_COURSE, GET_VISUALIZED_COURSE_FAILURE, GET_COURSE_SUCCESS, GET_COURSE_FAILURE } from '../constants';
+import {
+  GET_VISUALIZED_COURSE,
+  GET_VISUALIZED_COURSE_FAILURE,
+  GET_COURSE_SUCCESS,
+  GET_COURSE_FAILURE,
+  COURSE_LOADING,
+  COURSE_LOADED,
+} from '../constants';
 // import { Course } from '../../type-interfaces/Course';
 
 export const getVisualizedCoursesSuccess = (visualizedCourses: any) => ({
@@ -38,13 +45,16 @@ export const getCourseFailure = (error: String) => ({
 
 export const getCourse = (courseId: String) => {
   return (dispatch: Function) => {
+    dispatch({ type: COURSE_LOADING });
     axios.get(`/courses/${courseId}`)
       .then(response => {
         const offering = response.data;
         dispatch(getCourseSuccess(offering));
+        dispatch({ type: COURSE_LOADED });
       }).catch(err => {
         const errorMsg = err.message;
         dispatch(getCourseFailure(errorMsg));
+        dispatch({ type: COURSE_LOADED });
       });
   };
 };
