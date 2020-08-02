@@ -48,9 +48,9 @@ export const loadUser = () => (dispatch: Function, getState: Function) => {
 };
 
 // register user
-export const register = ({ name, email, password }: any) => (dispatch: Function) => { // TODO: set destruct param type?
+export const register = ({ name, email, password, confirmPw }: any) => (dispatch: Function) => { // TODO: set destruct param type?
   axios.post('/users', {
-    name, email, password,
+    name, email, password, confirmPw,
   }).then((response: AxiosResponse) => {
     dispatch({
       type: REGISTER_SUCCESS,

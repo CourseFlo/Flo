@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core'; // eslint-disable-line no-unused-vars
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
@@ -6,9 +6,7 @@ import Grid from '@material-ui/core/Grid';
 
 import ProfileMenu from '../components/ProfileMenu';
 
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
-
   container: {
     backgroundColor: '#2d46b9',
   },
@@ -43,7 +41,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     backgroundColor: '#002145',
   },
 }));
-
 
 export default function ProfilePage() {
   const classes = useStyles();

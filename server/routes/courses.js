@@ -2,11 +2,11 @@ var express = require('express');
 var router = express.Router();
 let CourseOffering = require('../models/courseOffering');
 
-router.get('/', function(req, res, next) {
-  CourseOffering.find()
-    .then(offerings => res.json(req.body.hello))
-    .catch(err => res.status(400).json('Error: ' + err));
-});
+// router.get('/', function(req, res, next) {
+//   CourseOffering.find()
+//     .then(offerings => res.json(req.body.hello))
+//     .catch(err => res.status(400).json('Error: ' + err));
+// });
 
 router.get('/getSingle/:courseId', function(req, res, next) {
   CourseOffering.findOne({courseId: req.params.courseId})
@@ -67,6 +67,12 @@ router.post('/search', function (req, res, next) {
   CourseOffering.find(query)
     .then(offerings => res.json(offerings))
     .catch(err => res.status(400).json('Error: ' + err));
+});
+
+router.get('/letterCodes', (req, res, next) => {
+  CourseOffering.find().distinct('courseLetterCode')
+    .then((letterCodes) => res.json(letterCodes))
+    .catch((err) => res.status(400).json('Error: ' + err));
 });
 
 module.exports = router;

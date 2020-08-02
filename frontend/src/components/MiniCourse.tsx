@@ -7,6 +7,7 @@ import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
 
 import { getVisualizedCourses } from '../redux/actions/courses';
 import { starCourse } from '../redux/actions/User';
+import { openLoginModal } from '../redux/actions/modal';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const MiniCourse = (props: any) => {
-  const { courseData, getVisualizedCoursesAction, starCourseAction, auth } = props;
+  const { courseData, getVisualizedCoursesAction, starCourseAction, openModal, auth } = props;
   const classes = useStyles();
   const history = useHistory();
   const isAuthed = auth.isAuthenticated;
@@ -42,11 +43,10 @@ const MiniCourse = (props: any) => {
 
   const handleStar = (courseId: any) => {
     if (isAuthed) {
-      // eslint-disable-next-line no-underscore-dangle
       starCourseAction(courseId);
     } else {
       // Force the user to go login // FIX I hate this feature. Let's make a modal instead
-      history.push('/login');
+      openModal();
     }
   };
 
@@ -91,11 +91,10 @@ const MiniCourse = (props: any) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return { auth: state.auth };
-};
+const mapStateToProps = (state: any) => ({ auth: state.auth });
 
 export default connect(mapStateToProps, {
   getVisualizedCoursesAction: getVisualizedCourses,
   starCourseAction: starCourse,
+  openModal: openLoginModal,
 })(MiniCourse);

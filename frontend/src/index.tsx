@@ -12,7 +12,6 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-
 import Theme from './util/style';
 
 const store = createStore(reducers,

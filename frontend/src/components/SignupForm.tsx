@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import { register } from '../redux/actions/auth';
 import { REGISTER_FAIL } from '../redux/constants';
 import { clearErrors } from '../redux/actions/error';
+import { clearModals } from '../redux/actions/modal';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -24,13 +25,15 @@ interface Props {
   error: any,
   register: Function,
   clearErrors: Function,
+  clearModals: Function,
 }
 
 const SignupForm = (props: any) => {
-  const { isAuthenticated, error, register, clearErrors }: Props = props;
+  const { isAuthenticated, error, register, clearErrors, clearModals }: Props = props;
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPw, setConfirmPw] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
 
   const classes = useStyles();
@@ -45,12 +48,16 @@ const SignupForm = (props: any) => {
   const handlePasswordChange = (e: any) => {
     setPassword(e.target.value);
   };
+  const handleConfirmPasswordChange = (e: any) => {
+    setConfirmPw(e.target.value);
+  };
 
   const handleSubmit = (e: any) => {
     const newUser = {
       name,
       email,
       password,
+      confirmPw
     };
 
     register(newUser);
@@ -65,6 +72,7 @@ const SignupForm = (props: any) => {
 
     if (isAuthenticated) {
       clearErrors();
+      clearModals();
       // redirect to profile page
       history.push('/ProfilePage');
     }
@@ -102,8 +110,11 @@ const SignupForm = (props: any) => {
       <Input
         placeholder="Retype password"
         type="password"
+        id="confirmPassword"
+        name="confirmPassword"
         required
         className={classes.inputFields}
+        onChange={handleConfirmPasswordChange}
       />
       <Button variant="contained" className={classes.loginButton} onClick={handleSubmit}>Sign up</Button>
     </form>
@@ -115,4 +126,4 @@ const mapStateToProps = (state: any) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { register, clearErrors })(SignupForm);
+export default connect(mapStateToProps, { register, clearErrors, clearModals })(SignupForm);
