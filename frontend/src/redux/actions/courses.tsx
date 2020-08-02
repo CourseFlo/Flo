@@ -46,7 +46,7 @@ export const getCourseFailure = (error: String) => ({
 export const getCourse = (courseId: String) => {
   return (dispatch: Function) => {
     dispatch({ type: COURSE_LOADING });
-    axios.get(`/courses/${courseId}`)
+    axios.get(`/courses/getCourse/${courseId}`)
       .then(response => {
         const offering = response.data;
         dispatch(getCourseSuccess(offering));

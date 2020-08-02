@@ -5,12 +5,29 @@ import { Card, Typography, CardActions, CardContent, Button } from '@material-ui
 
 import { openCourseModal } from '../redux/actions/modal';
 import FavButton from './FavButton';
+import { getVisualizedCourses } from '../redux/actions/courses';
+import {createStyles, makeStyles, Theme} from "@material-ui/core";
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  root: {
+    flexGrow: 1,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+}));
 
 function Course(props: any) {
-  const { courseData, openCourseModal } = props;
+  const { courseData, openCourseModal, getVisualizedCourses } = props;
+  const classes = useStyles();
 
   return (
-    <Card>
+    <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5">
           {courseData.courseLetterCode}
@@ -20,22 +37,20 @@ function Course(props: any) {
         <Typography variant="caption">
           {courseData.title}
         </Typography>
-        <Typography variant="body2">
-          {courseData.description}
-        </Typography>
-        <Typography color="textSecondary">
-          {courseData.restrictionInfo ? `Restrictions: ${courseData.restrictionInfo}` : null}
-          {(courseData.restrictionInfo && courseData.preReqs.length > 0) ? <br /> : null}
-          {courseData.preReqs.length > 0 ? `Pre-reqs: ${courseData.preReqs.join(', ')}` : null}
-          {((courseData.restrictionInfo || courseData.preReqs.length > 0) && courseData.depn.length > 0) ? <br /> : null}
-          {courseData.depn.length > 0 ? `Dependents: ${courseData.depn.join(', ')}` : null}
-        </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => openCourseModal(courseData.courseId)}>
-          Details.
+        <Button
+          onClick={() => openCourseModal(courseData.courseId)}
+          variant="outlined"
+        >
+          Details
         </Button>
-        <Button href={courseData.link}>Visit Site</Button>
+        <Button
+          onClick={() => getVisualizedCourses(courseData.courseId)}
+          variant="outlined"
+        >
+          Visualize
+        </Button>
         <FavButton courseId={courseData.courseId} />
       </CardActions>
     </Card>
@@ -44,4 +59,5 @@ function Course(props: any) {
 
 export default connect(null, {
   openCourseModal,
+  getVisualizedCourses,
 })(Course);

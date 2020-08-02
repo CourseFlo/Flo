@@ -101,7 +101,8 @@ const CourseModal = (props: any) => {
             }
           }
           >
-            <Button onClick={handleVisualize}>Visualize</Button>
+            <Button onClick={handleVisualize} variant="outlined">Visualize</Button>
+            <Button href={courseInfo ? courseInfo.link : null} variant="outlined">Visit Site</Button>
           </div>
         </div>
       </Fade>

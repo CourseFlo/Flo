@@ -115,8 +115,8 @@ const Search = (props: any) => {
     <div className={classes.root}>
       <div className={classes.searchContainer}>
         <Grid container spacing={3}>
-          <Grid item xs />
-          <Grid item xs>
+          <Grid item md />
+          <Grid item xs={12} md>
             <form className={classes.queryForm} noValidate autoComplete="off">
               <TextField
                 id="outlined-basic"
@@ -129,10 +129,10 @@ const Search = (props: any) => {
               />
             </form>
           </Grid>
-          <Grid item xs />
+          <Grid item md />
         </Grid>
         <Grid container spacing={10} alignItems="stretch">
-          <Grid item xs>
+          <Grid item xs={12} md={6}>
             <Box className={classes.filterItem}>
               <FormControl className={classes.letterCodeForm}>
                 <InputLabel shrink htmlFor="select-multiple-native">
@@ -167,7 +167,7 @@ const Search = (props: any) => {
                 : null}
             </Box>
           </Grid>
-          <Grid item xs>
+          <Grid item xs={12} md={6}>
             <Box className={classes.filterItem}>
               <Typography id="range-slider" gutterBottom>
                 Course number range:
@@ -187,8 +187,8 @@ const Search = (props: any) => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs />
-          <Grid item xs={6}>
+          <Grid item md />
+          <Grid item xs={12} md>
             <Button
               variant="contained"
               color="primary"
@@ -200,7 +200,7 @@ const Search = (props: any) => {
               Search
             </Button>
           </Grid>
-          <Grid item xs />
+          <Grid item md />
         </Grid>
       </div>
     </div>

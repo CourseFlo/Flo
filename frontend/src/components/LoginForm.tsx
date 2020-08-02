@@ -66,8 +66,10 @@ const LoginForm = (props: any) => {
     if (isAuthenticated) {
       clearErrors();
       clearModals();
-      // redirect to profile page
-      if (location.pathname === '/Login') history.push('/ProfilePage');
+      // allow user to remain on page if logged in through modal
+      if (location.pathname === '/Login') {
+        history.push('/ProfilePage');
+      }
     }
   }, [error, isAuthenticated]);
 
