@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import { Grid, Card, IconButton, Typography, CardActions, CardContent, Button, makeStyles, createStyles, Theme } from '@material-ui/core/';
-import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
+import { Grid, Card, Typography, CardActions, CardContent, Button, makeStyles, createStyles, Theme } from '@material-ui/core/';
 
-import { starCourse } from '../redux/actions/User';
-import { openCourseModal, openLoginModal } from '../redux/actions/modal';
+import { openCourseModal } from '../redux/actions/modal';
+import FavButton from './FavButton';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -25,26 +24,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 }));
 
 const MiniCourse = (props: any) => {
-  const { courseData, starCourseAction, openLoginModal, openCourseModal, auth } = props;
+  const { courseData, openCourseModal } = props;
   const classes = useStyles();
-  const isAuthed = auth.isAuthenticated;
-  const [isStarred, setIsStarred] = useState(false);
-
-  let starredCoursesSet;
-  useEffect(() => {
-    if (isAuthed) {
-      starredCoursesSet = new Set(auth.user.starredCourses);
-      setIsStarred(starredCoursesSet.has(courseData.courseId));
-    }
-  }, [auth.user]);
-
-  const handleStar = (courseId: any) => {
-    if (isAuthed) {
-      starCourseAction(courseId);
-    } else {
-      openLoginModal();
-    }
-  };
 
   return (
     <Grid item xs={4} key={courseData.courseId}>
@@ -72,9 +53,7 @@ const MiniCourse = (props: any) => {
         </CardContent>
         <CardActions>
           <Button size="small" onClick={() => openCourseModal(courseData.courseId)}>Learn More</Button>
-          <IconButton aria-label="add to favorites" onClick={() => handleStar(courseData.courseId)}>
-            {isStarred ? <Favorite /> : <FavoriteBorderOutlined />}
-          </IconButton>
+          <FavButton courseId={courseData.courseId} />
         </CardActions>
       </Card>
     </Grid>
@@ -83,8 +62,4 @@ const MiniCourse = (props: any) => {
 
 const mapStateToProps = (state: any) => ({ auth: state.auth });
 
-export default connect(mapStateToProps, {
-  starCourseAction: starCourse,
-  openLoginModal,
-  openCourseModal,
-})(MiniCourse);
+export default connect(mapStateToProps, { openCourseModal })(MiniCourse);

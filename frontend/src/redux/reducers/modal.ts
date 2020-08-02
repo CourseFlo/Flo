@@ -7,7 +7,7 @@ import {
   LOGIN_MS,
   COURSE_MS,
   GET_COURSE_SUCCESS,
-  GET_COURSE_FAILURE
+  GET_COURSE_FAILURE,
 } from '../constants';
 
 const initialState = {

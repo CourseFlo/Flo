@@ -1,34 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import { Card, IconButton, Typography, CardActions, CardContent, Button } from '@material-ui/core/';
-import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
+import { Card, Typography, CardActions, CardContent, Button } from '@material-ui/core/';
 
-import { getVisualizedCourses } from '../redux/actions/courses';
-import { starCourse } from '../redux/actions/User';
-import { openLoginModal, openCourseModal } from '../redux/actions/modal';
+import { openCourseModal } from '../redux/actions/modal';
+import FavButton from './FavButton';
 
 function Course(props: any) {
-  const { courseData, starCourseAction, openLoginModal, openCourseModal, auth } = props;
-  const isAuthed = auth.isAuthenticated;
-  const [isStarred, setIsStarred] = useState<boolean>(false);
-
-  let starredCoursesSet;
-  useEffect(() => {
-    if (isAuthed) {
-      starredCoursesSet = new Set(auth.user.starredCourses);
-      setIsStarred(starredCoursesSet.has(courseData.courseId));
-    }
-  }, [auth.user, courseData]);
-
-  const handleStar = (courseId: any) => {
-    if (isAuthed) {
-      starCourseAction(courseId);
-    } else {
-      // Force the user to go login // FIX I hate this feature. Let's make a modal instead
-      openLoginModal();
-    }
-  };
+  const { courseData, openCourseModal } = props;
 
   return (
     <Card>
@@ -57,19 +36,12 @@ function Course(props: any) {
           Details.
         </Button>
         <Button href={courseData.link}>Visit Site</Button>
-        <IconButton aria-label="add to favorites" onClick={() => handleStar(courseData.courseId)}>
-          {isStarred ? <Favorite /> : <FavoriteBorderOutlined />}
-        </IconButton>
+        <FavButton courseId={courseData.courseId} />
       </CardActions>
     </Card>
   );
 }
 
-const mapStateToProps = (state: any) => ({ auth: state.auth });
-
-export default connect(mapStateToProps, {
-  getVisualizedCoursesAction: getVisualizedCourses,
-  starCourseAction: starCourse,
-  openLoginModal,
+export default connect(null, {
   openCourseModal,
 })(Course);

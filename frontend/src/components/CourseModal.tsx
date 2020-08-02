@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import { Button, Fade, Modal, Typography, IconButton } from '@material-ui/core';
+import { Button, Fade, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router-dom';
 import { clearModals } from '../redux/actions/modal';
 import { getVisualizedCourses, getCourse } from '../redux/actions/courses';
 import { COURSE_MS } from '../redux/constants';
-import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
+import FavButton from './FavButton';
 
 interface Props {
   modalState: string,
@@ -70,7 +70,9 @@ const CourseModal = (props: any) => {
         {courseInfo.depn.length > 0 ? `Dependents: ${courseInfo.depn.join(', ')}` : null}
       </Typography>
       <Typography>
-        Credits: {courseInfo.credits}
+        Credits:
+        {' '}
+        {courseInfo.credits}
       </Typography>
     </>
   );
@@ -83,23 +85,21 @@ const CourseModal = (props: any) => {
     >
       <Fade in={open}>
         <div className={classes.paper}>
-          <div style={{display: "flex"}}>
-            <Typography variant="h5" display="inline" style={{flex: 1}}>
+          <div style={{ display: 'flex' }}>
+            <Typography variant="h5" display="inline" style={{ flex: 1 }}>
               {courseId}
             </Typography>
-            <IconButton aria-label="add to favorites">
-              {true ? <Favorite /> : <FavoriteBorderOutlined />}
-            </IconButton>
+            <FavButton courseId={courseInfo ? courseInfo.courseId : null} />
           </div>
-          {/* isStarred ..... onClick={() => handleStar(courseData.courseId)} */}
           { courseInfo ? <ModalBody /> : null}
           <div style={
             {
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
             }
-          }>
+          }
+          >
             <Button onClick={handleVisualize}>Visualize</Button>
           </div>
         </div>
