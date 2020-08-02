@@ -34,8 +34,12 @@ const SearchCard = (props: any) => {
   };
 
   const handleSubmit = () => {
-    submitSearch(searchInputs);
-    history.push('/Browse');
+    if (!searchInputs.query.length) {
+      alert('Please input keyword into search bar.');
+    } else {
+      submitSearch(searchInputs);
+      history.push('/Browse');
+    }
   };
 
   // eslint-disable-next-line consistent-return
@@ -48,29 +52,27 @@ const SearchCard = (props: any) => {
 
   return (
     <Container>
-      <Paper>
-        <div style={{ textAlign: 'center' }}>Start a basic keyword search:</div>
-        <form style={{ textAlign: 'center' }} noValidate autoComplete="off">
-          <TextField
-            id="outlined-basic"
-            label="Search for a course"
-            onChange={handleQueryChange}
-            onKeyDown={handleKeyDown}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            size="medium"
-            onClick={() => {
-              handleSubmit();
-            }}
-            style={{ marginBottom: '-30px' }}
-            startIcon={<SearchIcon />}
-          >
-            Search
-          </Button>
-        </form>
-      </Paper>
+      <div style={{ textAlign: 'center' }}>Start a basic keyword search:</div>
+      <form style={{ textAlign: 'center' }} noValidate autoComplete="off">
+        <TextField
+          id="outlined-basic"
+          label="Search here"
+          onChange={handleQueryChange}
+          onKeyDown={handleKeyDown}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          size="medium"
+          onClick={() => {
+            handleSubmit();
+          }}
+          style={{ marginLeft: '10px', marginBottom: '-38px' }}
+          startIcon={<SearchIcon />}
+        >
+          Search
+        </Button>
+      </form>
     </Container>
   );
 };

@@ -97,8 +97,12 @@ function Navbar(props: any) {
   // eslint-disable-next-line consistent-return
   const handleKeyDown = (event: any) => {
     if (event.key === 'Enter') {
-      submitSearch(currFilters);
-      return history.push('/Browse');
+      if (!currFilters.query.length) {
+        alert('Please input keyword into search bar.');
+      } else {
+        submitSearch(currFilters);
+        history.push('/Browse');
+      }
     }
   };
 

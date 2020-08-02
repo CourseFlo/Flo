@@ -1,7 +1,7 @@
-import { green } from "@material-ui/core/colors";
+import { green } from '@material-ui/core/colors';
 
 export default {
-    palette: { 
-        primary: green,
-    }
+  palette: {
+    primary: green,
+  },
 };
