@@ -52,7 +52,7 @@ const CourseModal = (props: any) => {
 
   useEffect(() => {
     getCourse(courseId);
-  }, [courseId]);
+  }, [courseId, getCourse]);
 
   const ModalBody = () => (
     <>

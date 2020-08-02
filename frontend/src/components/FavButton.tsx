@@ -12,13 +12,12 @@ function FavButton(props: any) {
   const isAuthed = auth.isAuthenticated;
   const [isStarred, setIsStarred] = useState(false);
 
-  let starredCoursesSet;
   useEffect(() => {
     if (isAuthed) {
-      starredCoursesSet = new Set(auth.user.starredCourses);
+      const starredCoursesSet = new Set(auth.user.starredCourses);
       setIsStarred(starredCoursesSet.has(courseId));
     }
-  }, [auth.user, courseId]);
+  }, [isAuthed, auth.user, courseId]);
 
   const handleStar = (courseId: any) => {
     if (isAuthed) {
