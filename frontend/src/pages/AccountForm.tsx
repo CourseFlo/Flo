@@ -9,6 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import { User } from '../type-interfaces/User';
 import { updateUser } from '../redux/actions/User';
@@ -96,7 +97,9 @@ function AccountForm(props: any) {
                 Name:
                 {currentUser.name}
               </Typography>
-              <Button onClick={handleEditName} startIcon={<EditIcon />} />
+              <Tooltip title="Edit Name">
+                <Button onClick={handleEditName} startIcon={<EditIcon />} />
+              </Tooltip>
             </ListItem>
           )}
         {/* Email Field */}
@@ -115,7 +118,9 @@ function AccountForm(props: any) {
                 Email:
                 {currentUser.email}
               </Typography>
-              <Button onClick={handleEditEmail} startIcon={<EditIcon />} />
+              <Tooltip title="Edit Email">
+                <Button onClick={handleEditEmail} startIcon={<EditIcon />} />
+              </Tooltip>
             </ListItem>
           )}
         {/* Major Field */}
@@ -134,14 +139,18 @@ function AccountForm(props: any) {
                 Major:
                 {currentUser.major}
               </Typography>
-              <Button onClick={handleEditMajor} startIcon={<EditIcon />} />
+              <Tooltip title="Edit Major">
+                <Button onClick={handleEditMajor} startIcon={<EditIcon />} />
+              </Tooltip>
             </ListItem>
           )}
         <ListItem>
           <Typography variant="subtitle1">Courses:</Typography>
           <List>
             {courses.map((course) => (
-              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              <Tooltip title="Learn More">
+                <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              </Tooltip>
             ))}
           </List>
         </ListItem>
@@ -149,7 +158,9 @@ function AccountForm(props: any) {
           <Typography variant="subtitle1">Starred Courses:</Typography>
           <List>
             {starredCourses.map((course) => (
-              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              <Tooltip title="Learn More">
+                <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              </Tooltip>
             ))}
           </List>
         </ListItem>
