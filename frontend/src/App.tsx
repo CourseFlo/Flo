@@ -17,8 +17,12 @@ import LoginModal from './components/LoginModal';
 import SignupModal from './components/SignupModal';
 import CourseModal from './components/CourseModal';
 
-function App(props: any) { // TODO: prop types?
-  const { loadUser } : { loadUser : Function } = props;
+interface Props {
+  loadUser: Function
+}
+
+function App(props: Props) {
+  const { loadUser } : Props = props;
   useEffect(() => {
     loadUser();
   }, []);

@@ -8,7 +8,7 @@ export const GET_USERS = 'GET_USERS';
 export const UPDATE_USER = 'UPDATE_USER';
 export const GET_COURSE_SUCCESS = 'GET_COURSE_SUCCESS';
 export const GET_COURSE_FAILURE = 'GET_COURSE_FAILURE';
-
+export const GET_LETTER_CODES = 'GET_LETTER_CODES';
 
 // auth constants
 export const USER_LOADING = 'USER_LOADING';
