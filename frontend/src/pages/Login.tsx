@@ -9,11 +9,26 @@ import Books from '../assets/bookstack.png';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   loginContainer: {
     margin: 'auto',
+    marginTop: '150px',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    height: '70vh',
+    // height: '70vh',
+    [theme.breakpoints.down('xs')]: {
+      marginTop: '25%',
+    },
+  },
+  signUp: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageBG: {
+    width: '75%',
+    marginTop: '40px',
+    position: 'fixed',
+    right: '-100px',
   },
 }));
 
@@ -28,12 +43,12 @@ const Login = () => {
         </Typography>
         <LoginForm />
         <div>
-          <Link to="/signup" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <Link to="/signup" className={classes.signUp}>
             Sign up
           </Link>
         </div>
       </Container>
-      <img src={Books} style={{ width: '75%', marginTop: '-100px', position: 'fixed', right: '-100px' }} alt="books" />
+      <img src={Books} className={classes.imageBG} alt="books" />
     </div>
   );
 };

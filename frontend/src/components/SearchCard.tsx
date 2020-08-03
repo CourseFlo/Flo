@@ -34,9 +34,7 @@ const SearchCard = (props: any) => {
   };
 
   const handleSubmit = () => {
-    if (!searchInputs.query.length) {
-      alert('Please input keyword into search bar.');
-    } else {
+    if (searchInputs.query.length) {
       submitSearch(searchInputs);
       history.push('/Browse');
     }

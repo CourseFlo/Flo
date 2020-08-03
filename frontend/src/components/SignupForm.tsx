@@ -8,6 +8,7 @@ import { register } from '../redux/actions/auth';
 import { REGISTER_FAIL } from '../redux/constants';
 import { clearErrors } from '../redux/actions/error';
 import { clearModals } from '../redux/actions/modal';
+import Books from '../assets/bookstack.png';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -17,6 +18,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   loginButton: {
     width: '100%',
     marginTop: '30px',
+  },
+  imageBG: {
+    width: '75%',
+    marginTop: '40px',
+    position: 'fixed',
+    right: '-100px',
   },
 }));
 
@@ -79,45 +86,48 @@ const SignupForm = (props: any) => {
   }, [error, isAuthenticated]);
 
   return (
-    <form>
-      { errorMsg ? <div>{errorMsg}</div> : null}
-      <Input
-        placeholder="Name"
-        id="name"
-        name="name"
-        required
-        className={classes.inputFields}
-        onChange={handleNameChange}
-      />
-      <Input
-        placeholder="Email"
-        type="email"
-        id="email"
-        name="email"
-        required
-        className={classes.inputFields}
-        onChange={handleEmailChange}
-      />
-      <Input
-        placeholder="Password"
-        type="password"
-        id="password"
-        name="password"
-        required
-        className={classes.inputFields}
-        onChange={handlePasswordChange}
-      />
-      <Input
-        placeholder="Retype password"
-        type="password"
-        id="confirmPassword"
-        name="confirmPassword"
-        required
-        className={classes.inputFields}
-        onChange={handleConfirmPasswordChange}
-      />
-      <Button variant="contained" className={classes.loginButton} onClick={handleSubmit}>Sign up</Button>
-    </form>
+    <div>
+      <form>
+        {errorMsg ? <div>{errorMsg}</div> : null}
+        <Input
+          placeholder="Name"
+          id="name"
+          name="name"
+          required
+          className={classes.inputFields}
+          onChange={handleNameChange}
+        />
+        <Input
+          placeholder="Email"
+          type="email"
+          id="email"
+          name="email"
+          required
+          className={classes.inputFields}
+          onChange={handleEmailChange}
+        />
+        <Input
+          placeholder="Password"
+          type="password"
+          id="password"
+          name="password"
+          required
+          className={classes.inputFields}
+          onChange={handlePasswordChange}
+        />
+        <Input
+          placeholder="Retype password"
+          type="password"
+          id="confirmPassword"
+          name="confirmPassword"
+          required
+          className={classes.inputFields}
+          onChange={handleConfirmPasswordChange}
+        />
+        <Button variant="contained" className={classes.loginButton} onClick={handleSubmit}>Sign up</Button>
+      </form>
+      <img src={Books} className={classes.imageBG} alt="books" />
+    </div>
   );
 };
 
