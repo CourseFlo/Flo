@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
@@ -9,6 +9,7 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { login } from '../redux/actions/auth';
 import { LOGIN_FAIL } from '../redux/constants';
 import { clearErrors } from '../redux/actions/error';
+import { clearModals } from '../redux/actions/modal';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
@@ -26,16 +27,18 @@ interface Props {
   error: any,
   login: Function,
   clearErrors: Function,
+  clearModals: Function,
 }
 
 const LoginForm = (props: any) => {
-  const { isAuthenticated, error, login, clearErrors }: Props = props;
+  const { isAuthenticated, error, login, clearErrors, clearModals }: Props = props;
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState(null);
 
   const classes = useStyles();
   const history = useHistory();
+  const location = useLocation();
 
   const handleEmailChange = (e: any) => {
     setEmail(e.target.value);
@@ -62,8 +65,11 @@ const LoginForm = (props: any) => {
 
     if (isAuthenticated) {
       clearErrors();
-      // redirect to profile page
-      history.push('/ProfilePage');
+      clearModals();
+      // allow user to remain on page if logged in through modal
+      if (location.pathname === '/login') {
+        history.push('/ProfilePage');
+      }
     }
   }, [error, isAuthenticated]);
 
@@ -98,4 +104,4 @@ const mapStateToProps = (state: any) => ({
   error: state.error,
 });
 
-export default connect(mapStateToProps, { login, clearErrors })(LoginForm);
+export default connect(mapStateToProps, { login, clearErrors, clearModals })(LoginForm);

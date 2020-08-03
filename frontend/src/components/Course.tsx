@@ -1,39 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
-import { Card, IconButton, Typography, CardActions, CardContent, Button } from '@material-ui/core/';
-import { Favorite, FavoriteBorderOutlined } from '@material-ui/icons';
+import {
+  Card,
+  Typography,
+  CardActions,
+  CardContent,
+  Button,
+  createStyles,
+  makeStyles,
+  Theme,
+} from '@material-ui/core/';
 
+import { openCourseModal } from '../redux/actions/modal';
+import FavButton from './FavButton';
 import { getVisualizedCourses } from '../redux/actions/courses';
-import { starCourse } from '../redux/actions/User';
+
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  root: {
+    flexGrow: 1,
+  },
+  bullet: {
+    display: 'inline-block',
+    margin: '0 2px',
+    transform: 'scale(0.8)',
+  },
+  title: {
+    fontSize: 14,
+  },
+}));
 
 function Course(props: any) {
-  const { courseData, getVisualizedCoursesAction, starCourseAction, auth } = props;
+  const { courseData, openCourseModal, getVisualizedCourses } = props;
+  const classes = useStyles();
+  const location = useLocation();
   const history = useHistory();
-  const isAuthed = auth.isAuthenticated;
-  const [isStarred, setIsStarred] = useState<boolean>(false);
 
-  let starredCoursesSet;
-  useEffect(() => {
-    if (isAuthed) {
-      starredCoursesSet = new Set(auth.user.starredCourses);
-      setIsStarred(starredCoursesSet.has(courseData.courseId));
-    }
-  }, [auth.user, courseData]);
-
-  const handleStar = (courseId: any) => {
-    if (isAuthed) {
-      // eslint-disable-next-line no-underscore-dangle
-      starCourseAction(courseId);
-    } else {
-      // Force the user to go login // FIX I hate this feature. Let's make a modal instead
-      history.push('/login');
-    }
+  const handleVisualize = () => {
+    getVisualizedCourses(courseData.courseId);
+    if (location.pathname === '/Browse') history.push('/VisualCourse');
   };
+  
 
   return (
-    <Card>
+    <Card className={classes.root}>
       <CardContent>
         <Typography variant="h5">
           {courseData.courseLetterCode}
@@ -43,33 +54,27 @@ function Course(props: any) {
         <Typography variant="caption">
           {courseData.title}
         </Typography>
-        <Typography variant="body2">
-          {courseData.description}
-        </Typography>
-        <Typography /* className={classes.pos}  */ color="textSecondary">
-          {courseData.restrictionInfo ? `Restrictions: ${courseData.restrictionInfo}` : null}
-          {(courseData.restrictionInfo && courseData.preReqs.length > 0) ? <br /> : null}
-          {courseData.preReqs.length > 0 ? `Pre-reqs: ${courseData.preReqs.join(', ')}` : null}
-          {((courseData.restrictionInfo || courseData.preReqs.length > 0) && courseData.depn.length > 0) ? <br /> : null}
-          {courseData.depn.length > 0 ? `Dependents: ${courseData.depn.join(', ')}` : null}
-        </Typography>
       </CardContent>
       <CardActions>
-        <Button onClick={() => getVisualizedCoursesAction(courseData.courseId)}>
-          Details.
+        <Button
+          onClick={() => openCourseModal(courseData.courseId)}
+          variant="outlined"
+        >
+          Details
         </Button>
-        <Button href={courseData.link}>Visit Site</Button>
-        <IconButton aria-label="add to favorites" onClick={() => handleStar(courseData.courseId)}>
-          {isStarred ? <Favorite /> : <FavoriteBorderOutlined />}
-        </IconButton>
+        <Button
+          onClick={handleVisualize}
+          variant="outlined"
+        >
+          Visualize
+        </Button>
+        <FavButton courseId={courseData.courseId} />
       </CardActions>
     </Card>
   );
 }
 
-const mapStateToProps = (state: any) => ({ auth: state.auth });
-
-export default connect(mapStateToProps, {
-  getVisualizedCoursesAction: getVisualizedCourses,
-  starCourseAction: starCourse,
+export default connect(null, {
+  openCourseModal,
+  getVisualizedCourses,
 })(Course);

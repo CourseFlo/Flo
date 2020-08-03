@@ -1,4 +1,4 @@
-import { SUBMIT_SEARCH, SUBMIT_SEARCH_FAILURE, SET_LOADING_SEARCH_TRUE } from '../constants';
+import { SUBMIT_SEARCH, SUBMIT_SEARCH_FAILURE, SET_LOADING_SEARCH_TRUE, GET_LETTER_CODES } from '../constants';
 // import { Course } from '../../type-interfaces/Course';
 
 // TODO change offering type to be Course[]
@@ -24,4 +24,13 @@ export const isSearchLoading = (isLoading: boolean = false, action: any) => {
     default:
       return isLoading;
   }
-}
+};
+
+export const letterCodes = (store: string[] = [], action: any) => {
+  switch (action.type) {
+    case GET_LETTER_CODES:
+      return action.codes;
+    default:
+      return store;
+  }
+};

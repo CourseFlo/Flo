@@ -13,9 +13,16 @@ import ProfilePage from './pages/ProfilePage';
 import ProtectedRoute from './components/ProtectedRoute';
 import { loadUser } from './redux/actions/auth';
 import './App.css';
+import LoginModal from './components/LoginModal';
+import SignupModal from './components/SignupModal';
+import CourseModal from './components/CourseModal';
 
-function App(props: any) { // TODO: prop types?
-  const { loadUser } : { loadUser : Function } = props;
+interface Props {
+  loadUser: Function
+}
+
+function App(props: Props) {
+  const { loadUser } : Props = props;
   useEffect(() => {
     loadUser();
   }, []);
@@ -32,6 +39,9 @@ function App(props: any) { // TODO: prop types?
         <Route path="/signup" component={Signup} />
         <Route component={ErrorPage} />
       </Switch>
+      <LoginModal />
+      <SignupModal />
+      <CourseModal />
     </main>
   );
 }

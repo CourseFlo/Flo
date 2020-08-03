@@ -56,7 +56,7 @@ const SearchCard = (props: any) => {
       <form style={{ textAlign: 'center' }} noValidate autoComplete="off">
         <TextField
           id="outlined-basic"
-          label="Search here"
+          label="Search for a course"
           onChange={handleQueryChange}
           onKeyDown={handleKeyDown}
         />

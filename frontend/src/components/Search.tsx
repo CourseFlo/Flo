@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
@@ -7,7 +7,7 @@ import { Grid, Box, TextField, FormControl, InputLabel, Select, Button, Typograp
 import SearchIcon from '@material-ui/icons/Search';
 
 import { Filters } from '../type-interfaces/Search';
-import { submitSearch } from '../redux/actions/Search';
+import { submitSearch, getLetterCodes } from '../redux/actions/Search';
 import { MIN_COURSE_CODE, MAX_COURSE_CODE, SLIDER_STEP_SIZE } from '../util/UIConstants';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -46,16 +46,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-// REMOVE once we have actual data
-const names = [
-  'ANTH',
-  'ARTI',
-  'CPSC',
-  'OTHE',
-  'STHE',
-  'TTHE',
-];
-
 // Create array of slider marks: MIN_COURSE_CODE to MAX_COURSE_CODE, in steps of SLIDER_STEP_SIZE
 const sliderRange: any[] = Array
   .from(Array((MAX_COURSE_CODE - MIN_COURSE_CODE) / SLIDER_STEP_SIZE + 1)
@@ -67,15 +57,24 @@ const sliderMarks = sliderRange.map((_num, i) => ({
 
 interface Props {
   submitSearch: Function,
+  getLetterCodes: Function,
+  allLetterCodes: string[],
 }
 
 const Search = (props: any) => {
   // eslint-disable-next-line no-shadow
-  const { submitSearch }: Props = props;
+  const { allLetterCodes, submitSearch, getLetterCodes }: Props = props;
   const classes = useStyles();
   const [letterCodes, setLetterCodes] = useState<any[]>([]);
   const [queryString, setQueryString] = useState<string>('');
   const [numberRange, setNumberRange] = useState<number[]>([200, 400]);
+
+  useEffect(() => {
+    // On mount, try to get the letter code from db data
+    if (!allLetterCodes || allLetterCodes.length === 0) {
+      getLetterCodes();
+    }
+  }, []);
 
   const handleLetterCodeChangeMultiple = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { options } = event.target as HTMLSelectElement;
@@ -123,10 +122,9 @@ const Search = (props: any) => {
   return (
     <div className={classes.root}>
       <div className={classes.searchContainer}>
-        {/* TODO Extract this margin into a better system */}
         <Grid container spacing={3}>
-          <Grid item xs />
-          <Grid item xs>
+          <Grid item md />
+          <Grid item xs={12} md>
             <form className={classes.queryForm} noValidate autoComplete="off">
               <TextField
                 id="outlined-basic"
@@ -134,20 +132,20 @@ const Search = (props: any) => {
                 variant="outlined"
                 fullWidth
                 margin="normal"
-                helperText="Use course names, numbers, or 4 letter codes."
+                helperText="Use course names, numbers, or letter codes."
                 onChange={handleQueryChange}
                 onKeyDown={handleKeyDown}
               />
             </form>
           </Grid>
-          <Grid item xs />
+          <Grid item md />
         </Grid>
         <Grid container spacing={10} alignItems="stretch">
-          <Grid item xs>
+          <Grid item xs={12} md={6}>
             <Box className={classes.filterItem}>
               <FormControl className={classes.letterCodeForm}>
                 <InputLabel shrink htmlFor="select-multiple-native">
-                  4 Letter Course Codes
+                  Letter Course Codes
                 </InputLabel>
                 <Select
                   multiple
@@ -158,18 +156,27 @@ const Search = (props: any) => {
                     id: 'select-multiple-native',
                   }}
                 >
-                  {names.map((name) => (
-                    <option key={name} value={name}>
-                      {name}
+                  {allLetterCodes.map((code) => (
+                    <option key={code} value={code}>
+                      {code}
                     </option>
                   ))}
                 </Select>
               </FormControl>
-              {'Selected Codes: '}
               <Typography>{letterCodes.join(', ')}</Typography>
+              {letterCodes && letterCodes.length ? (
+                <Button
+                  color="primary"
+                  size="small"
+                  onClick={() => setLetterCodes([])}
+                >
+                  Clear
+                </Button>
+              )
+                : null}
             </Box>
           </Grid>
-          <Grid item xs>
+          <Grid item xs={12} md={6}>
             <Box className={classes.filterItem}>
               <Typography id="range-slider" gutterBottom>
                 Course number range:
@@ -189,8 +196,8 @@ const Search = (props: any) => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs />
-          <Grid item xs={6}>
+          <Grid item md />
+          <Grid item xs={12} md>
             <Button
               variant="contained"
               color="primary"
@@ -202,19 +209,16 @@ const Search = (props: any) => {
               Search
             </Button>
           </Grid>
-          <Grid item xs />
+          <Grid item md />
         </Grid>
       </div>
     </div>
   );
 };
 
-// TODO grab list of letter code filters from db?
-// // Subset of full state used here
-// interface SearchState {
-// }
-// const mapStateToProps = (state: SearchState) => {
-//   return {};
-// };
+interface SearchState {
+  letterCodes: string[]
+}
+const mapStateToProps = (state: SearchState) => ({ allLetterCodes: state.letterCodes });
 
-export default connect(null, { submitSearch })(Search);
+export default connect(mapStateToProps, { submitSearch, getLetterCodes })(Search);
