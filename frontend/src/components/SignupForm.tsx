@@ -80,7 +80,7 @@ const SignupForm = (props: any) => {
 
   return (
     <form>
-      { errorMsg ? <div>{errorMsg}</div> : null}
+      {errorMsg ? <div>{errorMsg}</div> : null}
       <Input
         placeholder="Name"
         id="name"
