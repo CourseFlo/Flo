@@ -11,7 +11,6 @@ import Desk5 from '../assets/desk5.jpg';
 
 const deskArray = [Desk1, Desk2, Desk3, Desk4, Desk5];
 const randNum = Math.floor(Math.random() * 5);
-console.log(randNum);
 const randomDesk = deskArray[randNum];
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
