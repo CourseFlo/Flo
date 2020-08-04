@@ -1,26 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Paper } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 
+import { Grid, Paper } from '@material-ui/core';
 import Course from '../components/Course';
 
 interface Props {
   visualizedCourses: any,
+  courses: any,
 }
 const VisualCourse = (props: Props) => {
-  const { visualizedCourses }: Props = props;
+  const { visualizedCourses, courses }: Props = props;
+  const history = useHistory();
 
-  const coursesListPrereqs = visualizedCourses.preReqs;
-  const coursesListFuture = visualizedCourses.depns;
+  useEffect(() => {
+    if (!visualizedCourses.targetId) {
+      history.push('/Browse');
+    }
+  }, []);
 
+  // console.log("Visual course object: ", visualizedCourses, courses);
+  if (!visualizedCourses.targetId || visualizedCourses.error || visualizedCourses.loading) return <h2></h2>;
   return (
     <>
-      <Grid container spacing={3} justify="center" alignItems="flex-start" style={{ margin: '30px' }}>
+      <Grid container spacing={3} justify="center" alignItems="flex-start">
         {/* <Grid item xs={false} sm={2} /> */}
         <Grid item xs={3}>
           <Paper>
             <Grid container spacing={4} justify="center" direction="column">
-              {coursesListPrereqs.map((course: any) => (
+              {visualizedCourses.preReqs.map((course: any) => (
                 <Grid item key={course.courseId} xs={11}>
                   <Course courseData={course} />
                 </Grid>
@@ -40,7 +48,7 @@ const VisualCourse = (props: Props) => {
         <Grid item xs={3}>
           <Paper>
             <Grid container spacing={4} direction="column">
-              {coursesListFuture.map((course: any) => (
+              {visualizedCourses.depn.map((course: any) => (
                 <Grid item key={course.courseId} xs={11}>
                   <Course courseData={course} />
                 </Grid>
@@ -54,8 +62,8 @@ const VisualCourse = (props: Props) => {
 };
 
 const mapStateToProps = (state: any) => {
-  const { visualizedCourses }: any = state;
-  return { visualizedCourses };
+  const { visualizedCourses, courses }: any = state;
+  return { visualizedCourses, courses };
 };
 
 export default connect(mapStateToProps, null)(VisualCourse);

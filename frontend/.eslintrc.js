@@ -43,7 +43,8 @@ module.exports = {
       "ExportDeclaration": { "multiline": true, "minProperties": 3 }
     }],
     "react/jsx-fragments": "off",
-    "react/require-default-props": ["error", { forbidDefaultForRequired: false, ignoreFunctionalComponents: false}]
+    "react/require-default-props": ["error", { forbidDefaultForRequired: false, ignoreFunctionalComponents: false}],
+    "no-case-declarations": "off"
     },
   settings: {
   }

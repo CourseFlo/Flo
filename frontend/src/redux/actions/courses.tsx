@@ -1,27 +1,36 @@
 import axios from 'axios';
 import {
-  GET_VISUALIZED_COURSE,
-  GET_VISUALIZED_COURSE_FAILURE,
+  SET_VISUALIZED_COURSE,
   GET_COURSE_SUCCESS,
   GET_COURSE_FAILURE,
   COURSE_LOADING,
   COURSE_LOADED,
+  GET_VISUALIZED_COURSE,
+  GET_VISUALIZED_COURSE_FAILURE,
 } from '../constants';
-// import { Course } from '../../type-interfaces/Course';
+import { Course, CourseId } from '../../type-interfaces/Course';
+
+const setVisualizedCourse = (courseId: CourseId) => ({
+  type: SET_VISUALIZED_COURSE,
+  payload: courseId,
+});
 
 export const getVisualizedCoursesSuccess = (visualizedCourses: any) => ({
   type: GET_VISUALIZED_COURSE,
-  visualizedCourses,
+  payload: visualizedCourses,
 });
 
-export const getVisualizedCoursesFailure = (errMsg: string) => ({
+export const getVisualizedCoursesFailure = (errMsg: string) => ({ // TODO Remove
   type: GET_VISUALIZED_COURSE_FAILURE,
   errMsg,
 });
 
-export const getVisualizedCourses = (courseId: string) => {
+export const getVisualizedCourses = (courseId: string, layers: number = 1) => {
   return (dispatch: Function) => {
-    axios.get(`/courses/getRelated/${courseId}`)
+    dispatch(setVisualizedCourse(courseId));
+    axios.get(`/courses/getRelated/${courseId}`, {
+      layers,
+    })
       .then((response) => {
         dispatch(getVisualizedCoursesSuccess(response.data));
       })
@@ -32,7 +41,6 @@ export const getVisualizedCourses = (courseId: string) => {
   };
 };
 
-// REVIEW if this is necessary
 export const getCourseSuccess = (offering: any) => ({
   type: GET_COURSE_SUCCESS,
   payload: offering,
@@ -43,18 +51,20 @@ export const getCourseFailure = (error: String) => ({
   error,
 });
 
-export const getCourse = (courseId: String) => {
+// const updateCache = (courseId: CourseId) => {
+export const getCourse = (courseId: CourseId) => {
   return (dispatch: Function) => {
     dispatch({ type: COURSE_LOADING });
     axios.get(`/courses/getCourse/${courseId}`)
-      .then(response => {
-        const offering = response.data;
+      .then((response) => {
+        const offering: Course = response.data as Course;
         dispatch(getCourseSuccess(offering));
         dispatch({ type: COURSE_LOADED });
-      }).catch(err => {
+      }).catch((err) => {
         const errorMsg = err.message;
         dispatch(getCourseFailure(errorMsg));
         dispatch({ type: COURSE_LOADED });
       });
   };
 };
+
