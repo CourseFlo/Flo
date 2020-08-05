@@ -16,8 +16,7 @@ const useStyles = makeStyles({
   root: {
     width: '100%',
     maxWidth: 500,
-    backgroundColor: '#303030',
-    height: '70vh',
+    height: '100vh',
   },
   secondMenuList: {
     height: '100%',
@@ -54,11 +53,6 @@ function ProfileMenu(props: any) {
               <MenuItem onClick={myAccount}>
                 <Typography color="primary" noWrap>
                   My account
-                </Typography>
-              </MenuItem>
-              <MenuItem onClick={profile}>
-                <Typography color="primary">
-                  Settings
                 </Typography>
               </MenuItem>
               <MenuItem onClick={handleLogoutClick}>

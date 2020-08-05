@@ -38,7 +38,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     display: 'flex',
     width: '25%',
     height: '100vh',
-    backgroundColor: '#002145',
   },
 }));
 
@@ -51,15 +50,10 @@ export default function ProfilePage() {
       <Grid container spacing={3}>
         <Box className={classes.sideBoxes} />
         <React.Fragment>
-          <Box display="flex" width="50%" height="100vh" justifyContent="center">
+          <Box boxShadow={2} display="flex" width="50%" height="100%" justifyContent="center">
             <div className={classes.root}>
               <Grid container>
                 <Grid item xs={12}>
-                  <Box marginLeft={50}>
-                    <Box height="30vh">
-                      <Avatar src="/broken-image.jpg" className={classes.largeImg} />
-                    </Box>
-                  </Box>
                 </Grid>
                 <ProfileMenu />
               </Grid>

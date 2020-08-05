@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-// import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
+import Tooltip from '@material-ui/core/Tooltip';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { User } from '../type-interfaces/User';
 import { updateUser } from '../redux/actions/User';
@@ -22,6 +23,12 @@ interface Props {
   getVisualizedCourses: Function,
 }
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  submit: {
+    marginTop: '12px',
+  },
+}));
+
 function AccountForm(props: any) {
   const { currentUser, loadUser, updateUser, getVisualizedCourses } : Props = props;
   const [name, setName] = useState(currentUser.name);
@@ -32,6 +39,7 @@ function AccountForm(props: any) {
   const [editingName, toggleEditingName] = useState(false);
   const [editingEmail, toggleEditingEmail] = useState(false);
   const [editingMajor, toggleEditingMajor] = useState(false);
+  const classes = useStyles();
 
   useEffect(() => {
     loadUser();
@@ -80,13 +88,12 @@ function AccountForm(props: any) {
   return (
     <div>
       <List>
-        {/* Name Field */}
         {editingName
           ? (
             <ListItem>
               <form>
                 <TextField label="Name" value={name} onChange={handleNameChange} />
-                <Button onClick={handleSubmitChange}>Submit</Button>
+                <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
           )
@@ -96,16 +103,17 @@ function AccountForm(props: any) {
                 Name:
                 {currentUser.name}
               </Typography>
-              <Button onClick={handleEditName} startIcon={<EditIcon />} />
+              <Tooltip title="Edit Name">
+                <Button onClick={handleEditName} startIcon={<EditIcon />} />
+              </Tooltip>
             </ListItem>
           )}
-        {/* Email Field */}
         {editingEmail
           ? (
             <ListItem>
               <form>
                 <TextField label="Email" value={email} onChange={handleEmailChange} />
-                <Button onClick={handleSubmitChange}>Submit</Button>
+                <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
           )
@@ -115,16 +123,17 @@ function AccountForm(props: any) {
                 Email:
                 {currentUser.email}
               </Typography>
-              <Button onClick={handleEditEmail} startIcon={<EditIcon />} />
+              <Tooltip title="Edit Email">
+                <Button onClick={handleEditEmail} startIcon={<EditIcon />} />
+              </Tooltip>
             </ListItem>
           )}
-        {/* Major Field */}
         {editingMajor
           ? (
             <ListItem>
               <form>
                 <TextField label="Major" value={major} onChange={handleMajorChange} />
-                <Button onClick={handleSubmitChange}>Submit</Button>
+                <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
           )
@@ -134,14 +143,18 @@ function AccountForm(props: any) {
                 Major:
                 {currentUser.major}
               </Typography>
-              <Button onClick={handleEditMajor} startIcon={<EditIcon />} />
+              <Tooltip title="Edit Major">
+                <Button onClick={handleEditMajor} startIcon={<EditIcon />} />
+              </Tooltip>
             </ListItem>
           )}
         <ListItem>
           <Typography variant="subtitle1">Courses:</Typography>
           <List>
             {courses.map((course) => (
-              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              <Tooltip title="Learn More">
+                <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              </Tooltip>
             ))}
           </List>
         </ListItem>
@@ -149,7 +162,9 @@ function AccountForm(props: any) {
           <Typography variant="subtitle1">Starred Courses:</Typography>
           <List>
             {starredCourses.map((course) => (
-              <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              <Tooltip title="Learn More">
+                <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              </Tooltip>
             ))}
           </List>
         </ListItem>
