@@ -70,3 +70,19 @@ Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Bran
         *   Choose UI library for components in React
         *   Individual pages with navigation between them
         *   Actions (login, signup, add/delete courses, **visualize courses**, db querying/storing for each of the pages)
+
+* How tech is used from Units 1-5:
+    TODO Check with rubric, it needs in-depth understanding of topics and perhaps a compare-and-contrast with how our technology differs from other technologies available out there
+    *   Unit 1:
+        *   Rough prototypes were made for our app, which formed the basis of our development.
+        *   HTML elements are mostly represented through JSX, blended in with Material-UI components.
+        *   CSS is contained within useStyles() components from the Material-UI module.
+        *   Javascript is the basis for our Typescript-based app.
+    *   Unit 2:
+        *   React and Redux are implemented in the Frontend portion of our app. The parts that use actions and reducers include: authentication, courses, course visualization, error, modal, search, and user.
+    *   Unit 3:
+        *   Our database is in MongoDB, with one database on courses and one database collection of size 5240 (all UBC courses of 2019), and one database collection for users. 
+    *   Unit 4:
+        *   Our database is connected to our service through frontend Axios, middleware Redux-Thunk and our backend database calls. TODO: Get, Update, Delete, Put, Post requests labelled here
+    *   Unit 5:
+        *   Our project is deployed on Heroku. (TODO add in more details on here.)
