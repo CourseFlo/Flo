@@ -8,7 +8,7 @@ import Books from '../assets/bookstack.png';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   backgroundBottomRight: {
     background: `url(${Books})`,
-    backgroundPosition: 'right bottom',
+    backgroundPosition: 'right',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   },
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    height: '80vh',
+    height: '100vh',
   },
   imageBG: {
     width: '75%',
