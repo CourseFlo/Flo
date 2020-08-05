@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, InputBase, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, InputBase, Button, Switch } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -12,6 +12,7 @@ import { submitSearch } from '../redux/actions/Search';
 interface Props {
   isLoggedIn: boolean,
   submitSearch: Function,
+  darkModeSwitch: any,
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -77,9 +78,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Navbar(props: any) {
   // eslint-disable-next-line no-shadow
-  const { isLoggedIn, submitSearch }: Props = props;
+  const { isLoggedIn, submitSearch, darkModeSwitch }: Props = props;
   const classes = useStyles();
   const history = useHistory();
+  const { darkMode, setDarkMode } = darkModeSwitch;
   const currFilters: Filters = {
     query: '',
     letterCodes: [],
@@ -124,6 +126,7 @@ function Navbar(props: any) {
         {/*    </Grid> */}
         {/*  </Grid> */}
         {/* </div> */}
+        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
