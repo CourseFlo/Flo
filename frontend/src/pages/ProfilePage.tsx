@@ -28,6 +28,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     width: '50%',
     height: '100%',
     justifyContent: 'center',
+    [theme.breakpoints.down('sm')]: {
+      width: '70%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   marginAutoContainer: {
     width: 500,
