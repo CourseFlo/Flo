@@ -2,6 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 const CourseOffering = require('../models/courseOffering');
+/* eslint-disable no-await-in-loop */
 
 // Backend course cache
 const COURSE_CACHE = {};
@@ -9,12 +10,13 @@ const updateCache = (courses) => {
   courses.forEach((course) => { COURSE_CACHE[course.courseId] = course; });
 };
 
+// Enum of the different relationship with other courses
+const RELATIONSHIP = Object.freeze({
+  PREREQS: 'preReqs',
+  DEPN: 'depn',
+});
 
-// router.get('/', function(req, res, next) { // TODO Remove
-//   CourseOffering.find()
-//     .then(offerings => res.json(req.body.hello))
-//     .catch(err => res.status(400).json('Error: ' + err));
-// });
+
 
 router.get('/letterCodes', (req, res, next) => {
   CourseOffering.find().distinct('courseLetterCode')
@@ -38,6 +40,8 @@ router.get('/getCourse/:courseId', (req, res, next) => {
 // Get courses by list of courseIds
 // @throws .find exceptions
 const getCourses = async (courseIds) => {
+  if (courseIds.length === 0) return [];
+  // Get courses cached and missing course ids, in a single scan
   const notInCacheids = [];
   const inCacheCourses = [];
   courseIds.forEach((id) => {
@@ -63,42 +67,55 @@ const getCourses = async (courseIds) => {
   return notInCacheCourses.concat(inCacheCourses);
 };
 
-// Currently only goes 1 layer deep
+// For the given courses, get all of the unique IDs in the specified relationship.
+const getNextLayer = async (currLayer, relationship) => {
+  let coursesAcc = new Set();
+  currLayer.forEach((course) => {
+    console.log('the pre-req/depn array: ', relationship, course[relationship])
+    if (course[relationship] && course[relationship].length > 0) {
+      coursesAcc = new Set([...coursesAcc, ...course[relationship]]);
+    }
+  });
+  return [...coursesAcc];
+};
+
+// Get the related courses for the given course by id. Layers can be provided (default 1)
+// Returns courses object with properties target: Course, preReqs: Course[][], depn: Course[][]
 router.get('/getRelated/:courseId', async (req, res, next) => {
-  let singleCourse;
-  const courses = {};
+  const { layers } = req.query;
+  const courses = {
+    target: {},
+    preReqs: [],
+    depn: [],
+  };
   try {
     // Get the targeted course
-    singleCourse = await CourseOffering.findOne({ courseId: req.params.courseId });
-    courses.target = singleCourse;
+    courses.target = await CourseOffering.findOne({ courseId: req.params.courseId });
 
-    // const query = {};
-    // query.courseId = { $in: [] };
-    // query.courseId.$in = singleCourse.preReqs;
+    // Get the related courses
+    let nextPrereqsIds = courses.target.preReqs;
+    let nextDepnIds = courses.target.depn;
+    let nextPrereqs;
+    let nextDepn;
+    for (let i = 0; i < layers; i++) {
+      // Get the prereqs and depns on the current layer
+      nextPrereqs = await getCourses(nextPrereqsIds);
+      nextDepn = await getCourses(nextDepnIds);
+      courses.preReqs.push(nextPrereqs);
+      courses.depn.push(nextDepn);
 
-    // // Get pre req courses
-    // const rawPrereqs = await CourseOffering.find(query);
-    // courses.preReqs = rawPrereqs;
-
-    // // build depn query
-    // query.courseId = { $in: [] };
-    // query.courseId.$in = singleCourse.depn;
-
-    // // Get depn courses
-    // const rawDepns = await CourseOffering.find(query);
-    // courses.depns = rawDepns;
-
-    courses.preReqs = await getCourses(singleCourse.preReqs);
-    courses.depn = await getCourses(singleCourse.depn);
+      // If continuing, prepare the next layer of prereqs and depns to get
+      if (i < layers - 1) {
+        nextPrereqsIds = await getNextLayer(nextPrereqs, RELATIONSHIP.PREREQS);
+        nextDepnIds = await getNextLayer(nextDepn, RELATIONSHIP.DEPN);
+      }
+    }
   } catch (err) {
     res.status(400).json(`Error: ${err}`);
   }
 
   res.json(courses);
 });
-
-// TODO
-// router.get('/getRelated/:courseId/:layers', async function(req, res, next) {};
 
 // TODO Sanitize the input?
 router.post('/search', (req, res, next) => {

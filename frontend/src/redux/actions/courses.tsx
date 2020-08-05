@@ -28,9 +28,7 @@ export const getVisualizedCoursesFailure = (errMsg: string) => ({ // TODO Remove
 export const getVisualizedCourses = (courseId: string, layers: number = 1) => {
   return (dispatch: Function) => {
     dispatch(setVisualizedCourse(courseId));
-    axios.get(`/courses/getRelated/${courseId}`, {
-      layers,
-    })
+    axios.get(`/courses/getRelated/${courseId}`, { params: { layers } })
       .then((response) => {
         dispatch(getVisualizedCoursesSuccess(response.data));
       })
@@ -67,4 +65,3 @@ export const getCourse = (courseId: CourseId) => {
       });
   };
 };
-
