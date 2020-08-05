@@ -73,14 +73,14 @@ const SignupForm = (props: any) => {
     if (isAuthenticated) {
       clearErrors();
       clearModals();
-      // redirect to profile page
+      // show new users to their profile
       history.push('/ProfilePage');
     }
   }, [error, isAuthenticated]);
 
   return (
     <form>
-      { errorMsg ? <div>{errorMsg}</div> : null}
+      {errorMsg ? <div>{errorMsg}</div> : null}
       <Input
         placeholder="Name"
         id="name"

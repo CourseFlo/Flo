@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { AppBar, Toolbar, Typography, InputBase, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -20,9 +20,17 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   title: {
     flex: 1,
+    '& *': {
+      textDecoration: 'none',
+      textTransform: 'capitalize',
+      padding: '6px 20px',
+      margin: '0px -10px',
+      fontSize: '24px',
+      fontWeight: 'normal',
+    },
   },
   buttons: {
-    margin: '0px 30px',
+    margin: '0px 20px',
   },
   search: {
     position: 'relative',
@@ -89,8 +97,10 @@ function Navbar(props: any) {
   // eslint-disable-next-line consistent-return
   const handleKeyDown = (event: any) => {
     if (event.key === 'Enter') {
-      submitSearch(currFilters);
-      return history.push('/Browse');
+      if (currFilters.query.length) {
+        submitSearch(currFilters);
+        history.push('/Browse');
+      }
     }
   };
 
@@ -98,9 +108,9 @@ function Navbar(props: any) {
     <AppBar className={classes.navBar} position="static" color="transparent">
       <Toolbar>
         <Typography className={classes.title} variant="h5">
-          <Link to="/">
+          <Button href="/">
             CourseFlo
-          </Link>
+          </Button>
         </Typography>
         {/* <div> */}
         {/*  <Grid container spacing={1} alignItems="flex-end"> */}

@@ -111,12 +111,20 @@ const Search = (props: any) => {
     submitSearch(searchInputs);
   };
 
+  // eslint-disable-next-line consistent-return
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents page refresh
+      handleSubmit();
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.searchContainer}>
         <Grid container spacing={3}>
-          <Grid item xs />
-          <Grid item xs>
+          <Grid item md />
+          <Grid item xs={12} md>
             <form className={classes.queryForm} noValidate autoComplete="off">
               <TextField
                 id="outlined-basic"
@@ -126,13 +134,14 @@ const Search = (props: any) => {
                 margin="normal"
                 helperText="Use course names, numbers, or letter codes."
                 onChange={handleQueryChange}
+                onKeyDown={handleKeyDown}
               />
             </form>
           </Grid>
-          <Grid item xs />
+          <Grid item md />
         </Grid>
         <Grid container spacing={10} alignItems="stretch">
-          <Grid item xs>
+          <Grid item xs={12} md={6}>
             <Box className={classes.filterItem}>
               <FormControl className={classes.letterCodeForm}>
                 <InputLabel shrink htmlFor="select-multiple-native">
@@ -167,7 +176,7 @@ const Search = (props: any) => {
                 : null}
             </Box>
           </Grid>
-          <Grid item xs>
+          <Grid item xs={12} md={6}>
             <Box className={classes.filterItem}>
               <Typography id="range-slider" gutterBottom>
                 Course number range:
@@ -187,8 +196,8 @@ const Search = (props: any) => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs />
-          <Grid item xs={6}>
+          <Grid item md />
+          <Grid item xs={12} md>
             <Button
               variant="contained"
               color="primary"
@@ -200,7 +209,7 @@ const Search = (props: any) => {
               Search
             </Button>
           </Grid>
-          <Grid item xs />
+          <Grid item md />
         </Grid>
       </div>
     </div>
