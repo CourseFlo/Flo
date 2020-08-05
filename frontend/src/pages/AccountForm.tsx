@@ -9,6 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import EditIcon from '@material-ui/icons/Edit';
 import TextField from '@material-ui/core/TextField';
 import Tooltip from '@material-ui/core/Tooltip';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
 import { User } from '../type-interfaces/User';
 import { updateUser } from '../redux/actions/User';
@@ -22,6 +23,12 @@ interface Props {
   getVisualizedCourses: Function,
 }
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+  submit: {
+    marginTop: '12px',
+  },
+}));
+
 function AccountForm(props: any) {
   const { currentUser, loadUser, updateUser, getVisualizedCourses } : Props = props;
   const [name, setName] = useState(currentUser.name);
@@ -32,6 +39,7 @@ function AccountForm(props: any) {
   const [editingName, toggleEditingName] = useState(false);
   const [editingEmail, toggleEditingEmail] = useState(false);
   const [editingMajor, toggleEditingMajor] = useState(false);
+  const classes = useStyles();
 
   useEffect(() => {
     loadUser();
@@ -85,7 +93,7 @@ function AccountForm(props: any) {
             <ListItem>
               <form>
                 <TextField label="Name" value={name} onChange={handleNameChange} />
-                <Button onClick={handleSubmitChange}>Submit</Button>
+                <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
           )
@@ -105,7 +113,7 @@ function AccountForm(props: any) {
             <ListItem>
               <form>
                 <TextField label="Email" value={email} onChange={handleEmailChange} />
-                <Button onClick={handleSubmitChange}>Submit</Button>
+                <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
           )
@@ -125,7 +133,7 @@ function AccountForm(props: any) {
             <ListItem>
               <form>
                 <TextField label="Major" value={major} onChange={handleMajorChange} />
-                <Button onClick={handleSubmitChange}>Submit</Button>
+                <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
           )
