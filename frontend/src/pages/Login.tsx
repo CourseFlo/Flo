@@ -1,18 +1,43 @@
 import React from 'react';
-import { Container, Typography } from '@material-ui/core/';
+import { Container, Paper, Typography } from '@material-ui/core/';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 
 import LoginForm from '../components/LoginForm';
+import Books from '../assets/bookstack.png';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
+  backgroundBottomRight: {
+    background: `url(${Books})`,
+    backgroundPosition: 'right bottom',
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: 'cover',
+  },
+  loginInner: {
+    opacity: '0.95',
+    padding: '20px 20px',
+    [theme.breakpoints.down('xs')]: {
+      padding: '20px 10px',
+    },
+  },
   loginContainer: {
     margin: 'auto',
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    height: '70vh',
+    height: '80vh',
+  },
+  signUp: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  imageBG: {
+    width: '75%',
+    marginTop: '40px',
+    position: 'fixed',
+    right: '-100px',
   },
 }));
 
@@ -20,17 +45,19 @@ const Login = () => {
   const classes = useStyles();
 
   return (
-    <div>
+    <div className={classes.backgroundBottomRight}>
       <Container className={classes.loginContainer} maxWidth="xs">
-        <Typography variant="h5" align="center">
-          Log in to get started!
-        </Typography>
-        <LoginForm />
-        <div>
-          <Link to="/signup" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            Sign up
-          </Link>
-        </div>
+        <Paper className={classes.loginInner}>
+          <Typography variant="h5" align="center">
+            Log in to get started!
+          </Typography>
+          <LoginForm />
+          <div>
+            <Link to="/signup" className={classes.signUp}>
+              Sign up
+            </Link>
+          </div>
+        </Paper>
       </Container>
     </div>
   );

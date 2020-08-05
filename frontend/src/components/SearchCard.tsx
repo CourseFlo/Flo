@@ -24,6 +24,7 @@ const SearchCard = (props: any) => {
     letterCodes: [],
     numberRange: [MIN_COURSE_CODE, MAX_COURSE_CODE],
   };
+
   const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target as HTMLSelectElement;
     if (value.trim() === '' || value.trim() === '') {
@@ -32,29 +33,44 @@ const SearchCard = (props: any) => {
     searchInputs.query = value;
   };
 
+  const handleSubmit = () => {
+    if (searchInputs.query.length) {
+      submitSearch(searchInputs);
+      history.push('/Browse');
+    }
+  };
+
+  // eslint-disable-next-line consistent-return
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents page refresh
+      handleSubmit();
+    }
+  };
+
   return (
     <Container>
-      <Paper>
-        <div style={{ textAlign: 'center' }}>Start a basic keyword search:</div>
-        <form style={{ textAlign: 'center' }} noValidate autoComplete="off">
-          <TextField
-            id="outlined-basic"
-            label="Search for a course"
-            helperText="Use course names, numbers, or letter codes."
-            onChange={handleQueryChange}
-          />
-          <Button
-            variant="contained"
-            color="primary"
-            size="medium"
-            onClick={() => {
-              submitSearch(searchInputs);
-              history.push('/Browse');
-            }}
-            startIcon={<SearchIcon />}
-          />
-        </form>
-      </Paper>
+      <div style={{ textAlign: 'center' }}>Start a basic keyword search:</div>
+      <form style={{ textAlign: 'center' }} noValidate autoComplete="off">
+        <TextField
+          id="outlined-basic"
+          label="Search for a course"
+          onChange={handleQueryChange}
+          onKeyDown={handleKeyDown}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          size="medium"
+          onClick={() => {
+            handleSubmit();
+          }}
+          style={{ marginLeft: '10px', marginBottom: '-38px' }}
+          startIcon={<SearchIcon />}
+        >
+          Search
+        </Button>
+      </form>
     </Container>
   );
 };
