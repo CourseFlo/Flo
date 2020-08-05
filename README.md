@@ -71,7 +71,7 @@ Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Bran
         *   Individual pages with navigation between them
         *   Actions (login, signup, add/delete courses, **visualize courses**, db querying/storing for each of the pages)
 
-* How tech is used from Units 1-5:
+*   How tech is used from Units 1-5:
     TODO Check with rubric, it needs in-depth understanding of topics and perhaps a compare-and-contrast with how our technology differs from other technologies available out there
     *   Unit 1:
         *   Rough prototypes were made for our app, which formed the basis of our development.
@@ -86,3 +86,23 @@ Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Bran
         *   Our database is connected to our service through frontend Axios, middleware Redux-Thunk and our backend database calls. TODO: Get, Update, Delete, Put, Post requests labelled here
     *   Unit 5:
         *   Our project is deployed on Heroku. (TODO add in more details on here.)
+
+*   Description of "Above and Beyond" Functionality
+    *   The Visualizer portion of our app involved a lot of in-house solutions towards implementation, as there is decidedly a lack of reference materials available for what we wanted to accomplish.
+
+*   Discussion of Next Steps
+    *   We would like to have 3D Visualization available for the future.
+    *   Having course recommendations is an immediate next step that we can take.
+    *   Adding in Night Mode would require several refactors across the frontend, but that is an actionable next step as well.
+
+*   List of Contributions
+    *   Sepand
+        *   
+    *   Sam
+        *   
+    *   Brandon
+        *   
+    *   Guanting
+        *   
+
+(TODO Discuss our naming conventions and coding style. Airbnb guidelines)
