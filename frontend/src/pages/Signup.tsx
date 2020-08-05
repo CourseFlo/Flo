@@ -46,9 +46,11 @@ const Login = () => {
             Sign up here
           </Typography>
           <SignupForm />
-          <Link to="/login" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-            Log in
-          </Link>
+          <Typography style={{ paddingTop: '10px' }}>
+            Already have an account?
+            {' '}
+            <Link to="/login">Log in</Link>
+          </Typography>
         </Paper>
       </Container>
     </div>

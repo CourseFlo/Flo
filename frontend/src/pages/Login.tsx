@@ -29,9 +29,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     height: '80vh',
   },
   signUp: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: '10px',
   },
   imageBG: {
     width: '75%',
@@ -52,11 +50,11 @@ const Login = () => {
             Log in to get started!
           </Typography>
           <LoginForm />
-          <div>
-            <Link to="/signup" className={classes.signUp}>
-              Sign up
-            </Link>
-          </div>
+          <Typography className={classes.signUp}>
+            Don&apos;t have an account?
+            {' '}
+            <Link to="/signup">Sign up</Link>
+          </Typography>
         </Paper>
       </Container>
     </div>

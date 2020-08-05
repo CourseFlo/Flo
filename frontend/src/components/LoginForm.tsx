@@ -10,11 +10,12 @@ import { login } from '../redux/actions/auth';
 import { LOGIN_FAIL } from '../redux/constants';
 import { clearErrors } from '../redux/actions/error';
 import { clearModals } from '../redux/actions/modal';
+import {FormControl, InputLabel} from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   inputFields: {
     width: '100%',
-    marginTop: '20px',
+    marginTop: '10px',
   },
   loginButton: {
     width: '100%',
@@ -76,24 +77,28 @@ const LoginForm = (props: any) => {
   return (
     <form>
       { errorMsg ? <div>{errorMsg}</div> : null}
-      <Input
-        placeholder="Email"
-        type="email"
-        id="email"
-        name="email"
-        required
-        className={classes.inputFields}
-        onChange={handleEmailChange}
-      />
-      <Input
-        placeholder="Password"
-        type="password"
-        id="password"
-        name="password"
-        required
-        className={classes.inputFields}
-        onChange={handlePasswordChange}
-      />
+      <FormControl className={classes.inputFields}>
+        <InputLabel htmlFor="email">Email</InputLabel>
+        <Input
+          placeholder="Email"
+          type="email"
+          id="email"
+          name="email"
+          required
+          onChange={handleEmailChange}
+        />
+      </FormControl>
+      <FormControl className={classes.inputFields}>
+        <InputLabel htmlFor="password">Password</InputLabel>
+        <Input
+          placeholder="Password"
+          type="password"
+          id="password"
+          name="password"
+          required
+          onChange={handlePasswordChange}
+        />
+      </FormControl>
       <Button variant="contained" className={classes.loginButton} onClick={handleSubmit}>Login</Button>
     </form>
   );
