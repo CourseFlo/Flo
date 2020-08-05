@@ -41,7 +41,6 @@ function Course(props: any) {
     getVisualizedCourses(courseData.courseId);
     if (location.pathname === '/Browse') history.push('/VisualCourse');
   };
-  
 
   return (
     <Card className={classes.root}>

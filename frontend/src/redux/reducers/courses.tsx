@@ -26,6 +26,7 @@ const initialVisualizedData = {
   target: undefined,
   preReqs: [],
   depns: [],
+  layers: 1,
   loading: false,
 };
 
@@ -34,7 +35,8 @@ export const visualizedCourses = (store: any = initialVisualizedData, action: an
     case SET_VISUALIZED_COURSE:
       return {
         ...store,
-        targetId: action.payload,
+        targetId: action.payload.courseId,
+        layers: action.payload.layers,
         loading: true,
       };
     case GET_VISUALIZED_COURSE:

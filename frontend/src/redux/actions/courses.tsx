@@ -10,9 +10,12 @@ import {
 } from '../constants';
 import { Course, CourseId } from '../../type-interfaces/Course';
 
-const setVisualizedCourse = (courseId: CourseId) => ({
+const setVisualizedCourse = (courseId: CourseId, layers: number) => ({
   type: SET_VISUALIZED_COURSE,
-  payload: courseId,
+  payload: {
+    courseId,
+    layers,
+  },
 });
 
 export const getVisualizedCoursesSuccess = (visualizedCourses: any) => ({
@@ -25,9 +28,11 @@ export const getVisualizedCoursesFailure = (errMsg: string) => ({ // TODO Remove
   errMsg,
 });
 
-export const getVisualizedCourses = (courseId: string, layers: number = 1) => {
-  return (dispatch: Function) => {
-    dispatch(setVisualizedCourse(courseId));
+export const getVisualizedCourses = (courseId: string, inputLayers: number) => {
+  return (dispatch: Function, getState: Function) => {
+    const layers = inputLayers || getState().visualizedCourses.layers;
+
+    dispatch(setVisualizedCourse(courseId, layers));
     axios.get(`/courses/getRelated/${courseId}`, { params: { layers } })
       .then((response) => {
         dispatch(getVisualizedCoursesSuccess(response.data));

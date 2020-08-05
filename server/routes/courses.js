@@ -82,7 +82,7 @@ const getNextLayer = async (currLayer, relationship) => {
 // Get the related courses for the given course by id. Layers can be provided (default 1)
 // Returns courses object with properties target: Course, preReqs: Course[][], depn: Course[][]
 router.get('/getRelated/:courseId', async (req, res, next) => {
-  const { layers } = req.query;
+  const layers = req.query.layers || 1;
   const courses = {
     target: {},
     preReqs: [],
