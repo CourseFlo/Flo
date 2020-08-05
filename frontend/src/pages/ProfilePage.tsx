@@ -1,14 +1,39 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core'; // eslint-disable-line no-unused-vars
 import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 import ProfileMenu from '../components/ProfileMenu';
+import MountainLight from '../assets/mountain-amadablam.jpg';
+import MountainDark from '../assets/mountain-moena.jpg';
+
+const mountainArray = [MountainLight, MountainDark];
+const randNum = Math.floor(Math.random() * 2);
+const randomMountain = mountainArray[randNum];
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     backgroundColor: '#2d46b9',
+  },
+  background: {
+    marginTop: '10px',
+    background: `url(${randomMountain})`,
+    backgroundSize: 'cover',
+    height: '100vh',
+    width: '100vw',
+  },
+  paperMain: {
+    display: 'flex',
+    width: '50%',
+    height: '100%',
+    justifyContent: 'center',
+    [theme.breakpoints.down('sm')]: {
+      width: '70%',
+    },
+    [theme.breakpoints.down('xs')]: {
+      width: '100%',
+    },
   },
   marginAutoContainer: {
     width: 500,
@@ -34,41 +59,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     flexGrow: 1,
   },
-  sideBoxes: {
-    display: 'flex',
-    width: '25%',
-    height: '100vh',
-    backgroundColor: '#002145',
-  },
 }));
 
 export default function ProfilePage() {
   const classes = useStyles();
 
   return (
-    <React.Fragment>
-      <br />
-      <Grid container spacing={3}>
-        <Box className={classes.sideBoxes} />
-        <React.Fragment>
-          <Box display="flex" width="50%" height="100vh" justifyContent="center">
-            <div className={classes.root}>
-              <Grid container>
-                <Grid item xs={12}>
-                  <Box marginLeft={50}>
-                    <Box height="30vh">
-                      <Avatar src="/broken-image.jpg" className={classes.largeImg} />
-                    </Box>
-                  </Box>
-                </Grid>
-                <ProfileMenu />
-              </Grid>
-            </div>
-          </Box>
-        </React.Fragment>
-        <Box className={classes.sideBoxes} />
+    <div className={classes.background}>
+      <Grid container spacing={3} style={{ justifyContent: 'center' }}>
+        <Paper elevation={2} className={classes.paperMain}>
+          <div className={classes.root}>
+            <Grid container>
+              <ProfileMenu />
+            </Grid>
+          </div>
+        </Paper>
       </Grid>
-    </React.Fragment>
-
+    </div>
   );
 }
