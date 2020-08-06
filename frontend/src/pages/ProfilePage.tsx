@@ -6,11 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import ProfileMenu from '../components/ProfileMenu';
 import MountainLight from '../assets/mountain-amadablam.jpg';
 import MountainDark from '../assets/mountain-moena.jpg';
-import MountainDark2 from '../assets/mountain-benlui.jpg';
-
-const mountainArray = [MountainDark, MountainDark2];
-const randNum = Math.floor(Math.random() * 2);
-const randomMountainDark = mountainArray[randNum];
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
@@ -18,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   background: {
     marginTop: '10px',
-    background: (theme.palette.type === 'dark') ? `url(${randomMountainDark})` : `url(${MountainLight})`,
+    background: (theme.palette.type === 'dark') ? `url(${MountainDark})` : `url(${MountainLight})`,
     backgroundSize: 'cover',
     height: '100vh',
     width: '100vw',
