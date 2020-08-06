@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-// import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -160,4 +159,8 @@ function AccountForm(props: any) {
 
 const mapStateToProps = (state: any) => ({ currentUser: state.auth.user });
 
-export default connect(mapStateToProps, { loadUser, updateUser, getVisualizedCourses })(AccountForm);
+export default connect(mapStateToProps, {
+  loadUser,
+  updateUser,
+  getVisualizedCourses,
+})(AccountForm);
