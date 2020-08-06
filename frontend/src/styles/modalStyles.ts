@@ -17,6 +17,12 @@ const modalStyles = makeStyles((theme) => ({
   modalSwitchText: {
     paddingTop: '10px',
   },
+  close: {
+    cursor: 'pointer',
+    float: 'right',
+    marginTop: '-38px',
+    marginRight: '-18px',
+  },
 }));
 
 export default modalStyles;

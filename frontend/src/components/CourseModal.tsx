@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { Button, Fade, Modal, Typography } from '@material-ui/core';
+import { Button, Fade, IconButton, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { useHistory, useLocation } from 'react-router-dom';
+import CloseIcon from '@material-ui/icons/Close';
 import { clearModals } from '../redux/actions/modal';
 import { getVisualizedCourses, getCourse } from '../redux/actions/courses';
 import { COURSE_MS } from '../redux/constants';
@@ -91,8 +92,11 @@ const CourseModal = (props: any) => {
               {courseId}
             </Typography>
             <FavButton courseId={courseInfo?.courseId} />
+            <IconButton aria-label="close modal window" onClick={() => handleClose()}>
+              <CloseIcon />
+            </IconButton>
           </div>
-          { courseInfo ? <ModalBody /> : null}
+          { courseInfo && <ModalBody />}
           <div style={
             {
               display: 'flex',
