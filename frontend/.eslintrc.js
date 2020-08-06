@@ -30,7 +30,7 @@ module.exports = {
     //  with this https://github.com/airbnb/javascript#modules--import-extensions, so left as a warning.
     "import/extensions": [
       "warn", 
-      { "pattern": { [/.tsx/]: "never" }, "ignorePackages": true }, // TODO Review this exception
+      { "pattern": { [/.tsx/]: "never" }, "ignorePackages": true },
     ],
     'import/no-unresolved': ["off"], // makes import assume literal path, essential doing the same as 'import/extensions' rule
     'arrow-body-style': ['error', 'as-needed'],
@@ -43,7 +43,9 @@ module.exports = {
       "ExportDeclaration": { "multiline": true, "minProperties": 3 }
     }],
     "react/jsx-fragments": "off",
-    "react/require-default-props": ["error", { forbidDefaultForRequired: false, ignoreFunctionalComponents: false}]
+    "react/require-default-props": ["error", { forbidDefaultForRequired: false, ignoreFunctionalComponents: false}],
+    "no-case-declarations": "off",
+    "import/prefer-default-export": "off"
     },
   settings: {
   }

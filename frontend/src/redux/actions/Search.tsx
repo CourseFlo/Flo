@@ -45,7 +45,7 @@ export const getLetterCodes = () => (dispatch: Function) => {
     .then((response: AxiosResponse) => {
       dispatch(getLetterCodeSuccess(response.data));
     })
-    .catch((err: AxiosError) => {
+    .catch(() => {
       console.warn('Error fetching course letter codes');
     });
 };

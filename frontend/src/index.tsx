@@ -14,10 +14,14 @@ import * as serviceWorker from './serviceWorker';
 
 import Theme from './util/style';
 
-const store = createStore(reducers,
-  process.env.NODE_ENV === 'development'
-    ? composeWithDevTools(applyMiddleware(thunk))
-    : applyMiddleware(thunk));
+const enhancers = process.env.NODE_ENV === 'development'
+  ? composeWithDevTools(applyMiddleware(thunk))
+  : applyMiddleware(thunk);
+
+const store = createStore(
+  reducers,
+  enhancers,
+);
 
 ReactDOM.render(
   <React.StrictMode>
