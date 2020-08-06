@@ -1,6 +1,5 @@
 import React from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core'; // eslint-disable-line no-unused-vars
-import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
@@ -8,17 +7,13 @@ import ProfileMenu from '../components/ProfileMenu';
 import MountainLight from '../assets/mountain-amadablam.jpg';
 import MountainDark from '../assets/mountain-moena.jpg';
 
-const mountainArray = [MountainLight, MountainDark];
-const randNum = Math.floor(Math.random() * 2);
-const randomMountain = mountainArray[randNum];
-
 const useStyles = makeStyles((theme: Theme) => createStyles({
   container: {
     backgroundColor: '#2d46b9',
   },
   background: {
     marginTop: '10px',
-    background: `url(${randomMountain})`,
+    background: (theme.palette.type === 'dark') ? `url(${MountainDark})` : `url(${MountainLight})`,
     backgroundSize: 'cover',
     height: '100vh',
     width: '100vw',
@@ -67,7 +62,7 @@ export default function ProfilePage() {
   return (
     <div className={classes.background}>
       <Grid container spacing={3} style={{ justifyContent: 'center' }}>
-        <Paper elevation={2} className={classes.paperMain}>
+        <Paper elevation={3} className={classes.paperMain}>
           <div className={classes.root}>
             <Grid container>
               <ProfileMenu />

@@ -7,6 +7,7 @@ import Desk2 from '../assets/desk2.jpg';
 import Desk3 from '../assets/desk3.jpg';
 import Desk4 from '../assets/desk4.jpg';
 import Desk5 from '../assets/desk5.jpg';
+import Desk6 from '../assets/desk-dark.jpg';
 // import classes from '*.module.css';
 
 const deskArray = [Desk1, Desk2, Desk3, Desk4, Desk5];
@@ -15,7 +16,7 @@ const randomDesk = deskArray[randNum];
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   splash: {
-    background: `url(${randomDesk})`,
+    background: (theme.palette.type === 'dark') ? `url(${Desk6})` : `url(${randomDesk})`,
     backgroundSize: 'cover',
     height: '100vh',
     width: '100vw',

@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { green } from '@material-ui/core/colors';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Browse from './pages/Browse';
 import VisualCourse from './pages/VisualCourse';
@@ -22,26 +25,37 @@ interface Props {
 }
 
 function App(props: Props) {
-  const { loadUser } : Props = props;
+  const { loadUser }: Props = props;
+  const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     loadUser();
   }, []);
 
+  const Theme = createMuiTheme({
+    palette: {
+      primary: green,
+      type: darkMode ? 'dark' : 'light',
+    },
+  });
+
   return (
     <main>
-      <Navbar />
-      <Switch>
-        <Route path="/" component={Home} exact />
-        <Route path="/login" component={Login} />
-        <Route path="/Browse" component={Browse} />
-        <Route path="/VisualCourse" component={VisualCourse} />
-        <ProtectedRoute path="/ProfilePage" component={ProfilePage} />
-        <Route path="/signup" component={Signup} />
-        <Route component={ErrorPage} />
-      </Switch>
-      <LoginModal />
-      <SignupModal />
-      <CourseModal />
+      <ThemeProvider theme={createMuiTheme(Theme)}>
+        <CssBaseline />
+        <Navbar darkModeSwitch={{ darkMode, setDarkMode }} />
+        <Switch>
+          <Route path="/" component={Home} exact />
+          <Route path="/login" component={Login} />
+          <Route path="/Browse" component={Browse} />
+          <Route path="/VisualCourse" component={VisualCourse} />
+          <ProtectedRoute path="/ProfilePage" component={ProfilePage} />
+          <Route path="/signup" component={Signup} />
+          <Route component={ErrorPage} />
+        </Switch>
+        <LoginModal />
+        <SignupModal />
+        <CourseModal />
+      </ThemeProvider>
     </main>
   );
 }
