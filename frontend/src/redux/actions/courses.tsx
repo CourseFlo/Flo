@@ -39,7 +39,7 @@ export const getVisualizedCourses = (courseId: string, inputLayers: number) => {
       })
       .catch((err) => {
         console.log("Error: ", err);
-        // dispatch(getVisualizedCoursesFailure(err.message));
+        dispatch(getVisualizedCoursesFailure(err.message));
       });
   };
 };
@@ -54,7 +54,6 @@ export const getCourseFailure = (error: String) => ({
   error,
 });
 
-// const updateCache = (courseId: CourseId) => {
 export const getCourse = (courseId: CourseId) => {
   return (dispatch: Function) => {
     dispatch({ type: COURSE_LOADING });

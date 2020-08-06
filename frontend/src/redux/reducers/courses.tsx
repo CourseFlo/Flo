@@ -21,6 +21,7 @@ export const visualizedCourses = (store: any = initialVisualizedData, action: an
       };
     case GET_VISUALIZED_COURSE:
       const visualizedCoursesResults = {
+        ...store,
         depn: action.payload.depn || [],
         preReqs: action.payload.preReqs || [],
         target: action.payload.target || {},

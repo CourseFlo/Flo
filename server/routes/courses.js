@@ -2,7 +2,6 @@ const express = require('express');
 
 const router = express.Router();
 const CourseOffering = require('../models/courseOffering');
-/* eslint-disable no-await-in-loop */
 
 // Backend course cache
 const COURSE_CACHE = {};
@@ -131,7 +130,7 @@ router.get('/getRelated/:courseId', async (req, res, next) => {
   res.json(courses);
 });
 
-// TODO Sanitize the input?
+// Consider Sanitize the input?
 router.post('/search', (req, res, next) => {
   // do a find on courseCode, courseDept, description, title
   const { minusculer, larger } = { minusculer: Number(req.body.courseNumberRange[0]), larger: Number(req.body.courseNumberRange[1]) };
