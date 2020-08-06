@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Browse from './pages/Browse';
 import VisualCourse from './pages/VisualCourse';
@@ -40,6 +41,7 @@ function App(props: Props) {
   return (
     <main>
       <ThemeProvider theme={createMuiTheme(Theme)}>
+        <CssBaseline />
         <Navbar darkModeSwitch={{ darkMode, setDarkMode }} />
         <Switch>
           <Route path="/" component={Home} exact />

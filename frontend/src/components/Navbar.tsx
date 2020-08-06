@@ -36,9 +36,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   search: {
     position: 'relative',
     // borderRadius: theme.shape.borderRadius,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: (theme.palette.type === 'dark') ? '#000000' : '#FFFFFF',
     '&:hover': {
-      backgroundColor: '#EEEEEE',
+      backgroundColor: (theme.palette.type === 'dark') ? '#111111' : '#EEEEEE',
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     color: 'inherit',
   },
   inputFocused: {
-    backgroundColor: '#EEEEEE',
+    backgroundColor: (theme.palette.type === 'dark') ? '#111111' : '#EEEEEE',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -79,9 +79,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 function Navbar(props: any) {
   // eslint-disable-next-line no-shadow
   const { isLoggedIn, submitSearch, darkModeSwitch }: Props = props;
-  const classes = useStyles();
   const history = useHistory();
+  const classes = useStyles();
   const { darkMode, setDarkMode } = darkModeSwitch;
+
   const currFilters: Filters = {
     query: '',
     letterCodes: [],
@@ -110,7 +111,7 @@ function Navbar(props: any) {
     <AppBar className={classes.navBar} position="static" color="transparent">
       <Toolbar>
         <Typography className={classes.title} variant="h5">
-          <Button href="/">
+          <Button onClick={() => history.push('/')}>
             CourseFlo
           </Button>
         </Typography>

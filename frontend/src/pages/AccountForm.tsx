@@ -71,6 +71,14 @@ function AccountForm(props: any) {
     setMajor(e.target.value);
   };
 
+  // eslint-disable-next-line consistent-return
+  const handleKeyDown = (event: any) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      return false;
+    }
+  };
+
   const handleSubmitChange = (event: any) => {
     event.preventDefault();
     const changedFields = {
@@ -92,7 +100,7 @@ function AccountForm(props: any) {
           ? (
             <ListItem>
               <form>
-                <TextField label="Name" value={name} onChange={handleNameChange} />
+                <TextField label="Name" value={name} onChange={handleNameChange} onKeyDown={handleKeyDown} />
                 <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
@@ -112,7 +120,7 @@ function AccountForm(props: any) {
           ? (
             <ListItem>
               <form>
-                <TextField label="Email" value={email} onChange={handleEmailChange} />
+                <TextField label="Email" value={email} onChange={handleEmailChange} onKeyDown={handleKeyDown} />
                 <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
@@ -132,7 +140,7 @@ function AccountForm(props: any) {
           ? (
             <ListItem>
               <form>
-                <TextField label="Major" value={major} onChange={handleMajorChange} />
+                <TextField label="Major" value={major} onChange={handleMajorChange} onKeyDown={handleKeyDown} />
                 <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
               </form>
             </ListItem>
