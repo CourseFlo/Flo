@@ -84,6 +84,7 @@ const CourseModal = (props: any) => {
       open={open}
       onClose={handleClose}
       className={classes.modal}
+      aria-label="Course modal"
     >
       <Fade in={open}>
         <div className={classes.paper}>

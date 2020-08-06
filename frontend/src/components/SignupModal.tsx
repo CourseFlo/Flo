@@ -34,10 +34,12 @@ const SignupModal = (props: any) => {
       open={open}
       onClose={handleClose}
       className={classes.modal}
+      aria-label="Signup modal"
+      aria-describedby="modal-desc"
     >
       <Fade in={open}>
         <div className={classes.paper}>
-          <Typography variant="h5" align="center">
+          <Typography id="modal-desc" variant="h5" align="center">
             Sign up here
           </Typography>
           <IconButton aria-label="close modal window" className={classes.close} onClick={() => handleClose()}>
