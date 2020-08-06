@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Paper, Typography } from '@material-ui/core';
+import { Button, Container, Paper, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import SignupForm from '../components/SignupForm';
 import Books from '../assets/bookstack.png';
 
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.backgroundBottomRight}>
@@ -49,7 +50,7 @@ const Login = () => {
           <Typography style={{ paddingTop: '10px' }}>
             Already have an account?
             {' '}
-            <Link to="/login">Log in</Link>
+            <Button onClick={() => history.push('/login')}>Log in</Button>
           </Typography>
         </Paper>
       </Container>

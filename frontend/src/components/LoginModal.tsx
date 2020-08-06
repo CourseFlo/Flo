@@ -1,12 +1,12 @@
 import React from 'react';
-import { Fade, Link, Modal, Typography, IconButton } from '@material-ui/core';
+import {Fade, Modal, Typography, IconButton, Button} from '@material-ui/core';
 import { connect } from 'react-redux';
+import CloseIcon from '@material-ui/icons/Close';
 import { clearModals, openSignupModal } from '../redux/actions/modal';
 import LoginForm from './LoginForm';
 import { clearErrors } from '../redux/actions/error';
 import modalStyles from '../styles/modalStyles';
 import { LOGIN_MS } from '../redux/constants';
-import CloseIcon from '@material-ui/icons/Close';
 
 interface Props {
   modalState: string,
@@ -47,7 +47,7 @@ const LoginModal = (props: any) => {
           <Typography className={classes.modalSwitchText}>
             Don&apos;t have an account?
             {' '}
-            <Link onClick={handleModalSwitch}>Sign up</Link>
+            <Button onClick={handleModalSwitch}>Sign up</Button>
           </Typography>
         </div>
       </Fade>
