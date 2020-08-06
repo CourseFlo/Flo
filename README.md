@@ -105,4 +105,4 @@ Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Bran
     *   Guanting
         *   
 
-(TODO Discuss our naming conventions and coding style. Airbnb guidelines)
+(TODO Discuss our naming conventions and coding style. Airbnb guidelines. Optional. Also double-check what we have against rubric)
