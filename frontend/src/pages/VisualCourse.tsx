@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { Grid, makeStyles, createStyles, Theme, Button, Box, CircularProgress, Slider, Typography, List, ListItemText, Collapse, ListItem, useMediaQuery, useTheme } from '@material-ui/core';
+import { Grid, makeStyles, createStyles, Theme, Button, CircularProgress, Slider, Typography, List, ListItemText, ListItem, useMediaQuery, useTheme } from '@material-ui/core';
 
-import { ExpandLess, ExpandMore } from '@material-ui/icons';
-import Course from '../components/Course';
 import CourseListItem from '../components/CourseListItem';
 import { getVisualizedCourses } from '../redux/actions/courses';
 import { MAX_LAYERS } from '../util/UIConstants';
+import CourseColumn from '../components/CourseColumn';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
@@ -52,10 +51,7 @@ const VisualCourse = (props: Props) => {
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
-  const matchesXs = useMediaQuery(theme.breakpoints.up('xs')); // TODO Use this to make sure columns are collapsed when size goes to xs
-  const [isOpenColumns, setIsOpenColumns] = useState<any>({
-    ...Array(10).fill(false),
-  });
+  const matchesMd = useMediaQuery(theme.breakpoints.up('md'));
 
   // On initial or error screen
   if (!visualizedCourses.targetId || visualizedCourses.error) {
@@ -94,17 +90,12 @@ const VisualCourse = (props: Props) => {
       </>
     );
   }
-  // Getting the column counts
-  const totalLayers = visualizedCourses.depn.length + visualizedCourses.preReqs.length + 1;
-  // const spacingPerLayer = Math.floor(12 / totalLayers) as GridSpacing;
-  const spacingPerLayer = 2;
 
   const arr = Array.from(Array(MAX_LAYERS).keys());
   const sliderMarks = arr.map((_v, i) => ({
     value: i + 1,
     label: i + 1,
   }));
-
   // Inverting preReq column order, since it's shown as furthest to closest.
   const otherArr = [...visualizedCourses.preReqs].reverse();
 
@@ -143,24 +134,9 @@ const VisualCourse = (props: Props) => {
       </Grid>
       <Grid container spacing={3} justify="center" alignItems="flex-start" className={classes.container}>
         {otherArr.map((layer: any, idx: number) => (
-          <Grid item xs={10} md={spacingPerLayer} key={`column-${idx}`}>
-            <List className={classes.courseColumn}>
-              <ListItem button onClick={() => setIsOpenColumns({ ...isOpenColumns, [idx]: !isOpenColumns[idx] })}>
-                <ListItemText primary={
-                  <Typography variant="h5" className={classes.center}>{`Prereq ${visualizedCourses.preReqs.length - idx}`}</Typography>
-                  }
-                />
-                {isOpenColumns[idx] ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={isOpenColumns[idx]} timeout="auto" unmountOnExit>
-                {layer.map((course: any) => (
-                  <CourseListItem key={course.courseId} className={classes.courseItem} courseData={course} />
-                ))}
-              </Collapse>
-            </List>
-          </Grid>
+          <CourseColumn courses={layer} title={`PreReq ${visualizedCourses.preReqs.length - idx}`} key={`column-${idx}`} defaultCollapsed={matchesMd} />
         ))}
-        <Grid item xs={10} md={spacingPerLayer}>
+        <Grid item xs={10} md={2}>
           <Grid container spacing={4} justify="center" direction="column">
             <List className={classes.courseColumn}>
               <ListItem>
@@ -174,22 +150,7 @@ const VisualCourse = (props: Props) => {
           </Grid>
         </Grid>
         {visualizedCourses.depn.map((layer: any, idx: number) => (
-          <Grid item xs={10} md={spacingPerLayer} key={`column-${visualizedCourses.preReqs.length + idx}`}>
-            <List className={classes.courseColumn}>
-              <ListItem button onClick={() => setIsOpenColumns({ ...isOpenColumns, [visualizedCourses.preReqs.length - 1 + idx]: !isOpenColumns[visualizedCourses.preReqs.length - 1 + idx] })}>
-                <ListItemText primary={
-                  <Typography variant="h5" className={classes.center}>{`Dependent ${idx + 1}`}</Typography>
-                  }
-                />
-                {isOpenColumns[visualizedCourses.preReqs.length - 1 + idx] ? <ExpandLess /> : <ExpandMore />}
-              </ListItem>
-              <Collapse in={isOpenColumns[visualizedCourses.preReqs.length - 1 + idx]} timeout="auto" unmountOnExit>
-                {layer.map((course: any) => (
-                  <CourseListItem key={course.courseId} className={classes.courseItem} courseData={course} />
-                ))}
-              </Collapse>
-            </List>
-          </Grid>
+          <CourseColumn courses={layer} title={`FollowUp ${idx + 1}`} key={`column-${visualizedCourses.preReqs.length + idx}`} defaultCollapsed={matchesMd} />
         ))}
       </Grid>
     </>

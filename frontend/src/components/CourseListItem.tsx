@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-// TODO Review option, otherwise delete
 // Alternative to Course Card, to produce lists instead
 function CourseListItem(props: any) {
   const { courseData, openCourseModal, getVisualizedCourses } = props;
@@ -90,70 +89,3 @@ export default connect(null, {
   openCourseModal,
   getVisualizedCourses,
 })(CourseListItem);
-
-// // Reverted implementation, with Lists and such
-// const visCourseArchive = (
-//   <Grid container spacing={3} justify="center" alignItems="flex-start" className={classes.container}>
-//     {visualizedCourses.preReqs.map((layer: any, idx: number) => (
-//       layer.length > 0
-//         ? (
-//           <Grid item xs={10} md={spacingPerLayer} key={`column-${idx}`}>
-//             <Typography variant="h5" className={classes.targetTitle}>{`Prereq layer ${visualizedCourses.preReqs.length - idx}`}</Typography>
-//             <br />
-//             <Paper>
-//               <Grid container spacing={4} justify="center" direction="column">
-//                 {layer.map((course: any) => (
-//                   <Box key={course.courseId} className={classes.courseItem}>
-//                     <Course courseData={course} />
-//                   </Box>
-//                 ))}
-//               </Grid>
-//             </Paper>
-//           </Grid>
-//         )
-//         : null
-//     ))}
-//     <Grid item xs={10} md={spacingPerLayer}>
-//       <Paper>
-//         <Collapse in={true} timeout="auto" unmountOnExit>
-//           {/* <h2 className={classes.targetTitle}>Target course</h2>
-//           <br /> */}
-//           <List component="div" disablePadding>
-//           {/* <Grid container spacing={4} justify="center" direction="column"> */}
-//             <Box className={classes.courseItem}>
-//               <CourseListItem courseData={visualizedCourses.target} />
-//               {/* <Course courseData={visualizedCourses.target} /> */}
-//             </Box>
-//           {/* </Grid> */}
-//           </List>
-//         </Collapse>
-//       </Paper>
-//     </Grid>
-//     {visualizedCourses.depn.map((layer: any, idx: number) => (
-//       layer.length > 0
-//         ? (
-//           <Grid item xs={10} md={spacingPerLayer} key={`column-${preReqLayers + idx}`}>
-//             <Typography variant="h5" className={classes.targetTitle}>{`Dependent layer ${idx + 1}`}</Typography>
-//             <br />
-//             {/* <Paper>
-//               <Grid container spacing={4} direction="column">
-//                 {layer.map((course: any) => (
-//                   <Box key={course.courseId} className={classes.courseItem}>
-//                     <Course courseData={course} />
-//                   </Box>
-//                 ))}
-//               </Grid>
-//             </Paper> */}
-//             <List dense={dense}>
-//               {layer.map((course: any) => (
-//                 <Box key={course.courseId} className={classes.courseItem}>
-//                   <CourseListItem courseData={course} />
-//                 </Box>
-//               ))}
-//             </List>
-//           </Grid>
-//         )
-//         : null
-//     ))}
-//   </Grid>
-// )
