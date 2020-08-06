@@ -29,10 +29,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     fontSize: 14,
   },
   primary: {
-    fontSize: '20px',
+    fontSize: '15px',
   },
   secondary: {
-    width: '50%',
+    width: '90%',
+  },
+  buttons: {
+    flexDirection: 'column',
   },
 }));
 
@@ -51,15 +54,19 @@ function CourseListItem(props: any) {
 
   return (
     <>
-      <ListItem>
+      <ListItem dense>
         <ListItemText
           classes={{ primary: classes.primary, secondary: classes.secondary }}
           primary={`${courseData.courseLetterCode} ${courseData.courseDigitCode}`}
           secondary={courseData.title}
         />
+        <ListItemSecondaryAction>
+          <FavButton courseId={courseData.courseId} />
+        </ListItemSecondaryAction>
       </ListItem>
-      <ListItem>
+      <ListItem className={classes.buttons} dense>
         <Button
+          fullWidth
           onClick={() => openCourseModal(courseData.courseId)}
           variant="outlined"
           size="small"
@@ -67,13 +74,13 @@ function CourseListItem(props: any) {
           Details
         </Button>
         <Button
+          fullWidth
           onClick={handleVisualize}
           variant="outlined"
           size="small"
         >
           Visualize
         </Button>
-        <FavButton courseId={courseData.courseId} />
       </ListItem>
     </>
   );

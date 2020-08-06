@@ -71,7 +71,6 @@ const getCourses = async (courseIds) => {
 const getNextLayer = async (currLayer, relationship) => {
   let coursesAcc = new Set();
   currLayer.forEach((course) => {
-    console.log('the pre-req/depn array: ', relationship, course[relationship])
     if (course[relationship] && course[relationship].length > 0) {
       coursesAcc = new Set([...coursesAcc, ...course[relationship]]);
     }
@@ -98,18 +97,33 @@ router.get('/getRelated/:courseId', async (req, res, next) => {
     let nextPrereqs;
     let nextDepn;
     for (let i = 0; i < layers; i++) {
-      // Get the prereqs and depns on the current layer
+      if (nextPrereqsIds.length === 0) {
+        break;
+      }
+      // Get the prereqs on the current layer
       nextPrereqs = await getCourses(nextPrereqsIds);
-      nextDepn = await getCourses(nextDepnIds);
       courses.preReqs.push(nextPrereqs);
-      courses.depn.push(nextDepn);
 
       // If continuing, prepare the next layer of prereqs and depns to get
       if (i < layers - 1) {
         nextPrereqsIds = await getNextLayer(nextPrereqs, RELATIONSHIP.PREREQS);
+      }
+    }
+
+    for (let i = 0; i < layers; i++) {
+      if (nextDepnIds.length === 0) {
+        break;
+      }
+      // Get the prereqs on the current layer
+      nextDepn = await getCourses(nextDepnIds);
+      courses.depn.push(nextDepn);
+
+      // If continuing, prepare the next layer of prereqs and depns to get
+      if (i < layers - 1) {
         nextDepnIds = await getNextLayer(nextDepn, RELATIONSHIP.DEPN);
       }
     }
+
   } catch (err) {
     res.status(400).json(`Error: ${err}`);
   }
