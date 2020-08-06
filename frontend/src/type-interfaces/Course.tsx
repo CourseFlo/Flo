@@ -25,6 +25,7 @@ export interface Course {
   description: string,
   restrictionInfo: string,
   preReqs: CourseId[],
+  depn: CourseId[],
 }
 
 /**

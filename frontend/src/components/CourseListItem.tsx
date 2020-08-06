@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 
 import {
-  Card,
-  Typography,
-  CardActions,
-  CardContent,
   Button,
   createStyles,
   makeStyles,
   Theme,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
 } from '@material-ui/core/';
 
 import { openCourseModal } from '../redux/actions/modal';
@@ -29,9 +28,19 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   title: {
     fontSize: 14,
   },
+  primary: {
+    fontSize: '15px',
+  },
+  secondary: {
+    width: '90%',
+  },
+  buttons: {
+    flexDirection: 'column',
+  },
 }));
 
-function Course(props: any) {
+// Alternative to Course Card, to produce lists instead
+function CourseListItem(props: any) {
   const { courseData, openCourseModal, getVisualizedCourses } = props;
   const classes = useStyles();
   const location = useLocation();
@@ -43,37 +52,40 @@ function Course(props: any) {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardContent>
-        <Typography variant="h5">
-          {courseData.courseLetterCode}
-          {' '}
-          {courseData.courseDigitCode}
-        </Typography>
-        <Typography variant="caption">
-          {courseData.title}
-        </Typography>
-      </CardContent>
-      <CardActions>
+    <>
+      <ListItem dense>
+        <ListItemText
+          classes={{ primary: classes.primary, secondary: classes.secondary }}
+          primary={`${courseData.courseLetterCode} ${courseData.courseDigitCode}`}
+          secondary={courseData.title}
+        />
+        <ListItemSecondaryAction>
+          <FavButton courseId={courseData.courseId} />
+        </ListItemSecondaryAction>
+      </ListItem>
+      <ListItem className={classes.buttons} dense>
         <Button
+          fullWidth
           onClick={() => openCourseModal(courseData.courseId)}
           variant="outlined"
+          size="small"
         >
           Details
         </Button>
         <Button
+          fullWidth
           onClick={handleVisualize}
           variant="outlined"
+          size="small"
         >
           Visualize
         </Button>
-        <FavButton courseId={courseData.courseId} />
-      </CardActions>
-    </Card>
+      </ListItem>
+    </>
   );
 }
 
 export default connect(null, {
   openCourseModal,
   getVisualizedCourses,
-})(Course);
+})(CourseListItem);

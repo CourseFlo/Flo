@@ -183,4 +183,8 @@ function AccountForm(props: any) {
 
 const mapStateToProps = (state: any) => ({ currentUser: state.auth.user });
 
-export default connect(mapStateToProps, { loadUser, updateUser, getVisualizedCourses })(AccountForm);
+export default connect(mapStateToProps, {
+  loadUser,
+  updateUser,
+  getVisualizedCourses,
+})(AccountForm);
