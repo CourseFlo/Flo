@@ -156,16 +156,6 @@ function AccountForm(props: any) {
               </Tooltip>
             </ListItem>
           )}
-        {/* <ListItem>
-          <Typography variant="subtitle1">Courses:</Typography>
-          <List>
-            {courses.map((course) => (
-              <Tooltip title="Learn More">
-                <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
-              </Tooltip>
-            ))}
-          </List>
-        </ListItem> */}
         <ListItem>
           <Typography variant="subtitle1">Starred Courses:</Typography>
           <List>

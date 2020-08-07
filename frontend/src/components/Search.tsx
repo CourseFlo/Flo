@@ -191,7 +191,6 @@ const Search = (props: any) => {
                 step={SLIDER_STEP_SIZE}
                 valueLabelDisplay="auto"
                 marks={sliderMarks}
-                // getAriaValueText={valuetext}
                 classes={{
                   markLabel: classes.sliderTheme,
                   markLabelActive: classes.sliderTheme,

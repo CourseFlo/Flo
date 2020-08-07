@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Fade, IconButton, Modal, Typography} from '@material-ui/core';
+import { Button, Fade, IconButton, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import CloseIcon from '@material-ui/icons/Close';
 import { clearModals, openLoginModal } from '../redux/actions/modal';
