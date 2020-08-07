@@ -99,7 +99,7 @@ Team: [Sepand](https://github.com/DSep), [Sam](https://github.com/sam-ip), [Bran
     *   Sepand
         *   
     *   Sam
-        *   
+        *   Profile Page functionality (user info persistance to db, endpoints associated with persistance, navigation between the other pages, styling/responsiveness/accessibility)
     *   Brandon
         *   
     *   Guanting
