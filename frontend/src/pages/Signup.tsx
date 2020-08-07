@@ -3,12 +3,13 @@ import { Button, Container, Paper, Typography } from '@material-ui/core';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router-dom';
 import SignupForm from '../components/SignupForm';
-import Books from '../assets/bookstack.png';
+import LoginLight from '../assets/login-light.jpg';
+import LoginDark from '../assets/login-dark.jpg';
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
   backgroundBottomRight: {
-    background: `url(${Books})`,
-    backgroundPosition: 'right bottom',
+    background: (theme.palette.type === 'dark') ? `url(${LoginDark})` : `url(${LoginLight})`,
+    backgroundPosition: 'right',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
   },
@@ -25,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    height: '80vh',
+    height: '100vh',
   },
   imageBG: {
     width: '75%',

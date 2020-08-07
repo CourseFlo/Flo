@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, InputBase, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, InputBase, Button, Switch } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -12,6 +12,7 @@ import { submitSearch } from '../redux/actions/Search';
 interface Props {
   isLoggedIn: boolean,
   submitSearch: Function,
+  darkModeSwitch: any,
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -35,9 +36,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   search: {
     position: 'relative',
     // borderRadius: theme.shape.borderRadius,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: (theme.palette.type === 'dark') ? '#000000' : '#FFFFFF',
     '&:hover': {
-      backgroundColor: '#EEEEEE',
+      backgroundColor: (theme.palette.type === 'dark') ? '#111111' : '#EEEEEE',
     },
     marginRight: theme.spacing(2),
     marginLeft: 0,
@@ -61,7 +62,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     color: 'inherit',
   },
   inputFocused: {
-    backgroundColor: '#EEEEEE',
+    backgroundColor: (theme.palette.type === 'dark') ? '#111111' : '#EEEEEE',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -77,9 +78,11 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 function Navbar(props: any) {
   // eslint-disable-next-line no-shadow
-  const { isLoggedIn, submitSearch }: Props = props;
-  const classes = useStyles();
+  const { isLoggedIn, submitSearch, darkModeSwitch }: Props = props;
   const history = useHistory();
+  const classes = useStyles();
+  const { darkMode, setDarkMode } = darkModeSwitch;
+
   const currFilters: Filters = {
     query: '',
     letterCodes: [],
@@ -108,7 +111,7 @@ function Navbar(props: any) {
     <AppBar className={classes.navBar} position="static" color="transparent">
       <Toolbar>
         <Typography className={classes.title} variant="h5">
-          <Button href="/">
+          <Button onClick={() => history.push('/')}>
             CourseFlo
           </Button>
         </Typography>
@@ -124,6 +127,7 @@ function Navbar(props: any) {
         {/*    </Grid> */}
         {/*  </Grid> */}
         {/* </div> */}
+        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
