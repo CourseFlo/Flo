@@ -41,8 +41,9 @@ router.post('/', async (req, res, next) => {
 // get current user data using token: private
 router.get('/user', auth, (req, res, next) => {
   User.findById(req.user.id)
-    .select('-password')
-    .then((user) => res.json(user));
+  .select('-password')
+  .then((user) => res.json(user))
+  .catch((err) => res.status(400).json(err.message));
 });
 
 module.exports = router;

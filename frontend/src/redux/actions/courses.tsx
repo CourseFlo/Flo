@@ -23,7 +23,7 @@ export const getVisualizedCoursesSuccess = (visualizedCourses: any) => ({
   payload: visualizedCourses,
 });
 
-export const getVisualizedCoursesFailure = (errMsg: string) => ({ // TODO Remove
+export const getVisualizedCoursesFailure = (errMsg: string) => ({
   type: GET_VISUALIZED_COURSE_FAILURE,
   errMsg,
 });
@@ -38,7 +38,6 @@ export const getVisualizedCourses = (courseId: string, inputLayers: number) => {
         dispatch(getVisualizedCoursesSuccess(response.data));
       })
       .catch((err) => {
-        console.log("Error: ", err);
         dispatch(getVisualizedCoursesFailure(err.message));
       });
   };

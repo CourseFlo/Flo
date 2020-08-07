@@ -48,7 +48,7 @@ export const loadUser = () => (dispatch: Function, getState: Function) => {
 };
 
 // register user
-export const register = ({ name, email, password, confirmPw }: any) => (dispatch: Function) => { // TODO: set destruct param type?
+export const register = ({ name, email, password, confirmPw }: any) => (dispatch: Function) => {
   axios.post('/users', {
     name, email, password, confirmPw,
   }).then((response: AxiosResponse) => {
@@ -66,7 +66,7 @@ export const register = ({ name, email, password, confirmPw }: any) => (dispatch
 export const logout = () => ({ type: LOGOUT_SUCCESS });
 
 // login user
-export const login = ({ email, password }: any) => (dispatch: Function) => { // TODO: set destruct param type?
+export const login = ({ email, password }: any) => (dispatch: Function) => {
   axios.post('/auth', {
     email, password,
   }).then((response: AxiosResponse) => {

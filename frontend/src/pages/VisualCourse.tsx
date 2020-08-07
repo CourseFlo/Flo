@@ -52,7 +52,6 @@ const VisualCourse = (props: Props) => {
   const classes = useStyles();
   const theme = useTheme();
   const matchesMd = useMediaQuery(theme.breakpoints.up('md'));
-  console.log("Current default open value", matchesMd);
 
   // On initial or error screen
   if (!visualizedCourses.targetId || visualizedCourses.error) {

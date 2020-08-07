@@ -6,19 +6,6 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-// /* GET users listing. */
-// router.get('/', (req, res, next) => {
-//   User.find()
-//     .then((users) => res.json(users))
-//     .catch((err) => res.status(400).json(`Error: ${err}`));
-// });
-
-// router.get('/:userId', (req, res, next) => {
-//   User.findById(req.params.userId).select('-password')
-//     .then((user) => res.json(user))
-//     .catch((err) => res.status(400).json(`Error: ${err}`));
-// });
-
 // add/register user
 router.post('/', async (req, res, next) => {
   const { name, email, password, confirmPw } = req.body;

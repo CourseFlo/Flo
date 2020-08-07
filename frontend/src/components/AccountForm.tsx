@@ -118,7 +118,7 @@ function AccountForm(props: any) {
           )}
         {editingEmail
           ? (
-            <ListItem>
+            <ListItem key={3}>
               <form>
                 <TextField label="Email" value={email} onChange={handleEmailChange} onKeyDown={handleKeyDown} />
                 <Button className={classes.submit} onClick={handleSubmitChange}>Submit</Button>
@@ -156,7 +156,7 @@ function AccountForm(props: any) {
               </Tooltip>
             </ListItem>
           )}
-        <ListItem>
+        {/* <ListItem>
           <Typography variant="subtitle1">Courses:</Typography>
           <List>
             {courses.map((course) => (
@@ -165,13 +165,13 @@ function AccountForm(props: any) {
               </Tooltip>
             ))}
           </List>
-        </ListItem>
+        </ListItem> */}
         <ListItem>
           <Typography variant="subtitle1">Starred Courses:</Typography>
           <List>
             {starredCourses.map((course) => (
-              <Tooltip title="Learn More">
-                <ListItem button key={course} onClick={() => handleViewCourse(course)}>{course}</ListItem>
+              <Tooltip title="Learn More" key={`tooltip-${course}`}>
+                <ListItem button key={`starred-${course}`} onClick={() => handleViewCourse(course)}>{course}</ListItem>
               </Tooltip>
             ))}
           </List>

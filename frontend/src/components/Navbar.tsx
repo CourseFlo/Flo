@@ -115,19 +115,11 @@ function Navbar(props: any) {
             CourseFlo
           </Button>
         </Typography>
-        {/* <div> */}
-        {/*  <Grid container spacing={1} alignItems="flex-end"> */}
-        {/*    <Grid item> */}
-        {/*      <SearchIcon /> */}
-        {/*    </Grid> */}
-        {/*    <Grid item> */}
-        {/*      <Input */}
-        {/*        placeholder="Course Search…" */}
-        {/*      /> */}
-        {/*    </Grid> */}
-        {/*  </Grid> */}
-        {/* </div> */}
-        <Switch checked={darkMode} onChange={() => setDarkMode(!darkMode)} />
+        <Switch
+          checked={darkMode}
+          onChange={() => setDarkMode(!darkMode)}
+          inputProps={{ 'aria-label': 'toggle-darkmode' }}
+        />
         <div className={classes.search}>
           <div className={classes.searchIcon}>
             <SearchIcon />
