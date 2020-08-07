@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    height: '100vh',
+    height: 'calc(100vh - 66px)',
   },
   imageBG: {
     width: '75%',

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, InputBase, Button, Switch } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, InputBase, Button, Switch, useMediaQuery, useTheme } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -25,6 +25,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
       textDecoration: 'none',
       textTransform: 'capitalize',
       padding: '6px 20px',
+      [theme.breakpoints.down('sm')]: {
+        padding: '6px 5px',
+      },
       margin: '0px -10px',
       fontSize: '24px',
       fontWeight: 'normal',
@@ -32,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
   buttons: {
     margin: '0px 20px',
+    [theme.breakpoints.down('sm')]: {
+      margin: '0px 5px',
+    },
   },
   search: {
     position: 'relative',
@@ -40,16 +46,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     '&:hover': {
       backgroundColor: (theme.palette.type === 'dark') ? '#111111' : '#EEEEEE',
     },
-    marginRight: theme.spacing(2),
+    marginRight: '0px',
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(3),
+      marginRight: theme.spacing(2),
       width: 'auto',
     },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
+    [theme.breakpoints.down('sm')]: {
+      padding: theme.spacing(0, 0),
+    },
     height: '100%',
     position: 'absolute',
     pointerEvents: 'none',
@@ -68,6 +78,9 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: `calc(1em + ${theme.spacing(1)}px)`,
+    },
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
@@ -81,6 +94,8 @@ function Navbar(props: any) {
   const { isLoggedIn, submitSearch, darkModeSwitch }: Props = props;
   const history = useHistory();
   const classes = useStyles();
+  const theme = useTheme();
+  const matchesXs = useMediaQuery(theme.breakpoints.only('xs'));
   const { darkMode, setDarkMode } = darkModeSwitch;
 
   const currFilters: Filters = {
@@ -112,7 +127,7 @@ function Navbar(props: any) {
       <Toolbar>
         <Typography className={classes.title} variant="h5">
           <Button onClick={() => history.push('/')}>
-            CourseFlo
+            {matchesXs ? 'Flo' : 'CourseFlo'}
           </Button>
         </Typography>
         <Switch
@@ -120,22 +135,26 @@ function Navbar(props: any) {
           onChange={() => setDarkMode(!darkMode)}
           inputProps={{ 'aria-label': 'toggle-darkmode' }}
         />
-        <div className={classes.search}>
-          <div className={classes.searchIcon}>
-            <SearchIcon />
-          </div>
-          <InputBase
-            placeholder="Course Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-              focused: classes.inputFocused,
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-            onChange={handleQueryChange}
-            onKeyDown={handleKeyDown}
-          />
-        </div>
+        {matchesXs
+          ? null
+          : (
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Course Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                  focused: classes.inputFocused,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                onChange={handleQueryChange}
+                onKeyDown={handleKeyDown}
+              />
+            </div>
+          )}
         <Button className={classes.buttons} color="inherit" onClick={() => history.push('/Browse')}>Search</Button>
         <Button className={classes.buttons} color="inherit" onClick={() => history.push('/VisualCourse')}>Visualize</Button>
         {isLoggedIn
