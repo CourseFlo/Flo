@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     marginTop: '10px',
     background: (theme.palette.type === 'dark') ? `url(${MountainDark})` : `url(${MountainLight})`,
     backgroundSize: 'cover',
-    height: '100vh',
+    height: '100%',
     width: '100vw',
   },
   paperMain: {
     display: 'flex',
     width: '50%',
-    height: '100%',
+    height: 'calc(100vh - 66px)',
     justifyContent: 'center',
     [theme.breakpoints.down('sm')]: {
       width: '70%',

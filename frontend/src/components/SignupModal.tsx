@@ -1,6 +1,7 @@
 import React from 'react';
-import { Fade, Link, Modal, Typography } from '@material-ui/core';
+import { Button, Fade, IconButton, Modal, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
+import CloseIcon from '@material-ui/icons/Close';
 import { clearModals, openLoginModal } from '../redux/actions/modal';
 import SignupForm from './SignupForm';
 import { clearErrors } from '../redux/actions/error';
@@ -33,17 +34,22 @@ const SignupModal = (props: any) => {
       open={open}
       onClose={handleClose}
       className={classes.modal}
+      aria-label="Signup modal"
+      aria-describedby="modal-desc"
     >
       <Fade in={open}>
         <div className={classes.paper}>
-          <Typography variant="h5" align="center">
+          <Typography id="modal-desc" variant="h5" align="center">
             Sign up here
           </Typography>
+          <IconButton aria-label="close modal window" className={classes.close} onClick={() => handleClose()}>
+            <CloseIcon />
+          </IconButton>
           <SignupForm />
           <Typography className={classes.modalSwitchText}>
             Already have an account?
             {' '}
-            <Link onClick={handleModalSwitch}>Log in</Link>
+            <Button onClick={handleModalSwitch}>Log in</Button>
           </Typography>
         </div>
       </Fade>

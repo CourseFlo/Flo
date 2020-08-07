@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   splash: {
     background: (theme.palette.type === 'dark') ? `url(${Desk6})` : `url(${randomDesk})`,
     backgroundSize: 'cover',
-    height: '100vh',
+    // height: '95vh',
+    height: 'calc(100vh - 66px)',
     width: '100vw',
   },
   searchCard: {

@@ -1,7 +1,7 @@
 import React from 'react';
-import { Container, Paper, Typography } from '@material-ui/core/';
+import { Container, Paper, Typography, Button } from '@material-ui/core/';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import LoginForm from '../components/LoginForm';
 import LoginLight from '../assets/login-light.jpg';
@@ -27,12 +27,10 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     justifyContent: 'center',
     alignItems: 'center',
     display: 'flex',
-    height: '100vh',
+    height: 'calc(100vh - 66px)',
   },
   signUp: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingTop: '10px',
   },
   imageBG: {
     width: '75%',
@@ -44,6 +42,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 const Login = () => {
   const classes = useStyles();
+  const history = useHistory();
 
   return (
     <div className={classes.backgroundBottomRight}>
@@ -53,11 +52,11 @@ const Login = () => {
             Log in to get started!
           </Typography>
           <LoginForm />
-          <div>
-            <Link to="/signup" className={classes.signUp}>
-              Sign up
-            </Link>
-          </div>
+          <Typography className={classes.signUp}>
+            Don&apos;t have an account?
+            {' '}
+            <Button onClick={() => history.push('/signup')}>Sign up</Button>
+          </Typography>
         </Paper>
       </Container>
     </div>

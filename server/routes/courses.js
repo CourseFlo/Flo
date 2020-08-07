@@ -1,7 +1,7 @@
 const express = require('express');
+const CourseOffering = require('../models/courseOffering');
 
 const router = express.Router();
-const CourseOffering = require('../models/courseOffering');
 
 // Backend course cache
 const COURSE_CACHE = {};
@@ -137,7 +137,8 @@ router.post('/search', (req, res, next) => {
 
   const { queryString } = req.body;
   const queryPieces = queryString.split(' ');
-  const queryStringRegexes = queryPieces.map((code) => new RegExp(code)); // TODO Change this to actually match parts and case sensitivity
+  // Consider changing this to actually match parts and case sensitivity
+  const queryStringRegexes = queryPieces.map((code) => new RegExp(code));
 
   const query = {};
   query.courseDigitCode = { $gte: minusculer, $lt: larger };

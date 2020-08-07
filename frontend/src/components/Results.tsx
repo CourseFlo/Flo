@@ -16,7 +16,11 @@ interface Props {
 const Results = (props: Props) => {
   const { searchResults }: Props = props;
 
-  searchResults.sort((a, b) => (a.courseDigitCode > b.courseDigitCode ? 1 : -1));
+  searchResults.sort((a, b) => {
+    if (a.courseDigitCode > b.courseDigitCode) return 1;
+    if (a.courseDigitCode === b.courseDigitCode && a.courseLetterCode > b.courseLetterCode) return 1;
+    return -1;
+  });
 
   return (
     <Grid container spacing={3}>

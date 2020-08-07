@@ -8,14 +8,13 @@ import { Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
 import { connect } from 'react-redux';
-import AccountForm from '../pages/AccountForm';
+import AccountForm from '../components/AccountForm';
 import { logout } from '../redux/actions/auth';
 
 const useStyles = makeStyles({
   root: {
     width: '100%',
     maxWidth: 500,
-    height: '100vh',
     minWidth: 100,
   },
   secondMenuList: {

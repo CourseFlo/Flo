@@ -22,7 +22,12 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   queryForm: {
   },
   searchContainer: {
-    // margin: '10%',
+  },
+  sliderTheme: {
+    color: theme.palette.text.primary,
+  },
+  sliderThemeActivate: {
+    color: theme.palette.text.secondary,
   },
   filterItem: {
     textAlign: 'center',
@@ -62,7 +67,6 @@ interface Props {
 }
 
 const Search = (props: any) => {
-  // eslint-disable-next-line no-shadow
   const { allLetterCodes, submitSearch, getLetterCodes }: Props = props;
   const classes = useStyles();
   const [letterCodes, setLetterCodes] = useState<any[]>([]);
@@ -89,10 +93,7 @@ const Search = (props: any) => {
 
   const handleQueryChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     const { value } = event.target as HTMLSelectElement;
-    if (value.trim() === '' || value.trim() === '') {
-      return;
-    }
-    setQueryString(value);
+    setQueryString(value.trim());
   };
 
   const handleNumberRangeChange = (_event: any, newValue: number | number[]) => {
@@ -190,6 +191,10 @@ const Search = (props: any) => {
                 step={SLIDER_STEP_SIZE}
                 valueLabelDisplay="auto"
                 marks={sliderMarks}
+                classes={{
+                  markLabel: classes.sliderTheme,
+                  markLabelActive: classes.sliderTheme,
+                }}
                 aria-labelledby="range-slider"
               />
             </Box>
